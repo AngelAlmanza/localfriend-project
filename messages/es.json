@@ -1,0 +1,183 @@
+{
+  "Hero": {
+    "title": "Encuentra productos y servicios <highlight>cerca de ti</highlight>",
+    "subtitle": "Conectamos a tu comunidad local con comerciantes y servicios de confianza en tu zona",
+    "cta": {
+      "merchant": "Soy comerciante",
+      "local": "Busco servicios"
+    }
+  },
+  "WhatIs": {
+    "title": "¿Qué es nuestra plataforma?",
+    "subtitle": "Una comunidad digital que conecta a comerciantes locales con personas que buscan productos y servicios de calidad en su zona.",
+    "features": [
+      {
+        "title": "Visibilidad para comercios locales",
+        "description": "Ayudamos a pequeños comercios a destacar en su comunidad"
+      },
+      {
+        "title": "Búsqueda en tu localidad",
+        "description": "Encuentra lo que necesitas cerca de ti, apoyando tu economía local"
+      },
+      {
+        "title": "Contacto directo sin intermediarios",
+        "description": "Conecta directamente con proveedores y servicios de confianza"
+      }
+    ]
+  },
+  "ForWho": {
+    "title": "¿Para quién es?",
+    "subtitle": "Diseñado para conectar comerciantes y consumidores locales",
+    "merchant": {
+      "title": "Para Comerciantes",
+      "description": "Promociona tus productos y servicios en tu comunidad",
+      "benefits": [
+        {
+          "title": "Aumenta tu visibilidad",
+          "description": "Llega a más clientes en tu zona"
+        },
+        {
+          "title": "Gestiona tu negocio",
+          "description": "Administra productos y servicios fácilmente"
+        },
+        {
+          "title": "Construye reputación",
+          "description": "Recibe reseñas y calificaciones"
+        }
+      ],
+      "cta": "Comienza como comerciante"
+    },
+    "local": {
+      "title": "Para Locales",
+      "description": "Descubre productos y servicios en tu comunidad",
+      "benefits": [
+        {
+          "title": "Búsqueda local",
+          "description": "Encuentra lo que necesitas cerca de ti"
+        },
+        {
+          "title": "Servicios confiables",
+          "description": "Revisa calificaciones y reseñas"
+        },
+        {
+          "title": "Apoya lo local",
+          "description": "Fortalece tu economía comunitaria"
+        }
+      ],
+      "cta": "Comienza a buscar"
+    }
+  },
+  "HowItWorks": {
+    "title": "¿Cómo funciona?",
+    "subtitle": "Es simple y rápido, comienza en 4 pasos",
+    "tabs": {
+      "merchant": "Para Comerciantes",
+      "local": "Para Locales"
+    },
+    "step": "Paso {number}",
+    "merchantSteps": [
+      {
+        "title": "Regístrate",
+        "description": "Crea tu cuenta como comerciante en minutos"
+      },
+      {
+        "title": "Completa tu perfil",
+        "description": "Agrega información de tu negocio y datos de contacto"
+      },
+      {
+        "title": "Publica tus productos",
+        "description": "Sube fotos y describe tus productos o servicios"
+      },
+      {
+        "title": "Recibe contactos",
+        "description": "Los clientes te contactarán directamente"
+      }
+    ],
+    "localSteps": [
+      {
+        "title": "Regístrate",
+        "description": "Crea tu cuenta gratuita en segundos"
+      },
+      {
+        "title": "Busca en tu zona",
+        "description": "Encuentra productos y servicios locales"
+      },
+      {
+        "title": "Explora opciones",
+        "description": "Revisa detalles, fotos y calificaciones"
+      },
+      {
+        "title": "Contacta directo",
+        "description": "Comunícate con el comerciante sin intermediarios"
+      }
+    ]
+  },
+  "Pricing": {
+    "title": "Plan simple y transparente",
+    "subtitle": "Todo lo que necesitas para hacer crecer tu negocio local",
+    "badge": "1 mes gratis",
+    "planName": "Plan Comerciante",
+    "planDescription": "Para pequeños negocios y emprendedores",
+    "price": "$XX",
+    "period": "/mes",
+    "trialNote": "Primer mes completamente gratis para nuevos usuarios",
+    "benefitsTitle": "Todo incluido:",
+    "benefits": [
+      "Publicación ilimitada de productos",
+      "Publicación ilimitada de servicios",
+      "Perfil destacado en búsquedas locales",
+      "Sistema de reseñas y calificaciones",
+      "Estadísticas de visualizaciones",
+      "Contacto directo con clientes",
+      "Soporte prioritario"
+    ],
+    "cta": "Comenzar prueba gratuita",
+    "disclaimer": "Sin tarjeta de crédito • Cancela cuando quieras"
+  },
+  "AppStores": {
+    "title": "Descarga nuestra app",
+    "subtitle": "Lleva tu negocio o encuentra servicios locales desde tu móvil",
+    "appStore": {
+      "label": "Descarga en",
+      "store": "App Store"
+    },
+    "googlePlay": {
+      "label": "Disponible en",
+      "store": "Google Play"
+    },
+    "compatibility": "Compatible con iOS 13+ y Android 8+"
+  },
+  "FinalCTA": {
+    "title": "¿Listo para conectar con tu comunidad?",
+    "subtitle": "Únete a cientos de comerciantes y locales que ya fortalecen su economía local",
+    "cta": {
+      "merchant": "Soy comerciante",
+      "local": "Busco servicios"
+    }
+  },
+  "Footer": {
+    "brandName": "LocalFriend",
+    "brandDescription": "Conectando comunidades locales con comercios y servicios de confianza.",
+    "about": {
+      "title": "Acerca de",
+      "story": "Nuestra historia",
+      "team": "Equipo",
+      "mission": "Misión y valores",
+      "careers": "Trabaja con nosotros"
+    },
+    "legal": {
+      "title": "Legal",
+      "terms": "Términos de servicio",
+      "privacy": "Política de privacidad",
+      "cookies": "Cookies",
+      "notice": "Aviso legal"
+    },
+    "contact": {
+      "title": "Contacto",
+      "email": "info@localfriend.com",
+      "location": "Tu ciudad, País",
+      "social": "Síguenos"
+    },
+    "copyright": "© {year} LocalFriend. Todos los derechos reservados."
+  }
+}
