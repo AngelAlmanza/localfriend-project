@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
 import { HeroCTAComponent } from "./HeroCTAComponent";
-import Link from "next/link";
 
 export function HeroSection() {
   const t = useTranslations("Hero");
