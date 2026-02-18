@@ -179,5 +179,49 @@
       "social": "Síguenos"
     },
     "copyright": "© {year} LocalFriend. Todos los derechos reservados."
+  },
+  "Auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Bienvenido de nuevo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "rememberMe": "Recordarme",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "login": "Iniciar sesión",
+      "signUp": "¿No tienes una cuenta? Regístrate",
+      "togglePasswordVisibility": "Mostrar/ocultar contraseña",
+      "emailErrorMessage": "El correo electrónico no es válido",
+      "passwordErrorMessage": "La contraseña debe tener al menos 8 caracteres",
+      "confirmPasswordErrorMessage": "Las contraseñas no coinciden"
+    },
+    "register": {
+      "title": "Regístrate",
+      "subtitle": "Crea tu cuenta",
+      "roleLegend": "Regístrate como",
+      "roleLegendDescription": "Selecciona el tipo de cuenta que mas te identifica.",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "register": "Regístrate",
+      "signIn": "¿Ya tienes una cuenta? Inicia sesión",
+      "togglePasswordVisibility": "Mostrar/ocultar contraseña",
+      "toggleConfirmPasswordVisibility": "Mostrar/ocultar contraseña de confirmación",
+      "emailErrorMessage": "El correo electrónico no es válido",
+      "passwordErrorMessage": "La contraseña debe tener al menos 8 caracteres",
+      "confirmPasswordErrorMessage": "Las contraseñas no coinciden",
+      "roleErrorMessage": "Debes seleccionar un rol",
+      "nameErrorMessage": "El nombre es requerido",
+      "registerSuccess": "Cuenta creada correctamente",
+      "local": {
+        "title": "Local",
+        "description": "Para aquellos que buscan productos y servicios locales."
+      },
+      "worker": {
+        "title": "Comerciante",
+        "description": "Para aquellos que quieren vender productos y ofrecer servicios locales."
+      }
+    }
   }
 }

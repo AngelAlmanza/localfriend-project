@@ -179,5 +179,49 @@
       "social": "Follow us"
     },
     "copyright": "© {year} LocalFriend. All rights reserved."
+  },
+  "Auth": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Welcome back",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "login": "Login",
+      "signUp": "Don't have an account? Sign up",
+      "togglePasswordVisibility": "Toggle password visibility",
+      "emailErrorMessage": "Invalid email",
+      "passwordErrorMessage": "Password must be at least 8 characters",
+      "confirmPasswordErrorMessage": "Passwords do not match"
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Create your account",
+      "roleLegend": "Register as",
+      "roleLegendDescription": "Select the type of account that best identifies you.",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "register": "Register",
+      "signIn": "Already have an account? Sign in",
+      "togglePasswordVisibility": "Toggle password visibility",
+      "toggleConfirmPasswordVisibility": "Toggle confirm password visibility",
+      "emailErrorMessage": "Invalid email",
+      "passwordErrorMessage": "Password must be at least 8 characters",
+      "confirmPasswordErrorMessage": "Passwords do not match",
+      "roleErrorMessage": "You must select a role",
+      "nameErrorMessage": "Name is required",
+      "registerSuccess": "Account created successfully",
+      "local": {
+        "title": "Local",
+        "description": "For those looking for local products and services."
+      },
+      "worker": {
+        "title": "Merchant",
+        "description": "For those who want to sell products and offer local services."
+      }
+    }
   }
 }

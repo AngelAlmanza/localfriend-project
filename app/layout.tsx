@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const interSans = Inter({
@@ -28,6 +29,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>

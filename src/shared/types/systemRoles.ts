@@ -1,0 +1,1 @@
+export type SystemRole = "local" | "worker" | "admin"
