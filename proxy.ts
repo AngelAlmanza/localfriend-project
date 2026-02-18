@@ -2,7 +2,7 @@ import { updateSession } from "@shared/lib/supabase/proxy"
 import { type NextRequest } from "next/server"
 
 export async function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/workers')) {
+  if (request.nextUrl.pathname.startsWith('/workers') || request.nextUrl.pathname.startsWith('/locals')) {
     return await updateSession(request)
   }
 }
