@@ -6,17 +6,23 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
 import { buildLoginSchema, LoginSchema } from "@/src/auth/schemas/login.schema"
+import { AuthService } from "@/src/auth/services/AuthService"
+import { LoadingIcon } from "@/src/shared/components/LoadingIcon"
+import { createClient } from "@/src/shared/lib/supabase/client"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
+import { redirect, RedirectType } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import { toast } from "sonner"
 
 const FORM_ID = "login-form"
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const t = useTranslations("Auth.login")
   const form = useForm<LoginSchema>({
     resolver: zodResolver(buildLoginSchema({
@@ -29,8 +35,23 @@ function LoginPage() {
     },
   })
 
-  const onSubmit = (data: LoginSchema) => {
-    console.log(data)
+  const supabaseClient = createClient()
+  const onSubmit = async (data: LoginSchema) => {
+    setIsLoading(true)
+    const result = await AuthService.login(data, supabaseClient)
+
+    if (result.left) {
+      toast.error(result.left.message)
+    } else {
+      toast.success(t("loginSuccess"))
+
+      if (result.right.session.role === "local") {
+        redirect("/locals", RedirectType.replace)
+      } else {
+        redirect("/workers", RedirectType.replace)
+      }
+    }
+    setIsLoading(false)
   }
 
   return (
@@ -109,15 +130,16 @@ function LoginPage() {
       </CardContent>
       <CardFooter>
         <Field orientation="vertical">
-          <Button type="submit" form={FORM_ID} variant="primary">
+          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading}>
             {t("login")}
+            {isLoading && <LoadingIcon />}
           </Button>
-          <Button type="button" variant="link" asChild>
+          <Button type="button" variant="link" asChild={!isLoading} disabled={isLoading}>
             <Link href="/auth/register">
               {t("signUp")}
             </Link>
           </Button>
-          <Button type="button" variant="link" asChild>
+          <Button type="button" variant="link" asChild={!isLoading} disabled={isLoading}>
             <Link href="/auth/forgot-password">
               {t("forgotPassword")}
             </Link>

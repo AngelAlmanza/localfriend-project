@@ -193,7 +193,8 @@
       "togglePasswordVisibility": "Mostrar/ocultar contraseña",
       "emailErrorMessage": "El correo electrónico no es válido",
       "passwordErrorMessage": "La contraseña debe tener al menos 8 caracteres",
-      "confirmPasswordErrorMessage": "Las contraseñas no coinciden"
+      "confirmPasswordErrorMessage": "Las contraseñas no coinciden",
+      "loginSuccess": "Inicio de sesión exitoso"
     },
     "register": {
       "title": "Regístrate",

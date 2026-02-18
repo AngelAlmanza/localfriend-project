@@ -2,8 +2,8 @@
 import { ISystemError } from "@/src/shared/interfaces/ISystemError";
 import { Either } from "@/src/shared/types/either";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { RegisterDTO } from "../interfaces/dtos";
-import { RegisterResponse } from "../interfaces/responses";
+import { LoginDTO, RegisterDTO } from "../interfaces/dtos";
+import { LoginResponse, RegisterResponse } from "../interfaces/responses";
 
 export class AuthService {
   static async register(
@@ -70,6 +70,37 @@ export class AuthService {
         session: {
           session: account.session,
           user: account.user,
+        }
+      },
+    };
+  }
+
+  static async login(
+    data: LoginDTO,
+    supabase: SupabaseClient,
+  ): Promise<Either<ISystemError, LoginResponse>> {
+    const { data: session, error: errorSession } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (errorSession) {
+      return {
+        left: {
+          message: errorSession.message,
+          code: errorSession.code ?? "UNKNOWN_ERROR",
+        },
+      };
+    }
+
+    // TODO: Get user role
+
+    return {
+      right: {
+        session: {
+          session: session.session,
+          user: session.user,
+          role: "local",
         }
       },
     };

@@ -193,7 +193,8 @@
       "togglePasswordVisibility": "Toggle password visibility",
       "emailErrorMessage": "Invalid email",
       "passwordErrorMessage": "Password must be at least 8 characters",
-      "confirmPasswordErrorMessage": "Passwords do not match"
+      "confirmPasswordErrorMessage": "Passwords do not match",
+      "loginSuccess": "Login successful"
     },
     "register": {
       "title": "Register",
