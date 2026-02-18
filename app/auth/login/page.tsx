@@ -38,6 +38,7 @@ function LoginPage() {
   const supabaseClient = createClient()
   const onSubmit = async (data: LoginSchema) => {
     setIsLoading(true)
+
     const result = await AuthService.login(data, supabaseClient)
 
     if (result.left) {
@@ -51,6 +52,7 @@ function LoginPage() {
         redirect("/workers", RedirectType.replace)
       }
     }
+
     setIsLoading(false)
   }
 

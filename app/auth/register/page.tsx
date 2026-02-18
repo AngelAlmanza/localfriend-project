@@ -8,6 +8,7 @@ import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { buildRegisterSchema, RegisterSchema } from "@/src/auth/schemas/register.schema"
 import { AuthService } from "@/src/auth/services/AuthService"
+import { LoadingIcon } from "@/src/shared/components/LoadingIcon"
 import { createClient } from "@/src/shared/lib/supabase/client"
 import { SystemRole } from "@/src/shared/types/systemRoles"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -26,6 +27,7 @@ function RegisterPage() {
   const registerAs = searchParams.get("registerAs") as Exclude<SystemRole, "admin"> | undefined
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const t = useTranslations("Auth.register")
   const form = useForm<RegisterSchema>({
     resolver: zodResolver(buildRegisterSchema({
@@ -41,9 +43,11 @@ function RegisterPage() {
       confirmPassword: "",
     },
   })
-  const supabaseClient = createClient()
 
+  const supabaseClient = createClient()
   const onSubmit = async (data: RegisterSchema) => {
+    setIsLoading(true)
+
     const result = await AuthService.register(data, supabaseClient)
 
     if (result.left) {
@@ -57,6 +61,8 @@ function RegisterPage() {
         redirect("/workers", RedirectType.replace)
       }
     }
+
+    setIsLoading(false)
   }
 
   return (
@@ -257,10 +263,11 @@ function RegisterPage() {
       </CardContent>
       <CardFooter>
         <Field orientation="vertical">
-          <Button type="submit" form={FORM_ID} variant="primary">
+          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading}>
             {t("register")}
+            {isLoading && <LoadingIcon />}
           </Button>
-          <Button type="button" variant="link" form={FORM_ID} asChild>
+          <Button type="button" variant="link" form={FORM_ID} asChild={!isLoading} disabled={isLoading}>
             <Link href="/auth/login">
               {t("signIn")}
             </Link>

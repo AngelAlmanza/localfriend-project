@@ -1,6 +1,7 @@
 
 import { ISystemError } from "@/src/shared/interfaces/ISystemError";
 import { Either } from "@/src/shared/types/either";
+import { SystemRole } from "@/src/shared/types/systemRoles";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { LoginDTO, RegisterDTO } from "../interfaces/dtos";
 import { LoginResponse, RegisterResponse } from "../interfaces/responses";
@@ -14,12 +15,15 @@ export class AuthService {
     const { data: account, error: errorAccount } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
-      // options: {
-      //   emailRedirectTo: `${Environment.APP_URL}/auth/callback`,
-      // }
+      options: {
+        // TODO: Add email redirect to
+        // emailRedirectTo: `${Environment.APP_URL}/auth/callback`,
+        data: {
+          name: data.name,
+          role: data.role,
+        },
+      }
     });
-
-    // console.log("account", account)
 
     if (errorAccount) {
       return {
@@ -46,8 +50,6 @@ export class AuthService {
       })
       .select()
       .single();
-
-    // console.log("user", user)
 
     if (error) {
       // Delete account
@@ -93,14 +95,13 @@ export class AuthService {
       };
     }
 
-    // TODO: Get user role
-
+    // Role comes from the metadata of the user
     return {
       right: {
         session: {
           session: session.session,
           user: session.user,
-          role: "local",
+          role: session.user?.user_metadata.role as SystemRole,
         }
       },
     };
