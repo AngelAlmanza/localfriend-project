@@ -56,7 +56,7 @@ function RegisterPage() {
       toast.success(t("registerSuccess"))
 
       if (data.role === "local") {
-        redirect("/locals", RedirectType.replace)
+        redirect("/locals/search", RedirectType.replace)
       } else {
         redirect("/workers", RedirectType.replace)
       }

@@ -47,7 +47,7 @@ function LoginPage() {
       toast.success(t("loginSuccess"))
 
       if (result.right.session.role === "local") {
-        redirect("/locals", RedirectType.replace)
+        redirect("/locals/search", RedirectType.replace)
       } else {
         redirect("/workers", RedirectType.replace)
       }

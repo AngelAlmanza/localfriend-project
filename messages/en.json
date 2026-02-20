@@ -224,5 +224,63 @@
         "description": "For those who want to sell products and offer local services."
       }
     }
+  },
+  "Locals": {
+    "header": {
+      "tabs": {
+        "search": "Search",
+        "reviews": "My reviews",
+        "saved": "Saved",
+        "recent": "Contacted recently",
+        "profile": "My profile"
+      }
+    },
+    "search": {
+      "results": "Results ({count})",
+      "noResults": "No results found",
+      "noSelectedResult": "No result selected",
+      "by": "by",
+      "searchInputPlaceholder": "Search for products or services...",
+      "searchButton": "Search",
+      "searchFilters": {
+        "btnText": "Filters",
+        "priceRange": "Price range ({min} - {max})",
+        "rating": "Minimum rating",
+        "sort": "Sort by",
+        "categories": "Categories",
+        "clearFilters": "Clear filters",
+        "categoriesCheckbox": {
+          "food": "Food",
+          "health": "Health",
+          "beauty": "Beauty",
+          "electronics": "Electronics",
+          "home": "Home",
+          "sports": "Sports",
+          "tools": "Tools"
+        },
+        "sortOptions": {
+          "name-asc": "Name: Ascending",
+          "name-desc": "Name: Descending",
+          "price-asc": "Price: Ascending",
+          "price-desc": "Price: Descending",
+          "rating-asc": "Rating: Ascending",
+          "rating-desc": "Rating: Descending"
+        }
+      },
+      "resultDetail": {
+        "toggleFavorite": "Add to favorites",
+        "closeDetail": "Close detail",
+        "contact": "Contact",
+        "publisher": "Publisher",
+        "reviewsText": "({count}) reviews",
+        "contactPhone": "Call",
+        "contactEmail": "Email",
+        "variantsTitle": "Available variants",
+        "variantsTable": {
+          "name": "Name",
+          "price": "Price"
+        }
+      }
+    }
   }
 }

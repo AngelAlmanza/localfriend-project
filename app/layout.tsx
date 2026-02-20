@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
@@ -28,8 +29,10 @@ export default async function RootLayout({
         className={`${interSans.variable} antialiased`}
       >
         <NextIntlClientProvider>
-          {children}
-          <Toaster />
+          <TooltipProvider>
+            {children}
+            <Toaster />
+          </TooltipProvider>
         </NextIntlClientProvider>
       </body>
     </html>

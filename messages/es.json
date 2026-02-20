@@ -224,5 +224,63 @@
         "description": "Para aquellos que quieren vender productos y ofrecer servicios locales."
       }
     }
+  },
+  "Locals": {
+    "header": {
+      "tabs": {
+        "search": "Búsqueda",
+        "reviews": "Mis reseñas",
+        "saved": "Guardados",
+        "recent": "Contactados recientemente",
+        "profile": "Mi perfil"
+      }
+    },
+    "search": {
+      "results": "Resultados ({count})",
+      "noResults": "No se encontraron resultados",
+      "noSelectedResult": "No se ha seleccionado ningún resultado",
+      "by": "por",
+      "searchInputPlaceholder": "Buscar productos o servicios...",
+      "searchButton": "Buscar",
+      "searchFilters": {
+        "btnText": "Filtros",
+        "priceRange": "Rango de precio ({min} - {max})",
+        "rating": "Calificación mínima",
+        "sort": "Ordenar por",
+        "categories": "Categorías",
+        "clearFilters": "Limpiar filtros",
+        "categoriesCheckbox": {
+          "food": "Alimentación",
+          "health": "Salud",
+          "beauty": "Belleza",
+          "electronics": "Electrónica",
+          "home": "Hogar",
+          "sports": "Deportes",
+          "tools": "Herramientas"
+        },
+        "sortOptions": {
+          "name-asc": "Nombre: Ascendente",
+          "name-desc": "Nombre: Descendente",
+          "price-asc": "Precio: Ascendente",
+          "price-desc": "Precio: Descendente",
+          "rating-asc": "Calificación: Ascendente",
+          "rating-desc": "Calificación: Descendente"
+        }
+      },
+      "resultDetail": {
+        "toggleFavorite": "Agregar a favoritos",
+        "closeDetail": "Cerrar detalle",
+        "contact": "Contactar",
+        "publisher": "Publicador",
+        "reviewsText": "({count}) reseñas",
+        "contactPhone": "Llamar",
+        "contactEmail": "Enviar correo",
+        "variantsTitle": "Variantes disponibles",
+        "variantsTable": {
+          "name": "Nombre",
+          "price": "Precio"
+        }
+      }
+    }
   }
 }
