@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/src/shared/utils/formatCurrency";
 import { SearchIcon, SlidersVertical, StarIcon, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { DEFAULT_PRICE_RANGE, DEFAULT_RATING, DEFAULT_SORT } from "../constants/filterDefaultValues";
+import { DEFAULT_PRICE_RANGE, DEFAULT_PRICE_RANGE_MAX, DEFAULT_PRICE_STEP, DEFAULT_RATING, DEFAULT_RATING_MAX, DEFAULT_RATING_STEP, DEFAULT_SORT } from "../constants/filterDefaultValues";
 import { useSearchFilters } from "../hooks/useSearchFilters";
 
 export const SearchBar = () => {
@@ -20,16 +20,9 @@ export const SearchBar = () => {
   const {
     showFiltersSection,
     handleToggleFiltersSection,
-    searchValue,
-    setSearchValue,
-    priceRange,
-    setPriceRange,
-    sort,
-    setSort,
-    rating,
-    setRating,
+    filters,
+    updateFilter,
     handleClearFilters,
-    // handleSearch,
   } = useSearchFilters();
 
   return (
@@ -39,8 +32,8 @@ export const SearchBar = () => {
           <InputGroup className="py-6">
             <InputGroupInput
               placeholder={t("searchInputPlaceholder")}
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              value={filters.search}
+              onChange={(e) => updateFilter("search", e.target.value)}
             />
             <InputGroupAddon>
               <SearchIcon className="size-4" />
@@ -70,31 +63,31 @@ export const SearchBar = () => {
         <div className="space-y-6">
           <div className="space-y-3">
             <p className="text-lg font-bold text-gray-900">
-              {t("searchFilters.priceRange", { min: formatCurrency(priceRange[0]), max: formatCurrency(priceRange[1]) })}
+              {t("searchFilters.priceRange", { min: formatCurrency(filters.price[0]), max: formatCurrency(filters.price[1]) })}
             </p>
             <Slider
               defaultValue={[...DEFAULT_PRICE_RANGE]}
-              max={1000}
-              step={10}
+              max={DEFAULT_PRICE_RANGE_MAX}
+              step={DEFAULT_PRICE_STEP}
               className="w-full"
-              value={priceRange}
-              onValueChange={setPriceRange}
+              value={filters.price}
+              onValueChange={(value) => updateFilter("price", value)}
             />
           </div>
           <div className="space-y-3">
             <p className="text-lg font-bold text-gray-900 flex items-center gap-2">
               {t("searchFilters.rating")}
               <span className="flex items-center gap-1">
-                <StarIcon className="size-4 text-yellow-500" /> {rating[0]}
+                <StarIcon className="size-4 text-yellow-500" /> {filters.rating[0]}
               </span>
             </p>
             <Slider
               defaultValue={[DEFAULT_RATING]}
-              max={5}
-              step={1}
+              max={DEFAULT_RATING_MAX}
+              step={DEFAULT_RATING_STEP}
               className="w-full"
-              value={[DEFAULT_RATING]}
-              onValueChange={setRating}
+              value={filters.rating}
+              onValueChange={(value) => updateFilter("rating", value)}
             />
           </div>
         </div>
@@ -136,7 +129,7 @@ export const SearchBar = () => {
         </div>
 
         <div className="flex flex-col gap-4 items-end">
-          <Select value={sort} onValueChange={setSort}>
+          <Select value={filters.sort} onValueChange={(value) => updateFilter("sort", value)}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder={t("searchFilters.sort")} defaultValue={DEFAULT_SORT} />
             </SelectTrigger>

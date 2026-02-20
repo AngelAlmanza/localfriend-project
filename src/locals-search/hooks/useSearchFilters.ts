@@ -1,124 +1,105 @@
 import { useDebouncedValue } from "@/src/shared/hooks/useDebouncedValue";
+import { parseNumberArray } from "@/src/shared/utils/parseNumberArray";
+import { parseStringArray } from "@/src/shared/utils/parseStringArray";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { DEBOUNCED_SEARCH_DELAY, DEFAULT_PRICE_RANGE, DEFAULT_RATING, DEFAULT_SORT } from "../constants/filterDefaultValues";
+import {
+  DEBOUNCED_SEARCH_DELAY,
+  DEFAULT_PRICE_RANGE,
+  DEFAULT_RATING,
+  DEFAULT_SORT,
+} from "../constants/filterDefaultValues";
+
+type Filters = {
+  search: string;
+  price: number[];
+  categories: string[];
+  sort: string;
+  rating: number[];
+};
 
 export const useSearchFilters = () => {
-  const [showFiltersSection, setShowFiltersSection] = useState(false);
-
   const router = useRouter();
   const searchParams = useSearchParams();
-  const initialSearchValue = searchParams.get("search") || "";
-  const initialPriceRange =
-    searchParams.get("price") || DEFAULT_PRICE_RANGE.join(",");
-  const initialCategories = searchParams.get("categories") || "";
-  const initialSort = searchParams.get("sort") || DEFAULT_SORT;
-  const initialRating = searchParams.get("rating") || DEFAULT_RATING.toString();
 
-  const [searchValue, setSearchValue] = useState(initialSearchValue);
-  const [priceRange, setPriceRange] = useState<number[]>(
-    initialPriceRange.split(",").map(Number) as number[]
-  );
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(
-    initialCategories
-      ? initialCategories.split(",").map((c) => c.toLocaleUpperCase())
-      : []
-  );
-  const [sort, setSort] = useState(initialSort);
-  const [rating, setRating] = useState<number[]>(
-    initialRating.split(",").map(Number) as number[]
-  );
+  const [filters, setFilters] = useState<Filters>(() => ({
+    search: searchParams.get("search") || "",
+    price: parseNumberArray(searchParams.get("price"), [...DEFAULT_PRICE_RANGE]),
+    categories: parseStringArray(searchParams.get("categories")).map((c) =>
+      c.toUpperCase()
+    ),
+    sort: searchParams.get("sort") || DEFAULT_SORT,
+    rating: parseNumberArray(searchParams.get("rating"), [DEFAULT_RATING]),
+  }));
 
-  const debouncedSearchValue = useDebouncedValue(searchValue, DEBOUNCED_SEARCH_DELAY);
-  const debouncedPriceRange = useDebouncedValue(priceRange, DEBOUNCED_SEARCH_DELAY);
-  const debouncedCategories = useDebouncedValue(selectedCategories, DEBOUNCED_SEARCH_DELAY);
-  const debouncedSort = useDebouncedValue(sort, DEBOUNCED_SEARCH_DELAY);
-  const debouncedRating = useDebouncedValue(rating, DEBOUNCED_SEARCH_DELAY);
+  const [showFiltersSection, setShowFiltersSection] = useState(false);
+
+  const debouncedFilters = useDebouncedValue(filters, DEBOUNCED_SEARCH_DELAY);
+
+  const updateFilter = <K extends keyof Filters>(
+    key: K,
+    value: Filters[K]
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleClearFilters = () => {
+    setFilters({
+      search: "",
+      price: [...DEFAULT_PRICE_RANGE],
+      categories: [],
+      sort: DEFAULT_SORT,
+      rating: [DEFAULT_RATING],
+    });
+  };
 
   const handleToggleFiltersSection = () => {
     setShowFiltersSection((prev) => !prev);
   };
 
-  const handleSearch = () => {
-    console.log("searchValue", searchValue);
-  };
-
-  const handleClearFilters = () => {
-    setSearchValue("");
-    setPriceRange([...DEFAULT_PRICE_RANGE]);
-    setSelectedCategories([]);
-    setSort(DEFAULT_SORT);
-    setRating([DEFAULT_RATING]);
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete("search");
-    params.delete("price");
-    params.delete("categories");
-    params.delete("sort");
-    params.delete("rating");
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
-
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams();
 
-    if (debouncedCategories.length > 0) {
+    if (debouncedFilters.search !== "") {
+      params.set("search", debouncedFilters.search);
+    }
+
+    const isDefaultPrice =
+      debouncedFilters.price[0] === DEFAULT_PRICE_RANGE[0] &&
+      debouncedFilters.price[1] === DEFAULT_PRICE_RANGE[1];
+    if (!isDefaultPrice) {
+      params.set("price", debouncedFilters.price.join(","));
+    }
+
+    if (debouncedFilters.categories.length > 0) {
       params.set(
         "categories",
-        debouncedCategories.map((c) => c.toLocaleLowerCase()).join(",")
+        debouncedFilters.categories.map((c) => c.toLowerCase()).join(",")
       );
-    } else {
-      params.delete("categories");
     }
 
-    if (debouncedPriceRange.length === 2) {
-      params.set("price", debouncedPriceRange.join(","));
-    } else {
-      params.delete("price");
+    if (debouncedFilters.sort !== DEFAULT_SORT) {
+      params.set("sort", debouncedFilters.sort);
     }
 
-    if (debouncedSort !== DEFAULT_SORT) {
-      params.set("sort", debouncedSort);
-    } else {
-      params.delete("sort");
-    }
-
-    if (debouncedRating.length === 1) {
-      params.set("rating", debouncedRating.join(","));
-    } else {
-      params.delete("rating");
-    }
-
-    if (debouncedSearchValue !== "") {
-      params.set("search", debouncedSearchValue);
-    } else {
-      params.delete("search");
+    const isDefaultRating = debouncedFilters.rating[0] === DEFAULT_RATING;
+    if (!isDefaultRating) {
+      params.set("rating", debouncedFilters.rating.join(","));
     }
 
     router.push(`?${params.toString()}`, { scroll: false });
-  }, [
-    debouncedSearchValue,
-    debouncedCategories,
-    debouncedPriceRange,
-    debouncedSort,
-    debouncedRating,
-    router,
-  ]);
-
+  }, [debouncedFilters, router]);
 
   return {
     showFiltersSection,
     handleToggleFiltersSection,
-    searchValue,
-    setSearchValue,
-    priceRange,
-    setPriceRange,
-    selectedCategories,
-    setSelectedCategories,
-    sort,
-    setSort,
-    rating,
-    setRating,
+
+    filters,
+    updateFilter,
+
     handleClearFilters,
-    handleSearch,
   };
-}
+};

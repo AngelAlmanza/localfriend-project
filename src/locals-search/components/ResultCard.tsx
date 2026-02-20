@@ -1,18 +1,17 @@
 "use client"
 
-import { Local } from "../interfaces/Local";
-
-interface ResultCardProps {
-  local: Local;
-}
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCurrency } from "@/src/shared/utils/formatCurrency";
 import { StarIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { Local } from "../interfaces/Local";
 import { useLocalsSearchStore } from "../store/locals";
+
+interface ResultCardProps {
+  local: Local;
+}
 
 export const ResultCard = ({ local }: ResultCardProps) => {
   const t = useTranslations("Locals.search");
