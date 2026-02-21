@@ -1,21 +1,31 @@
 "use client"
 
 import { Button } from "@/components/ui/button";
+import { useUserContext } from "@/src/shared/providers/UserProvider";
 import { MapPin, Store } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 
 export function HeroCTAComponent() {
   const router = useRouter();
+  const { user } = useUserContext();
 
   const t = useTranslations("Hero.cta");
 
   const handleSignupAsWorker = () => {
-    router.push("/auth/register?registerAs=worker");
+    if (user) {
+      router.push("/workers");
+    } else {
+      router.push("/auth/register?registerAs=worker");
+    }
   };
 
   const handleSignupAsLocal = () => {
-    router.push("/auth/register?registerAs=local");
+    if (user) {
+      router.push("/locals/search");
+    } else {
+      router.push("/auth/register?registerAs=local");
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { UserProvider } from "@/src/shared/providers/UserProvider";
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
@@ -30,7 +31,9 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           <TooltipProvider>
-            {children}
+            <UserProvider>
+              {children}
+            </UserProvider>
             <Toaster />
           </TooltipProvider>
         </NextIntlClientProvider>

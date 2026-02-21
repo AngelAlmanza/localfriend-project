@@ -29,7 +29,7 @@ export const UserProvider = ({ children }: { children: Readonly<React.ReactNode>
       const { data, error } = await supabase.auth.getUser()
       setUser(data.user ?? null)
       if (error) {
-        console.error(error)
+        console.error("Error getting user", error)
       }
       setLoading(false)
     }
