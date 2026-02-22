@@ -282,5 +282,18 @@
         }
       }
     }
+  },
+  "Workers": {
+    "sidebar": {
+      "title": "Mi espacio",
+      "items": {
+        "dashboard": "Dashboard",
+        "services": "Servicios",
+        "products": "Productos",
+        "settings": "Configuración"
+      },
+      "profile": "Perfil",
+      "logout": "Cerrar sesión"
+    }
   }
 }

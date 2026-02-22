@@ -282,5 +282,18 @@
         }
       }
     }
+  },
+  "Workers": {
+    "sidebar": {
+      "title": "My space",
+      "items": {
+        "dashboard": "Dashboard",
+        "services": "Services",
+        "products": "Products",
+        "settings": "Settings"
+      },
+      "profile": "Profile",
+      "logout": "Logout"
+    }
   }
 }

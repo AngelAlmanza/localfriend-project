@@ -49,7 +49,7 @@ function LoginPage() {
       if (result.right.session.role === "local") {
         redirect("/locals/search", RedirectType.replace)
       } else {
-        redirect("/workers", RedirectType.replace)
+        redirect("/workers/dashboard", RedirectType.replace)
       }
     }
 

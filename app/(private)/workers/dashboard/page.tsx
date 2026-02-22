@@ -2,7 +2,7 @@
 
 import { useUserContext } from "@/src/shared/providers/UserProvider"
 
-function WorkersPage() {
+function DashboardPage() {
   const { user } = useUserContext()
 
   if (!user) {
@@ -11,9 +11,9 @@ function WorkersPage() {
 
   return (
     <div>
-      <h1>WorkersPage</h1>
+      <h1>DashboardPage</h1>
       <h2>Welcome, {user.email}</h2>
     </div>
   )
 }
-export default WorkersPage
+export default DashboardPage
