@@ -294,6 +294,43 @@
       },
       "profile": "Perfil",
       "logout": "Cerrar sesión"
+    },
+    "profile": {
+      "userPreferences": {
+        "title": "Preferencias de usuario",
+        "language": "Idioma",
+        "languageEn": "Inglés",
+        "languageEs": "Español",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "searchRadius": "Radio de búsqueda",
+        "timezone": "Zona horaria",
+        "timezonePlaceholder": "Selecciona una zona horaria...",
+        "useCurrentTimezone": "Usar zona horaria actual",
+        "preferredCurrency": "Moneda preferida",
+        "currencyPlaceholder": "Selecciona una moneda...",
+        "coordinates": "Coordenadas",
+        "coordinatesDescription": "Usadas para mostrar resultados locales cerca de ti.",
+        "getCoordinates": "Obtener mi ubicación",
+        "gettingLocation": "Obteniendo ubicación...",
+        "locationDenied": "Debes autorizar los permisos de ubicación para obtener tus coordenadas.",
+        "save": "Guardar preferencias",
+        "languageErrorMessage": "El idioma es requerido",
+        "timezoneErrorMessage": "La zona horaria es requerida",
+        "preferredCurrencyErrorMessage": "La moneda preferida es requerida",
+        "success": "Preferencias guardadas correctamente",
+        "error": "Ocurrió un error al guardar tus preferencias",
+        "currency": {
+          "mexicanPeso": "Peso mexicano",
+          "colombianPeso": "Peso colombiano",
+          "peruvianSol": "Sol peruano",
+          "argentinePeso": "Peso argentino",
+          "chileanPeso": "Peso chileno",
+          "uruguayanPeso": "Peso uruguayo",
+          "brazilianReal": "Real brasileño",
+          "venezuelanBolivar": "Bolívar venezolano"
+        }
+      }
     }
   }
 }

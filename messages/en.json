@@ -294,6 +294,43 @@
       },
       "profile": "Profile",
       "logout": "Logout"
+    },
+    "profile": {
+      "userPreferences": {
+        "title": "User preferences",
+        "language": "Language",
+        "languageEn": "English",
+        "languageEs": "Spanish",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "searchRadius": "Search radius",
+        "timezone": "Timezone",
+        "timezonePlaceholder": "Select a timezone...",
+        "useCurrentTimezone": "Use current timezone",
+        "preferredCurrency": "Preferred currency",
+        "currencyPlaceholder": "Select a currency...",
+        "coordinates": "Coordinates",
+        "coordinatesDescription": "Used to show local results near you.",
+        "getCoordinates": "Get my location",
+        "gettingLocation": "Getting location...",
+        "locationDenied": "You must grant location permissions to get your coordinates.",
+        "save": "Save preferences",
+        "languageErrorMessage": "Language is required",
+        "timezoneErrorMessage": "Timezone is required",
+        "preferredCurrencyErrorMessage": "Preferred currency is required",
+        "success": "Preferences saved successfully",
+        "error": "An error occurred while saving your preferences",
+        "currency": {
+          "mexicanPeso": "Mexican peso",
+          "colombianPeso": "Colombian peso",
+          "peruvianSol": "Peruvian sol",
+          "argentinePeso": "Argentine peso",
+          "chileanPeso": "Chilean peso",
+          "uruguayanPeso": "Uruguayan peso",
+          "brazilianReal": "Brazilian real",
+          "venezuelanBolivar": "Venezuelan bolivar"
+        }
+      }
     }
   }
 }

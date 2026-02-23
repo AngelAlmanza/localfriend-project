@@ -6,7 +6,9 @@ function WorkersLayout({ children }: { children: Readonly<React.ReactNode> }) {
     <SidebarProvider>
       <WorkersSidebar />
       <main className="flex-1 p-4">
-        <SidebarTrigger />
+        <div className="mb-4">
+          <SidebarTrigger />
+        </div>
         {children}
       </main>
     </SidebarProvider>

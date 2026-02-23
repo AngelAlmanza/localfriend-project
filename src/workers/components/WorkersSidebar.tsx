@@ -65,7 +65,7 @@ export const WorkersSidebar = () => {
       <SidebarFooter>
         <SidebarMenuButton
           asChild
-          className="w-full"
+          className={cn(pathname.startsWith("/workers/profile") && "bg-sidebar-accent text-sidebar-accent-foreground", "rounded-md")}
         >
           <Link href="/workers/profile">
             <User className="size-4" />
@@ -74,7 +74,7 @@ export const WorkersSidebar = () => {
         </SidebarMenuButton>
         <SidebarMenuButton
           asChild
-          className="w-full"
+          className={cn(pathname.startsWith("/workers/logout") && "bg-sidebar-accent text-sidebar-accent-foreground", "rounded-md")}
         >
           <Link href="/workers/logout">
             <LogOut className="size-4" />
