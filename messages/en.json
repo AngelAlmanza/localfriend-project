@@ -332,5 +332,27 @@
         }
       }
     }
+  },
+  "Admins": {
+    "sidebar": {
+      "groups": {
+        "general": {
+          "title": "General",
+          "items": {
+            "dashboard": "Dashboard",
+            "reports": "Reports",
+            "users": "Users",
+            "settings": "Settings"
+          }
+        },
+        "categories": {
+          "title": "Categories",
+          "items": {
+            "services": "Services",
+            "products": "Products"
+          }
+        }
+      }
+    }
   }
 }
