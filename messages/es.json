@@ -404,6 +404,57 @@
         "productCategoryUpdateFailed": "Error al actualizar la categoría",
         "productCategoryDeleteFailed": "Error al eliminar la categoría"
       }
+    },
+    "serviceCategories": {
+      "page": {
+        "title": "Categorías de servicios",
+        "subtitle": "Administra las categorías disponibles para los servicios",
+        "addButton": "Agregar categoría"
+      },
+      "table": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "updatedAt": "Última modificación",
+        "actions": "Acciones",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "noDescription": "Sin descripción",
+        "noData": "No se encontraron categorías",
+        "noDataDescription": "Crea tu primera categoría para comenzar"
+      },
+      "modal": {
+        "addTitle": "Agregar categoría",
+        "editTitle": "Editar categoría"
+      },
+      "deleteDialog": {
+        "title": "Eliminar categoría",
+        "description": "¿Estás seguro de que deseas eliminar la categoría \"{name}\"? Esta acción no se puede deshacer.",
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "form": {
+        "title": "Categorías de servicios",
+        "name": "Nombre",
+        "description": "Descripción",
+        "imageUrl": "URL de la imagen",
+        "save": "Guardar",
+        "namePlaceholder": "Ingresa el nombre de la categoría",
+        "descriptionPlaceholder": "Ingresa la descripción de la categoría",
+        "imageUrlPlaceholder": "Ingresa la URL de la imagen de la categoría",
+        "nameMinErrorMessage": "El nombre debe tener al menos 3 caracteres",
+        "nameMaxErrorMessage": "El nombre debe tener menos de 255 caracteres",
+        "descriptionMinErrorMessage": "La descripción debe tener al menos 10 caracteres",
+        "descriptionMaxErrorMessage": "La descripción debe tener menos de 255 caracteres",
+        "imageUrlErrorMessage": "La URL de la imagen es requerida",
+        "imageFileTooLargeErrorMessage": "La imagen debe pesar menos de 5MB",
+        "imageRequired": "La imagen es requerida",
+        "serviceCategoryCreatedSuccessfully": "Categoría creada correctamente",
+        "serviceCategoryUpdatedSuccessfully": "Categoría actualizada correctamente",
+        "serviceCategoryDeletedSuccessfully": "Categoría eliminada correctamente",
+        "serviceCategoryCreationFailed": "Error al crear la categoría",
+        "serviceCategoryUpdateFailed": "Error al actualizar la categoría",
+        "serviceCategoryDeleteFailed": "Error al eliminar la categoría"
+      }
     }
   }
 }

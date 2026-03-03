@@ -16,30 +16,30 @@ import Image from "next/image"
 import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { ProductCategoryResponse } from "../interfaces/responses"
-import { buildProductCategorySchema, ProductCategorySchema } from "../schema/product-category.schema"
-import { ProductCategoriesService } from "../services/ProductCategoriesService"
+import { ServiceCategoryResponse } from "../interfaces/responses"
+import { buildServiceCategorySchema, ServiceCategorySchema } from "../schema/service-category.schema"
+import { ServiceCategoriesService } from "../services/ServiceCategoriesService"
 
-const BUCKET_NAME = "product-categories"
+const BUCKET_NAME = "service-categories"
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
 
-interface ProductCategoriesFormProps {
-  initialValues: ProductCategorySchema
+interface ServiceCategoriesFormProps {
+  initialValues: ServiceCategorySchema
   id: string | null
   onSuccess?: () => void
 }
 
-const FORM_ID = "product-categories-form"
+const FORM_ID = "service-categories-form"
 
-export const ProductCategoriesForm = ({ initialValues, id, onSuccess }: ProductCategoriesFormProps) => {
-  const t = useTranslations("Admins.productCategories.form")
+export const ServiceCategoriesForm = ({ initialValues, id, onSuccess }: ServiceCategoriesFormProps) => {
+  const t = useTranslations("Admins.serviceCategories.form")
   const [isLoading, setIsLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const form = useForm<ProductCategorySchema>({
-    resolver: zodResolver(buildProductCategorySchema({
+  const form = useForm<ServiceCategorySchema>({
+    resolver: zodResolver(buildServiceCategorySchema({
       nameMinErrorMessage: t("nameMinErrorMessage"),
       nameMaxErrorMessage: t("nameMaxErrorMessage"),
       descriptionMinErrorMessage: t("descriptionMinErrorMessage"),
@@ -60,7 +60,7 @@ export const ProductCategoriesForm = ({ initialValues, id, onSuccess }: ProductC
     setSelectedFile(file)
   }
 
-  const onSubmit = async (values: ProductCategorySchema) => {
+  const onSubmit = async (values: ServiceCategorySchema) => {
     const existingImageUrl = values.imageUrl ?? ""
 
     if (!selectedFile && !existingImageUrl) {
@@ -83,6 +83,7 @@ export const ProductCategoriesForm = ({ initialValues, id, onSuccess }: ProductC
       )
 
       if (uploadError) {
+        console.log(uploadError)
         toast.error(uploadError.message)
         setIsLoading(false)
         return
@@ -96,17 +97,17 @@ export const ProductCategoriesForm = ({ initialValues, id, onSuccess }: ProductC
       imageUrl = uploadedUrl!
     }
 
-    let promise: Promise<Either<ISystemError, ProductCategoryResponse>>
+    let promise: Promise<Either<ISystemError, ServiceCategoryResponse>>
 
     if (id) {
-      promise = ProductCategoriesService.updateProductCategory({
+      promise = ServiceCategoriesService.updateServiceCategory({
         id,
         name: values.name,
         description: values.description ?? "",
         imageUrl,
       }, supabase)
     } else {
-      promise = ProductCategoriesService.createProductCategory({
+      promise = ServiceCategoriesService.createServiceCategory({
         name: values.name,
         description: values.description ?? "",
         imageUrl,
@@ -115,11 +116,11 @@ export const ProductCategoriesForm = ({ initialValues, id, onSuccess }: ProductC
 
     const { left, right } = await promise
     if (right) {
-      const successKey = id ? "productCategoryUpdatedSuccessfully" : "productCategoryCreatedSuccessfully"
+      const successKey = id ? "serviceCategoryUpdatedSuccessfully" : "serviceCategoryCreatedSuccessfully"
       toast.success(t(successKey))
       onSuccess?.()
     } else {
-      const errorKey = id ? "productCategoryUpdateFailed" : "productCategoryCreationFailed"
+      const errorKey = id ? "serviceCategoryUpdateFailed" : "serviceCategoryCreationFailed"
       toast.error(left?.message ?? t(errorKey))
     }
     setIsLoading(false)
