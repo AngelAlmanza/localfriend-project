@@ -353,6 +353,57 @@
           }
         }
       }
+    },
+    "productCategories": {
+      "page": {
+        "title": "Product categories",
+        "subtitle": "Manage the categories available for products",
+        "addButton": "Add category"
+      },
+      "table": {
+        "name": "Name",
+        "description": "Description",
+        "updatedAt": "Last updated",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete",
+        "noDescription": "No description",
+        "noData": "No categories found",
+        "noDataDescription": "Create your first category to get started"
+      },
+      "modal": {
+        "addTitle": "Add category",
+        "editTitle": "Edit category"
+      },
+      "deleteDialog": {
+        "title": "Delete category",
+        "description": "Are you sure you want to delete the category \"{name}\"? This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "form": {
+        "title": "Product categories",
+        "name": "Name",
+        "description": "Description",
+        "imageUrl": "Image URL",
+        "save": "Save",
+        "namePlaceholder": "Enter the name of the category",
+        "descriptionPlaceholder": "Enter the description of the category",
+        "imageUrlPlaceholder": "Enter the image URL of the category",
+        "nameMinErrorMessage": "The name must be at least 3 characters",
+        "nameMaxErrorMessage": "The name must be less than 255 characters",
+        "descriptionMinErrorMessage": "The description must be at least 10 characters",
+        "descriptionMaxErrorMessage": "The description must be less than 255 characters",
+        "imageUrlErrorMessage": "The image URL is required",
+        "imageFileTooLargeErrorMessage": "The image must be less than 5MB",
+        "imageRequired": "An image is required",
+        "productCategoryCreatedSuccessfully": "Category created successfully",
+        "productCategoryUpdatedSuccessfully": "Category updated successfully",
+        "productCategoryDeletedSuccessfully": "Category deleted successfully",
+        "productCategoryCreationFailed": "Failed to create category",
+        "productCategoryUpdateFailed": "Failed to update category",
+        "productCategoryDeleteFailed": "Failed to delete category"
+      }
     }
   }
 }

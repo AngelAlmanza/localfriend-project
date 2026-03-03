@@ -1,0 +1,1 @@
+export const getFileName = (ext: string) => `${Date.now()}.${ext}`
