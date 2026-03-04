@@ -1,8 +1,9 @@
 import { updateSession } from "@shared/lib/supabase/proxy"
 import { type NextRequest } from "next/server"
 
+const privateRoutes = ['/workers', '/locals', '/admin'];
 export async function proxy(request: NextRequest) {
-  if (request.nextUrl.pathname.startsWith('/workers') || request.nextUrl.pathname.startsWith('/locals')) {
+  if (privateRoutes.some(r => request.nextUrl.pathname.startsWith(r))) {
     return await updateSession(request)
   }
 }

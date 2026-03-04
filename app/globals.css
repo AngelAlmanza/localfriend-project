@@ -104,7 +104,7 @@
 
   /* Muted: light neutral with green tint */
   --muted: oklch(0.968 0.007 150);
-  --muted-foreground: oklch(0.556 0.016 150);
+  --muted-foreground: oklch(0.535 0.016 150);
 
   /* Accent: light green for hover states */
   --accent: oklch(0.968 0.014 150);

@@ -79,6 +79,7 @@ function LoginPage() {
                     placeholder={t("email")}
                     aria-invalid={fieldState.invalid}
                     autoComplete="email"
+                    data-testid="login-email-input"
                   />
                   {
                     fieldState.invalid && (
@@ -105,6 +106,7 @@ function LoginPage() {
                       placeholder={t("password")}
                       aria-invalid={fieldState.invalid}
                       autoComplete="current-password"
+                      data-testid="login-password-input"
                     />
                     <InputGroupAddon align="inline-end">
                       <InputGroupButton
@@ -132,12 +134,12 @@ function LoginPage() {
       </CardContent>
       <CardFooter>
         <Field orientation="vertical">
-          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading}>
+          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading} data-testid="login-submit-btn">
             {t("login")}
             {isLoading && <LoadingIcon />}
           </Button>
           <Button type="button" variant="link" asChild={!isLoading} disabled={isLoading}>
-            <Link href="/auth/register">
+            <Link href="/auth/register" data-testid="login-register-link">
               {t("signUp")}
             </Link>
           </Button>

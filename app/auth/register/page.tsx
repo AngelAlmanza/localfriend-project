@@ -88,6 +88,7 @@ function RegisterPage() {
                     placeholder={t("name")}
                     aria-invalid={fieldState.invalid}
                     autoComplete="name"
+                    data-testid="register-name-input"
                   />
                   {
                     fieldState.invalid && (
@@ -112,6 +113,7 @@ function RegisterPage() {
                     placeholder={t("email")}
                     aria-invalid={fieldState.invalid}
                     autoComplete="email"
+                    data-testid="register-email-input"
                   />
                   {
                     fieldState.invalid && (
@@ -138,6 +140,7 @@ function RegisterPage() {
                       placeholder={t("password")}
                       aria-invalid={fieldState.invalid}
                       autoComplete="current-password"
+                      data-testid="register-password-input"
                     />
                     <InputGroupAddon align="inline-end">
                       <InputGroupButton
@@ -177,6 +180,7 @@ function RegisterPage() {
                       placeholder={t("confirmPassword")}
                       aria-invalid={fieldState.invalid}
                       autoComplete="new-password"
+                      data-testid="register-confirm-password-input"
                     />
                     <InputGroupAddon align="inline-end">
                       <InputGroupButton
@@ -231,7 +235,7 @@ function RegisterPage() {
                             {t("local.description")}
                           </FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="local" id={`${FORM_ID}-local`} aria-invalid={fieldState.invalid} />
+                        <RadioGroupItem value="local" id={`${FORM_ID}-local`} aria-invalid={fieldState.invalid} aria-label={t("local.title")} />
                       </Field>
                     </FieldLabel>
 
@@ -245,7 +249,7 @@ function RegisterPage() {
                             {t("worker.description")}
                           </FieldDescription>
                         </FieldContent>
-                        <RadioGroupItem value="worker" id={`${FORM_ID}-worker`} aria-invalid={fieldState.invalid} />
+                        <RadioGroupItem value="worker" id={`${FORM_ID}-worker`} aria-invalid={fieldState.invalid} aria-label={t("worker.title")} />
                       </Field>
                     </FieldLabel>
                   </RadioGroup>
@@ -263,12 +267,12 @@ function RegisterPage() {
       </CardContent>
       <CardFooter>
         <Field orientation="vertical">
-          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading}>
+          <Button type="submit" form={FORM_ID} variant="primary" disabled={isLoading} data-testid="register-submit-btn">
             {t("register")}
             {isLoading && <LoadingIcon />}
           </Button>
           <Button type="button" variant="link" form={FORM_ID} asChild={!isLoading} disabled={isLoading}>
-            <Link href="/auth/login">
+            <Link href="/auth/login" data-testid="register-login-link">
               {t("signIn")}
             </Link>
           </Button>

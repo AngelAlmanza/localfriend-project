@@ -34,6 +34,7 @@ export function HeroCTAComponent() {
         variant="secondary"
         onClick={handleSignupAsWorker}
         className="hover:-translate-y-1 transition-all duration-300 px-8 h-auto py-4 text-lg rounded-lg font-semibold"
+        data-testid="hero-worker-cta"
       >
         <Store className="size-6" />
         {t("merchant")}
@@ -43,6 +44,7 @@ export function HeroCTAComponent() {
         variant="primary"
         onClick={handleSignupAsLocal}
         className="hover:-translate-y-1 transition-all duration-300 px-8 h-auto py-4 text-lg rounded-lg font-semibold"
+        data-testid="hero-local-cta"
       >
         <MapPin className="size-6" />
         {t("local")}
