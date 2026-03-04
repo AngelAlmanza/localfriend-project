@@ -16,7 +16,7 @@ const merchantIcons: LucideIcon[] = [TrendingUp, Users, Star];
 const localIcons: LucideIcon[] = [Search, Shield, Users];
 
 export function ForWhoSection() {
-  const t = useTranslations("ForWho");
+  const t = useTranslations("Landing.ForWho");
   const merchantBenefits = t.raw("merchant.benefits") as Array<{
     title: string;
     description: string;

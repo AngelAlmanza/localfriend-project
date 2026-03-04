@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
 
 export function PricingSection() {
-  const t = useTranslations("Pricing");
+  const t = useTranslations("Landing.Pricing");
   const benefits = t.raw("benefits") as string[];
 
   return (

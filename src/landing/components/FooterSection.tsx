@@ -9,7 +9,7 @@ import {
 import { useTranslations } from "next-intl";
 
 export function FooterSection() {
-  const t = useTranslations("Footer");
+  const t = useTranslations("Landing.Footer");
   const currentYear = new Date().getFullYear();
 
   return (

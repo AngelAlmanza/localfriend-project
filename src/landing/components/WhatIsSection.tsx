@@ -6,7 +6,7 @@ import { AnimateOnView } from "../../shared/components/AnimateOnView";
 const featureIcons: LucideIcon[] = [Eye, MapPin, MessageCircle];
 
 export function WhatIsSection() {
-  const t = useTranslations("WhatIs");
+  const t = useTranslations("Landing.WhatIs");
   const features = t.raw("features") as Array<{
     title: string;
     description: string;

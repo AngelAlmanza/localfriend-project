@@ -40,7 +40,7 @@ function StepCard({
   isLast,
   delay,
 }: StepCardProps) {
-  const t = useTranslations("HowItWorks");
+  const t = useTranslations("Landing.HowItWorks");
   const isMerchant = variant === "merchant";
 
   return (
@@ -82,7 +82,7 @@ function StepCard({
 }
 
 export function HowItWorksTabs() {
-  const t = useTranslations("HowItWorks");
+  const t = useTranslations("Landing.HowItWorks");
   const merchantSteps = t.raw("merchantSteps") as Array<{
     title: string;
     description: string;

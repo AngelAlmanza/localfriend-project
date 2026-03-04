@@ -1,184 +1,186 @@
 {
-  "Hero": {
-    "title": "Find products and services <highlight>near you</highlight>",
-    "subtitle": "We connect your local community with trusted merchants and services in your area",
-    "cta": {
-      "merchant": "I'm a merchant",
-      "local": "I'm looking for services"
-    }
-  },
-  "WhatIs": {
-    "title": "What is our platform?",
-    "subtitle": "A digital community that connects local merchants with people looking for quality products and services in their area.",
-    "features": [
-      {
-        "title": "Visibility for local businesses",
-        "description": "We help small businesses stand out in their community"
-      },
-      {
-        "title": "Search in your area",
-        "description": "Find what you need close to you, supporting your local economy"
-      },
-      {
-        "title": "Direct contact without intermediaries",
-        "description": "Connect directly with trusted providers and services"
+  "Landing": {
+    "Hero": {
+      "title": "Find products and services <highlight>near you</highlight>",
+      "subtitle": "We connect your local community with trusted merchants and services in your area",
+      "cta": {
+        "merchant": "I'm a merchant",
+        "local": "I'm looking for services"
       }
-    ]
-  },
-  "ForWho": {
-    "title": "Who is it for?",
-    "subtitle": "Designed to connect merchants and local consumers",
-    "merchant": {
-      "title": "For Merchants",
-      "description": "Promote your products and services in your community",
-      "benefits": [
+    },
+    "WhatIs": {
+      "title": "What is our platform?",
+      "subtitle": "A digital community that connects local merchants with people looking for quality products and services in their area.",
+      "features": [
         {
-          "title": "Increase your visibility",
-          "description": "Reach more customers in your area"
+          "title": "Visibility for local businesses",
+          "description": "We help small businesses stand out in their community"
         },
         {
-          "title": "Manage your business",
-          "description": "Easily manage products and services"
+          "title": "Search in your area",
+          "description": "Find what you need close to you, supporting your local economy"
         },
         {
-          "title": "Build reputation",
-          "description": "Receive reviews and ratings"
+          "title": "Direct contact without intermediaries",
+          "description": "Connect directly with trusted providers and services"
+        }
+      ]
+    },
+    "ForWho": {
+      "title": "Who is it for?",
+      "subtitle": "Designed to connect merchants and local consumers",
+      "merchant": {
+        "title": "For Merchants",
+        "description": "Promote your products and services in your community",
+        "benefits": [
+          {
+            "title": "Increase your visibility",
+            "description": "Reach more customers in your area"
+          },
+          {
+            "title": "Manage your business",
+            "description": "Easily manage products and services"
+          },
+          {
+            "title": "Build reputation",
+            "description": "Receive reviews and ratings"
+          }
+        ],
+        "cta": "Start as a merchant"
+      },
+      "local": {
+        "title": "For Locals",
+        "description": "Discover products and services in your community",
+        "benefits": [
+          {
+            "title": "Local search",
+            "description": "Find what you need close to you"
+          },
+          {
+            "title": "Trusted services",
+            "description": "Check ratings and reviews"
+          },
+          {
+            "title": "Support local",
+            "description": "Strengthen your community economy"
+          }
+        ],
+        "cta": "Start searching"
+      }
+    },
+    "HowItWorks": {
+      "title": "How does it work?",
+      "subtitle": "It's simple and fast, start in 4 steps",
+      "tabs": {
+        "merchant": "For Merchants",
+        "local": "For Locals"
+      },
+      "step": "Step {number}",
+      "merchantSteps": [
+        {
+          "title": "Sign up",
+          "description": "Create your merchant account in minutes"
+        },
+        {
+          "title": "Complete your profile",
+          "description": "Add your business information and contact details"
+        },
+        {
+          "title": "Publish your products",
+          "description": "Upload photos and describe your products or services"
+        },
+        {
+          "title": "Receive contacts",
+          "description": "Customers will contact you directly"
         }
       ],
-      "cta": "Start as a merchant"
-    },
-    "local": {
-      "title": "For Locals",
-      "description": "Discover products and services in your community",
-      "benefits": [
+      "localSteps": [
         {
-          "title": "Local search",
-          "description": "Find what you need close to you"
+          "title": "Sign up",
+          "description": "Create your free account in seconds"
         },
         {
-          "title": "Trusted services",
-          "description": "Check ratings and reviews"
+          "title": "Search your area",
+          "description": "Find local products and services"
         },
         {
-          "title": "Support local",
-          "description": "Strengthen your community economy"
+          "title": "Explore options",
+          "description": "Review details, photos, and ratings"
+        },
+        {
+          "title": "Contact directly",
+          "description": "Communicate with the merchant without intermediaries"
         }
+      ]
+    },
+    "Pricing": {
+      "title": "Simple and transparent plan",
+      "subtitle": "Everything you need to grow your local business",
+      "badge": "1 month free",
+      "planName": "Merchant Plan",
+      "planDescription": "For small businesses and entrepreneurs",
+      "price": "$XX",
+      "period": "/month",
+      "trialNote": "First month completely free for new users",
+      "benefitsTitle": "All included:",
+      "benefits": [
+        "Unlimited product listings",
+        "Unlimited service listings",
+        "Featured profile in local searches",
+        "Review and rating system",
+        "View statistics",
+        "Direct contact with customers",
+        "Priority support"
       ],
-      "cta": "Start searching"
-    }
-  },
-  "HowItWorks": {
-    "title": "How does it work?",
-    "subtitle": "It's simple and fast, start in 4 steps",
-    "tabs": {
-      "merchant": "For Merchants",
-      "local": "For Locals"
+      "cta": "Start free trial",
+      "disclaimer": "No credit card required • Cancel anytime"
     },
-    "step": "Step {number}",
-    "merchantSteps": [
-      {
-        "title": "Sign up",
-        "description": "Create your merchant account in minutes"
+    "AppStores": {
+      "title": "Download our app",
+      "subtitle": "Take your business or find local services from your phone",
+      "appStore": {
+        "label": "Download on",
+        "store": "App Store"
       },
-      {
-        "title": "Complete your profile",
-        "description": "Add your business information and contact details"
+      "googlePlay": {
+        "label": "Available on",
+        "store": "Google Play"
       },
-      {
-        "title": "Publish your products",
-        "description": "Upload photos and describe your products or services"
-      },
-      {
-        "title": "Receive contacts",
-        "description": "Customers will contact you directly"
+      "compatibility": "Compatible with iOS 13+ and Android 8+"
+    },
+    "FinalCTA": {
+      "title": "Ready to connect with your community?",
+      "subtitle": "Join hundreds of merchants and locals already strengthening their local economy",
+      "cta": {
+        "merchant": "I'm a merchant",
+        "local": "I'm looking for services"
       }
-    ],
-    "localSteps": [
-      {
-        "title": "Sign up",
-        "description": "Create your free account in seconds"
-      },
-      {
-        "title": "Search your area",
-        "description": "Find local products and services"
-      },
-      {
-        "title": "Explore options",
-        "description": "Review details, photos, and ratings"
-      },
-      {
-        "title": "Contact directly",
-        "description": "Communicate with the merchant without intermediaries"
-      }
-    ]
-  },
-  "Pricing": {
-    "title": "Simple and transparent plan",
-    "subtitle": "Everything you need to grow your local business",
-    "badge": "1 month free",
-    "planName": "Merchant Plan",
-    "planDescription": "For small businesses and entrepreneurs",
-    "price": "$XX",
-    "period": "/month",
-    "trialNote": "First month completely free for new users",
-    "benefitsTitle": "All included:",
-    "benefits": [
-      "Unlimited product listings",
-      "Unlimited service listings",
-      "Featured profile in local searches",
-      "Review and rating system",
-      "View statistics",
-      "Direct contact with customers",
-      "Priority support"
-    ],
-    "cta": "Start free trial",
-    "disclaimer": "No credit card required • Cancel anytime"
-  },
-  "AppStores": {
-    "title": "Download our app",
-    "subtitle": "Take your business or find local services from your phone",
-    "appStore": {
-      "label": "Download on",
-      "store": "App Store"
     },
-    "googlePlay": {
-      "label": "Available on",
-      "store": "Google Play"
-    },
-    "compatibility": "Compatible with iOS 13+ and Android 8+"
-  },
-  "FinalCTA": {
-    "title": "Ready to connect with your community?",
-    "subtitle": "Join hundreds of merchants and locals already strengthening their local economy",
-    "cta": {
-      "merchant": "I'm a merchant",
-      "local": "I'm looking for services"
+    "Footer": {
+      "brandName": "LocalFriend",
+      "brandDescription": "Connecting local communities with trusted businesses and services.",
+      "about": {
+        "title": "About",
+        "story": "Our story",
+        "team": "Team",
+        "mission": "Mission and values",
+        "careers": "Work with us"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "Terms of service",
+        "privacy": "Privacy policy",
+        "cookies": "Cookies",
+        "notice": "Legal notice"
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "info@localfriend.com",
+        "location": "Your city, Country",
+        "social": "Follow us"
+      },
+      "copyright": "© {year} LocalFriend. All rights reserved."
     }
-  },
-  "Footer": {
-    "brandName": "LocalFriend",
-    "brandDescription": "Connecting local communities with trusted businesses and services.",
-    "about": {
-      "title": "About",
-      "story": "Our story",
-      "team": "Team",
-      "mission": "Mission and values",
-      "careers": "Work with us"
-    },
-    "legal": {
-      "title": "Legal",
-      "terms": "Terms of service",
-      "privacy": "Privacy policy",
-      "cookies": "Cookies",
-      "notice": "Legal notice"
-    },
-    "contact": {
-      "title": "Contact",
-      "email": "info@localfriend.com",
-      "location": "Your city, Country",
-      "social": "Follow us"
-    },
-    "copyright": "© {year} LocalFriend. All rights reserved."
   },
   "Auth": {
     "login": {

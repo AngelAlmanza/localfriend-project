@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
 
 export function AppStoresSection() {
-  const t = useTranslations("AppStores");
+  const t = useTranslations("Landing.AppStores");
 
   return (
     <section className="py-20 px-6 bg-white" aria-labelledby="app-stores-title">

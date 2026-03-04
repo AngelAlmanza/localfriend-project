@@ -4,7 +4,7 @@ import { ArrowDown } from "lucide-react";
 import { HeroCTAComponent } from "./HeroCTAComponent";
 
 export function HeroSection() {
-  const t = useTranslations("Hero");
+  const t = useTranslations("Landing.Hero");
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 [clip-path:inset(0)]">

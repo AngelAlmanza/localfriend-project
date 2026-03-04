@@ -10,7 +10,7 @@ export function HeroCTAComponent() {
   const router = useRouter();
   const { user } = useUserContext();
 
-  const t = useTranslations("Hero.cta");
+  const t = useTranslations("Landing.Hero.cta");
 
   const handleSignupAsWorker = () => {
     if (user) {

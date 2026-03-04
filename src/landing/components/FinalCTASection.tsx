@@ -3,7 +3,7 @@ import { MapPin, Store } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 export function FinalCTASection() {
-  const t = useTranslations("FinalCTA");
+  const t = useTranslations("Landing.FinalCTA");
 
   return (
     <section
