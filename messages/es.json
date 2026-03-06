@@ -196,7 +196,9 @@
       "emailErrorMessage": "El correo electrónico no es válido",
       "passwordErrorMessage": "La contraseña debe tener al menos 8 caracteres",
       "confirmPasswordErrorMessage": "Las contraseñas no coinciden",
-      "loginSuccess": "Inicio de sesión exitoso"
+      "loginSuccess": "Inicio de sesión exitoso",
+      "genericLoginError": "Email o contraseña incorrectos.",
+      "inactiveAccountError": "Tu cuenta ha sido desactivada. Contacta a soporte."
     },
     "register": {
       "title": "Regístrate",
@@ -213,10 +215,25 @@
       "toggleConfirmPasswordVisibility": "Mostrar/ocultar contraseña de confirmación",
       "emailErrorMessage": "El correo electrónico no es válido",
       "passwordErrorMessage": "La contraseña debe tener al menos 8 caracteres",
+      "passwordUppercaseErrorMessage": "La contraseña debe contener al menos una letra mayúscula",
+      "passwordNumberErrorMessage": "La contraseña debe contener al menos un número",
+      "passwordSpecialErrorMessage": "La contraseña debe contener al menos un carácter especial",
       "confirmPasswordErrorMessage": "Las contraseñas no coinciden",
       "roleErrorMessage": "Debes seleccionar un rol",
       "nameErrorMessage": "El nombre es requerido",
+      "termsAcceptedErrorMessage": "Debes aceptar los Términos de Uso y la Política de Privacidad",
       "registerSuccess": "Cuenta creada correctamente",
+      "genericRegisterError": "No fue posible completar el registro. Verifica tus datos.",
+      "termsAcceptedPrefix": "Acepto los",
+      "termsLink": "Términos de Uso y la Política de Privacidad",
+      "termsDialogTitle": "Términos de Uso y Política de Privacidad",
+      "passwordRequirements": {
+        "title": "La contraseña debe tener:",
+        "minLength": "Mínimo 8 caracteres",
+        "uppercase": "Al menos una letra mayúscula",
+        "number": "Al menos un número",
+        "special": "Al menos un carácter especial"
+      },
       "local": {
         "title": "Local",
         "description": "Para aquellos que buscan productos y servicios locales."
@@ -354,6 +371,52 @@
             "products": "Productos"
           }
         }
+      }
+    },
+    "categories": {
+      "page": {
+        "addButton": "Agregar categoría"
+      },
+      "table": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "updatedAt": "Última modificación",
+        "actions": "Acciones",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "noDescription": "Sin descripción",
+        "noData": "No se encontraron categorías",
+        "noDataDescription": "Crea tu primera categoría para comenzar"
+      },
+      "modal": {
+        "addTitle": "Agregar categoría",
+        "editTitle": "Editar categoría"
+      },
+      "deleteDialog": {
+        "title": "Eliminar categoría",
+        "description": "¿Estás seguro de que deseas eliminar la categoría \"{name}\"? Esta acción no se puede deshacer.",
+        "confirm": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "form": {
+        "name": "Nombre",
+        "description": "Descripción",
+        "imageUrl": "Imagen",
+        "save": "Guardar",
+        "namePlaceholder": "Ingresa el nombre de la categoría",
+        "descriptionPlaceholder": "Ingresa la descripción de la categoría",
+        "nameMinErrorMessage": "El nombre debe tener al menos 3 caracteres",
+        "nameMaxErrorMessage": "El nombre debe tener menos de 255 caracteres",
+        "descriptionMinErrorMessage": "La descripción debe tener al menos 10 caracteres",
+        "descriptionMaxErrorMessage": "La descripción debe tener menos de 255 caracteres",
+        "imageFileTooLargeErrorMessage": "La imagen debe pesar menos de 5MB",
+        "imageRequired": "La imagen es requerida",
+        "createdSuccessfully": "Categoría creada correctamente",
+        "updatedSuccessfully": "Categoría actualizada correctamente",
+        "deletedSuccessfully": "Categoría eliminada correctamente",
+        "creationFailed": "Error al crear la categoría",
+        "updateFailed": "Error al actualizar la categoría",
+        "deleteFailed": "Error al eliminar la categoría"
       }
     },
     "productCategories": {

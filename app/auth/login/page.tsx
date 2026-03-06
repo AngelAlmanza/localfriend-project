@@ -42,14 +42,21 @@ function LoginPage() {
     const result = await AuthService.login(data, supabaseClient)
 
     if (result.left) {
-      toast.error(result.left.message)
+      if (result.left.code === "INACTIVE_ACCOUNT") {
+        toast.error(t("inactiveAccountError"))
+      } else {
+        toast.error(t("genericLoginError"))
+      }
     } else {
       toast.success(t("loginSuccess"))
 
-      if (result.right.session.role === "local") {
-        redirect("/locals/search", RedirectType.replace)
-      } else {
+      const role = result.right.session.role
+      if (role === "admin") {
+        redirect("/admin/dashboard", RedirectType.replace)
+      } else if (role === "worker") {
         redirect("/workers/dashboard", RedirectType.replace)
+      } else {
+        redirect("/locals/search", RedirectType.replace)
       }
     }
 

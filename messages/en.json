@@ -196,7 +196,9 @@
       "emailErrorMessage": "Invalid email",
       "passwordErrorMessage": "Password must be at least 8 characters",
       "confirmPasswordErrorMessage": "Passwords do not match",
-      "loginSuccess": "Login successful"
+      "loginSuccess": "Login successful",
+      "genericLoginError": "Incorrect email or password.",
+      "inactiveAccountError": "Your account has been deactivated. Please contact support."
     },
     "register": {
       "title": "Register",
@@ -213,10 +215,25 @@
       "toggleConfirmPasswordVisibility": "Toggle confirm password visibility",
       "emailErrorMessage": "Invalid email",
       "passwordErrorMessage": "Password must be at least 8 characters",
+      "passwordUppercaseErrorMessage": "Password must contain at least one uppercase letter",
+      "passwordNumberErrorMessage": "Password must contain at least one number",
+      "passwordSpecialErrorMessage": "Password must contain at least one special character",
       "confirmPasswordErrorMessage": "Passwords do not match",
       "roleErrorMessage": "You must select a role",
       "nameErrorMessage": "Name is required",
+      "termsAcceptedErrorMessage": "You must accept the Terms of Use and Privacy Policy",
       "registerSuccess": "Account created successfully",
+      "genericRegisterError": "Registration could not be completed. Please check your details.",
+      "termsAcceptedPrefix": "I accept the",
+      "termsLink": "Terms of Use and Privacy Policy",
+      "termsDialogTitle": "Terms of Use and Privacy Policy",
+      "passwordRequirements": {
+        "title": "Password must have:",
+        "minLength": "At least 8 characters",
+        "uppercase": "At least one uppercase letter",
+        "number": "At least one number",
+        "special": "At least one special character"
+      },
       "local": {
         "title": "Local",
         "description": "For those looking for local products and services."
@@ -354,6 +371,52 @@
             "products": "Products"
           }
         }
+      }
+    },
+    "categories": {
+      "page": {
+        "addButton": "Add category"
+      },
+      "table": {
+        "name": "Name",
+        "description": "Description",
+        "updatedAt": "Last updated",
+        "actions": "Actions",
+        "edit": "Edit",
+        "delete": "Delete",
+        "noDescription": "No description",
+        "noData": "No categories found",
+        "noDataDescription": "Create your first category to get started"
+      },
+      "modal": {
+        "addTitle": "Add category",
+        "editTitle": "Edit category"
+      },
+      "deleteDialog": {
+        "title": "Delete category",
+        "description": "Are you sure you want to delete the category \"{name}\"? This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "form": {
+        "name": "Name",
+        "description": "Description",
+        "imageUrl": "Image",
+        "save": "Save",
+        "namePlaceholder": "Enter the name of the category",
+        "descriptionPlaceholder": "Enter the description of the category",
+        "nameMinErrorMessage": "The name must be at least 3 characters",
+        "nameMaxErrorMessage": "The name must be less than 255 characters",
+        "descriptionMinErrorMessage": "The description must be at least 10 characters",
+        "descriptionMaxErrorMessage": "The description must be less than 255 characters",
+        "imageFileTooLargeErrorMessage": "The image must be less than 5MB",
+        "imageRequired": "An image is required",
+        "createdSuccessfully": "Category created successfully",
+        "updatedSuccessfully": "Category updated successfully",
+        "deletedSuccessfully": "Category deleted successfully",
+        "creationFailed": "Failed to create category",
+        "updateFailed": "Failed to update category",
+        "deleteFailed": "Failed to delete category"
       }
     },
     "productCategories": {

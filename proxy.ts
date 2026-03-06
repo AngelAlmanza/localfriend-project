@@ -1,9 +1,10 @@
 import { updateSession } from "@shared/lib/supabase/proxy"
 import { type NextRequest } from "next/server"
 
-const privateRoutes = ['/workers', '/locals', '/admin'];
+const protectedRoutes = ['/workers', '/locals', '/admin', '/auth/login', '/auth/register'];
+
 export async function proxy(request: NextRequest) {
-  if (privateRoutes.some(r => request.nextUrl.pathname.startsWith(r))) {
+  if (protectedRoutes.some(r => request.nextUrl.pathname.startsWith(r))) {
     return await updateSession(request)
   }
 }

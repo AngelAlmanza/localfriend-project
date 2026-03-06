@@ -11,13 +11,11 @@ export class AuthService {
     data: RegisterDTO,
     supabase: SupabaseClient,
   ): Promise<Either<ISystemError, RegisterResponse>> {
-    // First, create account
+    // First, create account in Supabase Auth
     const { data: account, error: errorAccount } = await supabase.auth.signUp({
       email: data.email,
       password: data.password,
       options: {
-        // TODO: Add email redirect to
-        // emailRedirectTo: `${Environment.APP_URL}/auth/callback`,
         data: {
           name: data.name,
           role: data.role,
@@ -34,12 +32,14 @@ export class AuthService {
       };
     }
 
-    // Then, create user
+    const userId = account.user?.id ?? "";
     const now = new Date().toISOString();
-    const { data: user, error } = await supabase
+
+    // Then, create mirror record in public.users
+    const { data: user, error: userError } = await supabase
       .from("users")
       .insert({
-        id: account.user?.id,
+        id: userId,
         name: data.name,
         role: data.role,
         updated_at: now,
@@ -51,16 +51,22 @@ export class AuthService {
       .select()
       .single();
 
-    if (error) {
-      // Delete account
-      await supabase.auth.admin.deleteUser(account.user?.id ?? "");
+    if (userError) {
+      await supabase.auth.admin.deleteUser(userId);
       return {
         left: {
-          message: error.message,
-          code: error.code ?? "UNKNOWN_ERROR",
+          message: userError.message,
+          code: userError.code ?? "UNKNOWN_ERROR",
         },
       };
     }
+
+    // Create empty user_preferences record (UC-AUTH-01 step 9)
+    await supabase.from("user_preferences").insert({
+      user_id: userId,
+      created_at: now,
+      updated_at: now,
+    });
 
     return {
       right: {
@@ -95,7 +101,23 @@ export class AuthService {
       };
     }
 
-    // Role comes from the metadata of the user
+    // Check if account is active (UC-AUTH-02 step 3b)
+    const { data: userRecord } = await supabase
+      .from("users")
+      .select("is_active")
+      .eq("id", session.user.id)
+      .single();
+
+    if (userRecord && !userRecord.is_active) {
+      await supabase.auth.signOut();
+      return {
+        left: {
+          message: "INACTIVE_ACCOUNT",
+          code: "INACTIVE_ACCOUNT",
+        },
+      };
+    }
+
     return {
       right: {
         session: {
@@ -105,5 +127,9 @@ export class AuthService {
         }
       },
     };
+  }
+
+  static async logout(supabase: SupabaseClient): Promise<void> {
+    await supabase.auth.signOut();
   }
 }

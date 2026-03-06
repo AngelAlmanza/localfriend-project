@@ -73,10 +73,29 @@ test.describe("Auth - Register", () => {
   test("shows error when passwords do not match", async ({ page }) => {
     await page.getByTestId("register-name-input").fill("Test User")
     await page.getByTestId("register-email-input").fill("user@example.com")
-    await page.getByTestId("register-password-input").fill("password123")
-    await page.getByTestId("register-confirm-password-input").fill("different123")
+    await page.getByTestId("register-password-input").fill("Password1!")
+    await page.getByTestId("register-confirm-password-input").fill("Different1!")
     await page.getByTestId("register-submit-btn").click()
     await expect(page.locator("[aria-invalid='true']").first()).toBeVisible()
+  })
+
+  test("shows password requirements indicator while typing", async ({ page }) => {
+    await page.getByTestId("register-password-input").fill("a")
+    await expect(page.getByRole("list", { name: /password must have|contraseña debe tener/i })).toBeVisible()
+  })
+
+  test("terms checkbox is required to submit", async ({ page }) => {
+    await page.getByTestId("register-name-input").fill("Test User")
+    await page.getByTestId("register-email-input").fill("user@example.com")
+    await page.getByTestId("register-password-input").fill("Password1!")
+    await page.getByTestId("register-confirm-password-input").fill("Password1!")
+    // Do not check terms
+    await page.getByTestId("register-submit-btn").click()
+    await expect(page.locator("[aria-invalid='true']").first()).toBeVisible()
+  })
+
+  test("terms checkbox is visible", async ({ page }) => {
+    await expect(page.getByTestId("register-terms-checkbox")).toBeVisible()
   })
 
   test("has link to login page", async ({ page }) => {
