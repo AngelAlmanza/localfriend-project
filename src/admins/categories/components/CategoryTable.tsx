@@ -4,16 +4,16 @@ import { Pencil, Trash2 } from "lucide-react"
 import moment from "moment-timezone"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { ProductCategoryResponse } from "../interfaces/responses"
+import { CategoryItem } from "../types"
 
 type Props = {
-  categories: ProductCategoryResponse[]
-  handleEdit: (category: ProductCategoryResponse) => void
-  handleDeleteRequest: (category: ProductCategoryResponse) => void
+  categories: CategoryItem[]
+  handleEdit: (category: CategoryItem) => void
+  handleDeleteRequest: (category: CategoryItem) => void
 }
 
-export const ProductCategoriesTable = ({ categories, handleDeleteRequest, handleEdit }: Props) => {
-  const t = useTranslations("Admins.productCategories")
+export const CategoryTable = ({ categories, handleDeleteRequest, handleEdit }: Props) => {
+  const t = useTranslations("Admins.categories")
 
   const formatDate = (dateStr: string) => {
     return moment.tz(dateStr, moment.tz.guess()).format("DD/MM/YYYY HH:mm")

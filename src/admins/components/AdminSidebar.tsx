@@ -2,7 +2,7 @@
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { BarChartIcon, LayoutDashboardIcon, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { BarChartIcon, BoxesIcon, LayoutDashboardIcon, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -15,36 +15,42 @@ export const AdminSidebar = () => {
   const sidebarGeneralItems = useMemo(() => [
     {
       label: t("groups.general.items.dashboard"),
-      href: "/admin/dashboard",
+      href: "/admin",
       icon: LayoutDashboardIcon,
-    },
-    {
-      label: t("groups.general.items.reports"),
-      href: "/admin/reports",
-      icon: BarChartIcon,
+      exact: true,
     },
     {
       label: t("groups.general.items.users"),
       href: "/admin/users",
       icon: UserIcon,
+      exact: false,
+    },
+    {
+      label: t("groups.general.items.reports"),
+      href: "/admin/reports",
+      icon: BarChartIcon,
+      exact: false,
     },
     {
       label: t("groups.general.items.settings"),
       href: "/admin/settings",
       icon: SettingsIcon,
+      exact: false,
     },
   ], [t])
 
   const sidebarCategoriesItems = useMemo(() => [
     {
-      label: t("groups.categories.items.services"),
-      href: "/admin/service-categories",
+      label: t("groups.categories.items.products"),
+      href: "/admin/categories/products",
       icon: PackageIcon,
+      exact: false,
     },
     {
-      label: t("groups.categories.items.products"),
-      href: "/admin/product-categories",
-      icon: PackageIcon,
+      label: t("groups.categories.items.services"),
+      href: "/admin/categories/services",
+      icon: BoxesIcon,
+      exact: false,
     },
   ], [t])
 
@@ -59,12 +65,12 @@ export const AdminSidebar = () => {
             {sidebarGeneralItems.map((item) => (
               <SidebarMenuItem
                 key={item.href}
-                className={cn(pathname.startsWith(item.href) && "bg-sidebar-accent text-sidebar-accent-foreground", "rounded-md")}
+                className={cn(
+                  (item.exact ? pathname === item.href : pathname.startsWith(item.href)) && "bg-sidebar-accent text-sidebar-accent-foreground",
+                  "rounded-md"
+                )}
               >
-                <SidebarMenuButton
-                  asChild
-                  className="w-full"
-                >
+                <SidebarMenuButton asChild className="w-full">
                   <Link href={item.href} className="flex">
                     <item.icon className="size-4" />
                     <span>{item.label}</span>
@@ -84,10 +90,7 @@ export const AdminSidebar = () => {
                 key={item.href}
                 className={cn(pathname.startsWith(item.href) && "bg-sidebar-accent text-sidebar-accent-foreground", "rounded-md")}
               >
-                <SidebarMenuButton
-                  asChild
-                  className="w-full"
-                >
+                <SidebarMenuButton asChild className="w-full">
                   <Link href={item.href} className="flex">
                     <item.icon className="size-4" />
                     <span>{item.label}</span>

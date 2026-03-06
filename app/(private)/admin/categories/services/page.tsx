@@ -1,7 +1,8 @@
-import { ServiceCategoriesPageClient } from "@/src/service-categories/components/ServiceCategoriesPageClient"
-import { ServiceCategoriesTableSkeleton } from "@/src/service-categories/components/ServiceCategoriesTableSkeleton"
+import { ServiceCategoriesClient } from "@/src/service-categories/components/ServiceCategoriesClient"
+import { CategoryTableSkeleton } from "@/src/admins/categories/components/CategoryTableSkeleton"
 import { ServiceCategoriesService } from "@/src/service-categories/services/ServiceCategoriesService"
 import { createClient } from "@/src/shared/lib/supabase/server"
+import { CategoryItem } from "@/src/admins/categories/types"
 import { Suspense } from "react"
 
 async function ServiceCategoriesContent() {
@@ -16,13 +17,13 @@ async function ServiceCategoriesContent() {
     )
   }
 
-  return <ServiceCategoriesPageClient categories={categories ?? []} />
+  return <ServiceCategoriesClient categories={(categories ?? []) as CategoryItem[]} />
 }
 
 export default function ServiceCategoriesPage() {
   return (
     <div className="p-6">
-      <Suspense fallback={<ServiceCategoriesTableSkeleton />}>
+      <Suspense fallback={<CategoryTableSkeleton />}>
         <ServiceCategoriesContent />
       </Suspense>
     </div>

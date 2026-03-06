@@ -2,22 +2,22 @@
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useTranslations } from "next-intl";
-import { ServiceCategoryResponse } from "../interfaces/responses";
+import { CategoryItem } from "../types";
 
 type Props = {
   isDeleting: boolean;
-  deleteTarget: ServiceCategoryResponse | null
+  deleteTarget: CategoryItem | null;
   handleDeleteConfirm: () => void;
   handleOpenChange: (open: boolean) => void;
 }
 
-export const DeleteConfirmationDialog = ({
+export const CategoryDeleteDialog = ({
   handleDeleteConfirm,
   handleOpenChange,
   isDeleting,
   deleteTarget,
 }: Props) => {
-  const t = useTranslations("Admins.serviceCategories")
+  const t = useTranslations("Admins.categories")
 
   return (
     <AlertDialog open={!!deleteTarget} onOpenChange={handleOpenChange}>

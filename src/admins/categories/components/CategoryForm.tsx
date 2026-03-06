@@ -16,30 +16,29 @@ import Image from "next/image"
 import { useRef, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { ServiceCategoryResponse } from "../interfaces/responses"
-import { buildServiceCategorySchema, ServiceCategorySchema } from "../schema/service-category.schema"
-import { ServiceCategoriesService } from "../services/ServiceCategoriesService"
+import { buildCategorySchema, CategorySchema } from "../schema/category.schema"
+import { CategoryItem, CategorySaveDTO } from "../types"
 
-const BUCKET_NAME = "service-categories"
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+const FORM_ID = "category-form"
 
-interface ServiceCategoriesFormProps {
-  initialValues: ServiceCategorySchema
+interface CategoryFormProps {
+  initialValues: CategorySchema
   id: string | null
+  bucketName: string
+  onSave: (dto: CategorySaveDTO) => Promise<Either<ISystemError, CategoryItem>>
   onSuccess?: () => void
 }
 
-const FORM_ID = "service-categories-form"
-
-export const ServiceCategoriesForm = ({ initialValues, id, onSuccess }: ServiceCategoriesFormProps) => {
-  const t = useTranslations("Admins.serviceCategories.form")
+export const CategoryForm = ({ initialValues, id, bucketName, onSave, onSuccess }: CategoryFormProps) => {
+  const t = useTranslations("Admins.categories.form")
   const [isLoading, setIsLoading] = useState(false)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [fileError, setFileError] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const form = useForm<ServiceCategorySchema>({
-    resolver: zodResolver(buildServiceCategorySchema({
+  const form = useForm<CategorySchema>({
+    resolver: zodResolver(buildCategorySchema({
       nameMinErrorMessage: t("nameMinErrorMessage"),
       nameMaxErrorMessage: t("nameMaxErrorMessage"),
       descriptionMinErrorMessage: t("descriptionMinErrorMessage"),
@@ -60,7 +59,7 @@ export const ServiceCategoriesForm = ({ initialValues, id, onSuccess }: ServiceC
     setSelectedFile(file)
   }
 
-  const onSubmit = async (values: ServiceCategorySchema) => {
+  const onSubmit = async (values: CategorySchema) => {
     const existingImageUrl = values.imageUrl ?? ""
 
     if (!selectedFile && !existingImageUrl) {
@@ -74,54 +73,34 @@ export const ServiceCategoriesForm = ({ initialValues, id, onSuccess }: ServiceC
 
     if (selectedFile) {
       const ext = selectedFile.name.split(".").pop()
-      const path = getFileName(ext ?? "");
+      const path = getFileName(ext ?? "")
       const { left: uploadError, right: uploadedUrl } = await StorageService.uploadFile(
         selectedFile,
-        BUCKET_NAME,
+        bucketName,
         path,
         supabase,
       )
 
       if (uploadError) {
-        console.log(uploadError)
         toast.error(uploadError.message)
         setIsLoading(false)
         return
       }
 
       if (id && existingImageUrl) {
-        const oldPath = StorageService.getPathFromUrl(existingImageUrl, BUCKET_NAME)
-        if (oldPath) await StorageService.deleteFile(BUCKET_NAME, oldPath, supabase)
+        const oldPath = StorageService.getPathFromUrl(existingImageUrl, bucketName)
+        if (oldPath) await StorageService.deleteFile(bucketName, oldPath, supabase)
       }
 
       imageUrl = uploadedUrl!
     }
 
-    let promise: Promise<Either<ISystemError, ServiceCategoryResponse>>
-
-    if (id) {
-      promise = ServiceCategoriesService.updateServiceCategory({
-        id,
-        name: values.name,
-        description: values.description ?? "",
-        imageUrl,
-      }, supabase)
-    } else {
-      promise = ServiceCategoriesService.createServiceCategory({
-        name: values.name,
-        description: values.description ?? "",
-        imageUrl,
-      }, supabase)
-    }
-
-    const { left, right } = await promise
+    const { left, right } = await onSave({ id, name: values.name, description: values.description ?? "", imageUrl })
     if (right) {
-      const successKey = id ? "serviceCategoryUpdatedSuccessfully" : "serviceCategoryCreatedSuccessfully"
-      toast.success(t(successKey))
+      toast.success(t(id ? "updatedSuccessfully" : "createdSuccessfully"))
       onSuccess?.()
     } else {
-      const errorKey = id ? "serviceCategoryUpdateFailed" : "serviceCategoryCreationFailed"
-      toast.error(left?.message ?? t(errorKey))
+      toast.error(left?.message ?? t(id ? "updateFailed" : "creationFailed"))
     }
     setIsLoading(false)
   }

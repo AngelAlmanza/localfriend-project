@@ -2,14 +2,27 @@ import AxeBuilder from "@axe-core/playwright"
 import { expect, test } from "@playwright/test"
 
 /**
- * These tests run against the admin product categories page.
+ * These tests run against the admin categories pages.
  * They require an authenticated session — if unauthenticated, they verify redirect behaviour.
  */
 test.describe("Admin - Product Categories (unauthenticated)", () => {
-  test("redirects unauthenticated users away from admin area", async ({ page }) => {
-    await page.goto("/admin/product-categories")
-    // Should redirect to login or landing — not stay on admin page
-    await expect(page).not.toHaveURL(/admin\/product-categories/)
+  test("redirects unauthenticated users away from product categories page", async ({ page }) => {
+    await page.goto("/admin/categories/products")
+    await expect(page).not.toHaveURL(/admin\/categories\/products/)
+  })
+})
+
+test.describe("Admin - Service Categories (unauthenticated)", () => {
+  test("redirects unauthenticated users away from service categories page", async ({ page }) => {
+    await page.goto("/admin/categories/services")
+    await expect(page).not.toHaveURL(/admin\/categories\/services/)
+  })
+})
+
+test.describe("Admin - Dashboard (unauthenticated)", () => {
+  test("redirects unauthenticated users away from admin dashboard", async ({ page }) => {
+    await page.goto("/admin")
+    await expect(page).not.toHaveURL(/^\/admin$/)
   })
 })
 
