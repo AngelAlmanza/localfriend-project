@@ -7,8 +7,10 @@ import { Input } from "@/components/ui/input"
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group"
 import { buildLoginSchema, LoginSchema } from "@/src/auth/schemas/login.schema"
 import { AuthService } from "@/src/auth/services/AuthService"
+import { setUserPreferencesCookie } from "@/src/shared/actions/user-preferences.action"
 import { LoadingIcon } from "@/src/shared/components/LoadingIcon"
 import { createClient } from "@/src/shared/lib/supabase/client"
+import { UserPreferencesService } from "@/src/shared/services/UserPreferencesService"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeOff } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -49,6 +51,18 @@ function LoginPage() {
       }
     } else {
       toast.success(t("loginSuccess"))
+
+      // Store user preferences in cookie for reuse
+      const userId = result.right.session.user?.id
+      if (userId) {
+        const { right: prefs } = await UserPreferencesService.getUserPreferences(
+          userId,
+          supabaseClient,
+        )
+        if (prefs) {
+          await setUserPreferencesCookie(prefs)
+        }
+      }
 
       const role = result.right.session.role
       if (role === "admin") {

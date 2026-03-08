@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/src/shared/providers/UserProvider";
@@ -14,7 +14,7 @@ export function HeroCTAComponent() {
 
   const handleSignupAsWorker = () => {
     if (user) {
-      router.push("/workers");
+      router.push("/workers/dashboard");
     } else {
       router.push("/auth/register?registerAs=worker");
     }

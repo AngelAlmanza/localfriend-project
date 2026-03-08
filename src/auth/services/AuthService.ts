@@ -1,4 +1,3 @@
-
 import { ISystemError } from "@/src/shared/interfaces/ISystemError";
 import { Either } from "@/src/shared/types/either";
 import { SystemRole } from "@/src/shared/types/systemRoles";
@@ -20,7 +19,7 @@ export class AuthService {
           name: data.name,
           role: data.role,
         },
-      }
+      },
     });
 
     if (errorAccount) {
@@ -45,7 +44,6 @@ export class AuthService {
         updated_at: now,
         created_at: now,
         email: data.email,
-        password_hash: "",
         is_active: true,
       })
       .select()
@@ -78,7 +76,7 @@ export class AuthService {
         session: {
           session: account.session,
           user: account.user,
-        }
+        },
       },
     };
   }
@@ -87,10 +85,11 @@ export class AuthService {
     data: LoginDTO,
     supabase: SupabaseClient,
   ): Promise<Either<ISystemError, LoginResponse>> {
-    const { data: session, error: errorSession } = await supabase.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    });
+    const { data: session, error: errorSession } =
+      await supabase.auth.signInWithPassword({
+        email: data.email,
+        password: data.password,
+      });
 
     if (errorSession) {
       return {
@@ -124,7 +123,7 @@ export class AuthService {
           session: session.session,
           user: session.user,
           role: session.user?.user_metadata.role as SystemRole,
-        }
+        },
       },
     };
   }
