@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef } from "react"
 import { DEBOUNCED_SEARCH_DELAY, PAGE_SIZE, PREFETCH_THRESHOLD } from "../constants/filterDefaultValues"
 import { SearchService } from "../services/SearchService"
 import { useLocalsSearchStore, SearchFiltersState } from "../store/locals"
+import { useLocalsDataStore } from "../store/localsData"
 
 const serializeFilters = (f: SearchFiltersState) => JSON.stringify(f)
 
@@ -22,14 +23,18 @@ export const useInfiniteSearch = () => {
     isLoading,
     isLoadingMore,
     filters,
+    lastFetchedFilters,
     setResults,
     setTotal,
     setPage,
     setHasMore,
     setIsLoading,
     setIsLoadingMore,
+    setLastFetchedFilters,
     appendResults,
   } = useLocalsSearchStore()
+
+  const { favoriteProductIds, favoriteServiceIds, favoritesLoaded } = useLocalsDataStore()
 
   // Debounce the entire filters object so a single query fires after
   // the last filter change, regardless of which filter changed
@@ -42,7 +47,16 @@ export const useInfiniteSearch = () => {
 
   const fetchResults = useCallback(
     async (pageNum: number, append = false) => {
-      if (!user) return
+      if (!user || !favoritesLoaded) return
+
+      const currentFiltersSerialized = serializeFilters(debouncedFilters)
+
+      // Skip refetch when remounting (tab switch, minimize) with unchanged filters and existing results.
+      // Use getState() to read results without adding them to the callback deps.
+      if (!append && pageNum === 1) {
+        const hasResults = useLocalsSearchStore.getState().results.length > 0
+        if (hasResults && lastFetchedFilters === currentFiltersSerialized) return
+      }
 
       if (append) {
         setIsLoadingMore(true)
@@ -63,6 +77,7 @@ export const useInfiniteSearch = () => {
         },
         pageNum,
         PAGE_SIZE,
+        { productIds: favoriteProductIds, serviceIds: favoriteServiceIds },
       )
 
       if (right) {
@@ -70,6 +85,7 @@ export const useInfiniteSearch = () => {
           appendResults(right.data)
         } else {
           setResults(right.data)
+          setLastFetchedFilters(currentFiltersSerialized)
         }
         setTotal(right.total)
         setPage(pageNum)
@@ -85,8 +101,10 @@ export const useInfiniteSearch = () => {
     },
     [
       user, supabase, debouncedFilters,
+      favoriteProductIds, favoriteServiceIds, favoritesLoaded,
+      lastFetchedFilters,
       setResults, appendResults, setTotal, setPage, setHasMore,
-      setIsLoading, setIsLoadingMore,
+      setIsLoading, setIsLoadingMore, setLastFetchedFilters,
     ],
   )
 

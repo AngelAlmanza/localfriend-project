@@ -4,11 +4,13 @@ import { useCallback, useMemo, useState } from "react"
 import { SearchListingType } from "../interfaces/Local"
 import { FavoritesService } from "../services/FavoritesService"
 import { useLocalsSearchStore } from "../store/locals"
+import { useLocalsDataStore } from "../store/localsData"
 
 export const useFavoriteToggle = () => {
   const supabase = useMemo(() => createClient(), [])
   const { user } = useUserContext()
   const { toggleResultFavorite } = useLocalsSearchStore()
+  const { toggleFavorite } = useLocalsDataStore()
   const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set())
 
   const toggle = useCallback(
@@ -26,6 +28,7 @@ export const useFavoriteToggle = () => {
 
       if (right !== undefined && left === undefined) {
         toggleResultFavorite(listingId, right)
+        toggleFavorite(listingId, type, right)
       }
 
       setTogglingIds((prev) => {
@@ -36,7 +39,7 @@ export const useFavoriteToggle = () => {
 
       return right
     },
-    [user, supabase, toggleResultFavorite, togglingIds],
+    [user, supabase, toggleResultFavorite, toggleFavorite, togglingIds],
   )
 
   const isToggling = useCallback(

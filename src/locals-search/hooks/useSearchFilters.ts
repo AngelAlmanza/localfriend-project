@@ -1,30 +1,14 @@
-import { createClient } from "@/src/shared/lib/supabase/client"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { DEFAULT_PRICE_RANGE_MAX, DEFAULT_PRICE_RANGE_MIN } from "../constants/filterDefaultValues"
-import { CategoryOption, SearchContentType } from "../interfaces/Local"
-import { CategoriesService } from "../services/CategoriesService"
+import { SearchContentType } from "../interfaces/Local"
 import { useLocalsSearchStore } from "../store/locals"
+import { useLocalsDataStore } from "../store/localsData"
 
 export const useSearchFilters = () => {
   const { filters, setFilters } = useLocalsSearchStore()
+  const { productCategories, serviceCategories } = useLocalsDataStore()
 
   const [showFiltersSection, setShowFiltersSection] = useState(false)
-  const [productCategories, setProductCategories] = useState<CategoryOption[]>([])
-  const [serviceCategories, setServiceCategories] = useState<CategoryOption[]>([])
-
-  // Fetch both category lists on mount
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const client = createClient()
-      const [prodResult, svcResult] = await Promise.all([
-        CategoriesService.getProductCategories(client),
-        CategoriesService.getServiceCategories(client),
-      ])
-      if (prodResult.right) setProductCategories(prodResult.right)
-      if (svcResult.right) setServiceCategories(svcResult.right)
-    }
-    fetchCategories()
-  }, [])
 
   const handleToggleFiltersSection = useCallback(() => {
     setShowFiltersSection((prev) => !prev)

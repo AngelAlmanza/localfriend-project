@@ -12,12 +12,8 @@ import { createClient } from "@/src/shared/lib/supabase/client"
 import { Bookmark, Clock, LogOut, MessageSquare, Search, UserCircle } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { toast } from "sonner"
-
-interface HeaderProps {
-  activeTab: string
-}
 
 const NAV_TABS = [
   { id: "search", icon: Search },
@@ -26,7 +22,9 @@ const NAV_TABS = [
   { id: "recent", icon: Clock },
 ] as const
 
-export const Header = ({ activeTab }: HeaderProps) => {
+export const Header = () => {
+  const pathname = usePathname();
+  const activeTab = pathname.split('/')[2];
   const t = useTranslations("Locals.header.tabs")
   const tMenu = useTranslations("Shared.profile.userMenu")
   const router = useRouter()

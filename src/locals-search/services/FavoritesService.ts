@@ -63,6 +63,44 @@ export class FavoritesService {
     }
   }
 
+  static async getFavoritesId(
+    userId: string,
+    supabase: SupabaseClient,
+  ): Promise<Either<ISystemError, { productIds: string[]; serviceIds: string[] }>> {
+    try {
+      const [{ data: productFavs, error: pError }, { data: serviceFavs, error: sError }] =
+        await Promise.all([
+          supabase
+            .from("product_favorites")
+            .select("product_id")
+            .eq("user_id", userId),
+          supabase
+            .from("service_favorites")
+            .select("service_id")
+            .eq("user_id", userId),
+        ]);
+
+      if (pError) {
+        return { left: { message: pError.message, code: pError.code ?? "UNKNOWN_ERROR" } };
+      }
+
+      if (sError) {
+        return { left: { message: sError.message, code: sError.code ?? "UNKNOWN_ERROR" } };
+      }
+
+      return {
+        right: {
+          productIds: (productFavs ?? []).map((p) => p.product_id),
+          serviceIds: (serviceFavs ?? []).map((s) => s.service_id),
+        },
+      };
+    } catch (error) {
+      return {
+        left: { message: (error as Error).message, code: "UNKNOWN_ERROR" },
+      };
+    }
+  }
+
   static async getFavorites(
     userId: string,
     supabase: SupabaseClient,

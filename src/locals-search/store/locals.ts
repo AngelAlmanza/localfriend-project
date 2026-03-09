@@ -43,10 +43,14 @@ interface LocalsSearchState {
   filters: SearchFiltersState;
   setFilters: (filters: Partial<SearchFiltersState>) => void;
 
-  // Favorites toggle in results
+  // Update favorited state on search results after a toggle
   toggleResultFavorite: (id: string, isFavorited: boolean) => void;
 
-  // Reset
+  // Tracks the serialized filters of the last completed fetch (persists across remounts)
+  lastFetchedFilters: string | null;
+  setLastFetchedFilters: (filters: string) => void;
+
+  // Reset search results and filters only
   resetSearch: () => void;
 }
 
@@ -68,6 +72,7 @@ const INITIAL_STATE = {
   selectedDetail: null as SearchResultDetail | null,
   isLoadingDetail: false,
   filters: INITIAL_FILTERS,
+  lastFetchedFilters: null as string | null,
 };
 
 export const useLocalsSearchStore = create<LocalsSearchState>((set) => ({
@@ -92,14 +97,14 @@ export const useLocalsSearchStore = create<LocalsSearchState>((set) => ({
 
   toggleResultFavorite: (id, isFavorited) =>
     set((state) => ({
-      results: state.results.map((r) =>
-        r.id === id ? { ...r, isFavorited } : r,
-      ),
+      results: state.results.map((r) => (r.id === id ? { ...r, isFavorited } : r)),
       selectedDetail:
         state.selectedDetail?.id === id
           ? { ...state.selectedDetail, isFavorited }
           : state.selectedDetail,
     })),
+
+  setLastFetchedFilters: (filters) => set({ lastFetchedFilters: filters }),
 
   resetSearch: () => set(INITIAL_STATE),
 }));

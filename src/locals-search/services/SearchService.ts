@@ -6,7 +6,7 @@ import {
   SearchFilters,
   SearchResultDetail,
   SearchResultItem,
-  SearchVariant
+  SearchVariant,
 } from "../interfaces/Local";
 import { SearchProductService } from "./SearchProductService";
 import { SearchServiceService } from "./SearchServiceService";
@@ -20,6 +20,7 @@ export class SearchService {
     filters: SearchFilters,
     page = 1,
     pageSize = DEFAULT_PAGE_SIZE,
+    preloadedFavorites: { productIds: Set<string>; serviceIds: Set<string> },
   ): Promise<Either<ISystemError, IPaginatedResponse<SearchResultItem>>> {
     try {
       const products: SearchResultItem[] = [];
@@ -27,35 +28,9 @@ export class SearchService {
       let productTotal = 0;
       let serviceTotal = 0;
 
-      // Fetch user's favorite IDs for marking
-      const favoriteProductIds = new Set<string>();
-      const favoriteServiceIds = new Set<string>();
-
-      if (
-        filters.contentType === "products" ||
-        filters.contentType === "both"
-      ) {
-        const { data: favProducts } = await supabase
-          .from("product_favorites")
-          .select("product_id")
-          .eq("user_id", userId);
-        for (const f of favProducts ?? []) {
-          favoriteProductIds.add(f.product_id);
-        }
-      }
-
-      if (
-        filters.contentType === "services" ||
-        filters.contentType === "both"
-      ) {
-        const { data: favServices } = await supabase
-          .from("service_favorites")
-          .select("service_id")
-          .eq("user_id", userId);
-        for (const f of favServices ?? []) {
-          favoriteServiceIds.add(f.service_id);
-        }
-      }
+      // Use preloaded favorites when available to avoid extra DB queries on every search
+      const favoriteProductIds: Set<string> = preloadedFavorites.productIds;
+      const favoriteServiceIds: Set<string> = preloadedFavorites.serviceIds;
 
       // --- SUBSCRIPTION BYPASS ---
       // TODO: When subscriptions are implemented, add a filter to only show
