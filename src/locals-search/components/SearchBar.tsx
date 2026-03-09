@@ -1,39 +1,57 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Field, FieldGroup } from "@/components/ui/field";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Slider } from "@/components/ui/slider";
-import { cn } from "@/lib/utils";
-import { formatCurrency } from "@/src/shared/utils/formatCurrency";
-import { SearchIcon, SlidersVertical, StarIcon, Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { DEFAULT_PRICE_RANGE, DEFAULT_PRICE_RANGE_MAX, DEFAULT_PRICE_STEP, DEFAULT_RATING, DEFAULT_RATING_MAX, DEFAULT_RATING_STEP, DEFAULT_SORT } from "../constants/filterDefaultValues";
-import { useSearchFilters } from "../hooks/useSearchFilters";
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Field, FieldGroup } from "@/components/ui/field"
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
+import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Slider } from "@/components/ui/slider"
+import { cn } from "@/lib/utils"
+import { formatCurrency } from "@/src/shared/utils/formatCurrency"
+import { Package, SearchIcon, SlidersVertical, Trash2, Wrench } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { SearchContentType } from "../interfaces/Local"
+import { useSearchFilters } from "../hooks/useSearchFilters"
 
 export const SearchBar = () => {
-  const t = useTranslations("Locals.search");
+  const t = useTranslations("Locals.search")
   const {
     showFiltersSection,
     handleToggleFiltersSection,
-    filters,
-    updateFilter,
+    contentType,
+    handleContentTypeChange,
+    productCategories,
+    serviceCategories,
+    selectedProductCategories,
+    selectedServiceCategories,
+    handleProductCategoryToggle,
+    handleServiceCategoryToggle,
+    priceRange,
+    handlePriceRangeChange,
+    searchText,
+    handleSearchTextChange,
     handleClearFilters,
-  } = useSearchFilters();
+  } = useSearchFilters()
+
+  const contentTypes: { value: SearchContentType; label: string; icon: React.ReactNode }[] = [
+    { value: "both", label: t("filters.typeAll"), icon: null },
+    { value: "products", label: t("filters.typeProducts"), icon: <Package className="size-3.5" /> },
+    { value: "services", label: t("filters.typeServices"), icon: <Wrench className="size-3.5" /> },
+  ]
+
+  const hasCategories = productCategories.length > 0 || serviceCategories.length > 0
 
   return (
-    <aside className="w-full">
-      <div className="flex gap-4 items-center w-full justify-center">
-        <div className="w-4/5">
+    <aside className="w-full space-y-4" data-testid="search-bar">
+      <div className="flex gap-3 items-center w-full">
+        <div className="flex-1">
           <InputGroup className="py-6">
             <InputGroupInput
               placeholder={t("searchInputPlaceholder")}
-              value={filters.search}
-              onChange={(e) => updateFilter("search", e.target.value)}
+              value={searchText}
+              onChange={(e) => handleSearchTextChange(e.target.value)}
+              data-testid="search-input"
             />
             <InputGroupAddon>
               <SearchIcon className="size-4" />
@@ -41,113 +59,129 @@ export const SearchBar = () => {
           </InputGroup>
         </div>
 
-        <div>
-          <Button
-            onClick={handleToggleFiltersSection}
-            className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-6 rounded-md text-md font-semibold transition-all duration-300 col-span-1 cursor-pointer"
-          >
-            <SlidersVertical className="size-4" />
-            {t("searchFilters.btnText")}
-          </Button>
-          {/* <Button
-            variant="primary"
-            className="px-4 py-6 rounded-md text-md font-semibold transition-all duration-300 shadow-lg hover:shadow-xl col-span-1"
-            onClick={handleSearch}
-          >
-            {t("searchButton")}
-          </Button> */}
-        </div>
+        <Button
+          onClick={handleToggleFiltersSection}
+          className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-6 rounded-md text-md font-semibold transition-all duration-300 cursor-pointer"
+          data-testid="search-filters-toggle"
+        >
+          <SlidersVertical className="size-4" />
+          {t("filters.btnText")}
+        </Button>
       </div>
 
-      <div className={cn("hidden mt-4", showFiltersSection ? "grid grid-cols-3 gap-4 h-48" : "hidden")}>
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <p className="text-lg font-bold text-gray-900">
-              {t("searchFilters.priceRange", { min: formatCurrency(filters.price[0]), max: formatCurrency(filters.price[1]) })}
+      {/* Content type pills */}
+      <div className="flex gap-2" data-testid="search-content-type-pills">
+        {contentTypes.map((ct) => (
+          <button
+            key={ct.value}
+            onClick={() => handleContentTypeChange(ct.value)}
+            data-testid={`search-type-${ct.value}`}
+            className={cn(
+              "flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer",
+              contentType === ct.value
+                ? "bg-primary text-white shadow-sm"
+                : "bg-gray-100 text-gray-600 hover:bg-gray-200",
+            )}
+          >
+            {ct.icon}
+            {ct.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Expanded filters */}
+      <div
+        className={cn(
+          "overflow-hidden transition-all duration-300",
+          showFiltersSection ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0",
+        )}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 pb-2 border-t border-gray-100">
+          {/* Price range */}
+          <div className="space-y-4">
+            <p className="text-sm font-semibold text-gray-900">
+              {t("filters.priceRange", {
+                min: formatCurrency(priceRange[0]),
+                max: formatCurrency(priceRange[1]),
+              })}
             </p>
             <Slider
-              defaultValue={[...DEFAULT_PRICE_RANGE]}
-              max={DEFAULT_PRICE_RANGE_MAX}
-              step={DEFAULT_PRICE_STEP}
+              value={[...priceRange]}
+              max={10000}
+              step={50}
               className="w-full"
-              value={filters.price}
-              onValueChange={(value) => updateFilter("price", value)}
+              onValueChange={handlePriceRangeChange}
             />
           </div>
+
+          {/* Categories from API - separated by type */}
           <div className="space-y-3">
-            <p className="text-lg font-bold text-gray-900 flex items-center gap-2">
-              {t("searchFilters.rating")}
-              <span className="flex items-center gap-1">
-                <StarIcon className="size-4 text-yellow-500" /> {filters.rating[0]}
-              </span>
+            <p className="text-sm font-semibold text-gray-900">
+              {t("filters.categories")}
             </p>
-            <Slider
-              defaultValue={[DEFAULT_RATING]}
-              max={DEFAULT_RATING_MAX}
-              step={DEFAULT_RATING_STEP}
-              className="w-full"
-              value={filters.rating}
-              onValueChange={(value) => updateFilter("rating", value)}
-            />
+            <ScrollArea className="h-48">
+              {!hasCategories && (
+                <p className="text-xs text-gray-400">{t("filters.noCategories")}</p>
+              )}
+
+              {/* Product categories */}
+              {productCategories.length > 0 && (
+                <div className="space-y-2 mb-3">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center gap-1.5">
+                    <Package className="size-3" />
+                    {t("filters.typeProducts")}
+                  </p>
+                  <FieldGroup>
+                    {productCategories.map((cat) => (
+                      <Field key={cat.id} orientation="horizontal">
+                        <Checkbox
+                          id={`cat-${cat.id}`}
+                          checked={selectedProductCategories.includes(cat.id)}
+                          onCheckedChange={() => handleProductCategoryToggle(cat.id)}
+                        />
+                        <Label htmlFor={`cat-${cat.id}`}>{cat.name}</Label>
+                      </Field>
+                    ))}
+                  </FieldGroup>
+                </div>
+              )}
+
+              {/* Service categories */}
+              {serviceCategories.length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide flex items-center gap-1.5">
+                    <Wrench className="size-3" />
+                    {t("filters.typeServices")}
+                  </p>
+                  <FieldGroup>
+                    {serviceCategories.map((cat) => (
+                      <Field key={cat.id} orientation="horizontal">
+                        <Checkbox
+                          id={`cat-${cat.id}`}
+                          checked={selectedServiceCategories.includes(cat.id)}
+                          onCheckedChange={() => handleServiceCategoryToggle(cat.id)}
+                        />
+                        <Label htmlFor={`cat-${cat.id}`}>{cat.name}</Label>
+                      </Field>
+                    ))}
+                  </FieldGroup>
+                </div>
+              )}
+            </ScrollArea>
           </div>
-        </div>
 
-        <div className="space-y-4">
-          <p className="text-lg font-bold text-gray-900">{t("searchFilters.categories")}</p>
-          <ScrollArea className="h-36">
-            <FieldGroup>
-              <Field orientation="horizontal">
-                <Checkbox id="food" name="food" />
-                <Label htmlFor="food">{t("searchFilters.categoriesCheckbox.food")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="health" name="health" />
-                <Label htmlFor="health">{t("searchFilters.categoriesCheckbox.health")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="beauty" name="beauty" />
-                <Label htmlFor="beauty">{t("searchFilters.categoriesCheckbox.beauty")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="electronics" name="electronics" />
-                <Label htmlFor="electronics">{t("searchFilters.categoriesCheckbox.electronics")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="home" name="home" />
-                <Label htmlFor="home">{t("searchFilters.categoriesCheckbox.home")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="sports" name="sports" />
-                <Label htmlFor="sports">{t("searchFilters.categoriesCheckbox.sports")}</Label>
-              </Field>
-              <Field orientation="horizontal">
-                <Checkbox id="tools" name="tools" />
-                <Label htmlFor="tools">{t("searchFilters.categoriesCheckbox.tools")}</Label>
-              </Field>
-            </FieldGroup>
-          </ScrollArea>
-        </div>
-
-        <div className="flex flex-col gap-4 items-end">
-          <Select value={filters.sort} onValueChange={(value) => updateFilter("sort", value)}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder={t("searchFilters.sort")} defaultValue={DEFAULT_SORT} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="name-asc">{t("searchFilters.sortOptions.name-asc")}</SelectItem>
-                <SelectItem value="name-desc">{t("searchFilters.sortOptions.name-desc")}</SelectItem>
-                <SelectItem value="price-asc">{t("searchFilters.sortOptions.price-asc")}</SelectItem>
-                <SelectItem value="price-desc">{t("searchFilters.sortOptions.price-desc")}</SelectItem>
-                <SelectItem value="rating-asc">{t("searchFilters.sortOptions.rating-asc")}</SelectItem>
-                <SelectItem value="rating-desc">{t("searchFilters.sortOptions.rating-desc")}</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Button variant="destructive" className="w-fit cursor-pointer" onClick={handleClearFilters}>
-            {t("searchFilters.clearFilters")}
-            <Trash2 className="size-4" />
-          </Button>
+          {/* Clear */}
+          <div className="flex flex-col items-end justify-end">
+            <Button
+              variant="destructive"
+              className="w-fit cursor-pointer"
+              onClick={handleClearFilters}
+              data-testid="search-clear-filters"
+            >
+              {t("filters.clearFilters")}
+              <Trash2 className="size-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </aside>

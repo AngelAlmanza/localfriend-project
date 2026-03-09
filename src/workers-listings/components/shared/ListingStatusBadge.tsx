@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import type { EntityStatus } from "@/src/workers-listings/interfaces/responses"
+import type { EntityStatus } from "@/src/shared/types/entityStatus"
 
 interface StatusConfig {
   className: string

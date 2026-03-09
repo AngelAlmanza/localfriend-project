@@ -1,6 +1,7 @@
+import { FavoritesPageClient } from "@/src/locals-search/components/FavoritesPageClient"
+
 function LocalsSavedPage() {
-  return (
-    <div>LocalsSavedPage</div>
-  )
+  return <FavoritesPageClient />
 }
+
 export default LocalsSavedPage

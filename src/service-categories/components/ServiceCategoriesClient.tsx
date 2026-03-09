@@ -11,21 +11,22 @@ export function ServiceCategoriesClient({ categories }: { categories: CategoryIt
 
   const handleSave = async (dto: CategorySaveDTO) => {
     const supabase = createClient()
-    if (dto.id) {
-      return ServiceCategoriesService.updateServiceCategory(
-        { id: dto.id, name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
-        supabase,
-      )
-    }
-    return ServiceCategoriesService.createServiceCategory(
-      { name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
-      supabase,
-    )
+    const result = dto.id
+      ? await ServiceCategoriesService.updateServiceCategory(
+          { id: dto.id, name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
+          supabase,
+        )
+      : await ServiceCategoriesService.createServiceCategory(
+          { name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
+          supabase,
+        )
+    return result
   }
 
   const handleDelete = async (id: string) => {
     const supabase = createClient()
-    return ServiceCategoriesService.deleteServiceCategory(id, supabase)
+    const result = await ServiceCategoriesService.deleteServiceCategory(id, supabase)
+    return result
   }
 
   return (

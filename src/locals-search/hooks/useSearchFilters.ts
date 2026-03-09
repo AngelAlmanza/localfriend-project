@@ -1,105 +1,125 @@
-import { useDebouncedValue } from "@/src/shared/hooks/useDebouncedValue";
-import { parseNumberArray } from "@/src/shared/utils/parseNumberArray";
-import { parseStringArray } from "@/src/shared/utils/parseStringArray";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import {
-  DEBOUNCED_SEARCH_DELAY,
-  DEFAULT_PRICE_RANGE,
-  DEFAULT_RATING,
-  DEFAULT_SORT,
-} from "../constants/filterDefaultValues";
-
-type Filters = {
-  search: string;
-  price: number[];
-  categories: string[];
-  sort: string;
-  rating: number[];
-};
+import { createClient } from "@/src/shared/lib/supabase/client"
+import { useCallback, useEffect, useState } from "react"
+import { DEFAULT_PRICE_RANGE_MAX, DEFAULT_PRICE_RANGE_MIN } from "../constants/filterDefaultValues"
+import { CategoryOption, SearchContentType } from "../interfaces/Local"
+import { CategoriesService } from "../services/CategoriesService"
+import { useLocalsSearchStore } from "../store/locals"
 
 export const useSearchFilters = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const { filters, setFilters } = useLocalsSearchStore()
 
-  const [filters, setFilters] = useState<Filters>(() => ({
-    search: searchParams.get("search") || "",
-    price: parseNumberArray(searchParams.get("price"), [...DEFAULT_PRICE_RANGE]),
-    categories: parseStringArray(searchParams.get("categories")).map((c) =>
-      c.toUpperCase()
-    ),
-    sort: searchParams.get("sort") || DEFAULT_SORT,
-    rating: parseNumberArray(searchParams.get("rating"), [DEFAULT_RATING]),
-  }));
+  const [showFiltersSection, setShowFiltersSection] = useState(false)
+  const [productCategories, setProductCategories] = useState<CategoryOption[]>([])
+  const [serviceCategories, setServiceCategories] = useState<CategoryOption[]>([])
 
-  const [showFiltersSection, setShowFiltersSection] = useState(false);
-
-  const debouncedFilters = useDebouncedValue(filters, DEBOUNCED_SEARCH_DELAY);
-
-  const updateFilter = <K extends keyof Filters>(
-    key: K,
-    value: Filters[K]
-  ) => {
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
-
-  const handleClearFilters = () => {
-    setFilters({
-      search: "",
-      price: [...DEFAULT_PRICE_RANGE],
-      categories: [],
-      sort: DEFAULT_SORT,
-      rating: [DEFAULT_RATING],
-    });
-  };
-
-  const handleToggleFiltersSection = () => {
-    setShowFiltersSection((prev) => !prev);
-  };
-
+  // Fetch both category lists on mount
   useEffect(() => {
-    const params = new URLSearchParams();
-
-    if (debouncedFilters.search !== "") {
-      params.set("search", debouncedFilters.search);
+    const fetchCategories = async () => {
+      const client = createClient()
+      const [prodResult, svcResult] = await Promise.all([
+        CategoriesService.getProductCategories(client),
+        CategoriesService.getServiceCategories(client),
+      ])
+      if (prodResult.right) setProductCategories(prodResult.right)
+      if (svcResult.right) setServiceCategories(svcResult.right)
     }
+    fetchCategories()
+  }, [])
 
-    const isDefaultPrice =
-      debouncedFilters.price[0] === DEFAULT_PRICE_RANGE[0] &&
-      debouncedFilters.price[1] === DEFAULT_PRICE_RANGE[1];
-    if (!isDefaultPrice) {
-      params.set("price", debouncedFilters.price.join(","));
-    }
+  const handleToggleFiltersSection = useCallback(() => {
+    setShowFiltersSection((prev) => !prev)
+  }, [])
 
-    if (debouncedFilters.categories.length > 0) {
-      params.set(
-        "categories",
-        debouncedFilters.categories.map((c) => c.toLowerCase()).join(",")
-      );
-    }
+  const handleContentTypeChange = useCallback(
+    (type: SearchContentType) => {
+      setFilters({
+        contentType: type,
+        selectedProductCategories: [],
+        selectedServiceCategories: [],
+      })
+    },
+    [setFilters],
+  )
 
-    if (debouncedFilters.sort !== DEFAULT_SORT) {
-      params.set("sort", debouncedFilters.sort);
-    }
+  const handleProductCategoryToggle = useCallback(
+    (categoryId: string) => {
+      const current = filters.selectedProductCategories
+      setFilters({
+        selectedProductCategories: current.includes(categoryId)
+          ? current.filter((c) => c !== categoryId)
+          : [...current, categoryId],
+      })
+    },
+    [filters.selectedProductCategories, setFilters],
+  )
 
-    const isDefaultRating = debouncedFilters.rating[0] === DEFAULT_RATING;
-    if (!isDefaultRating) {
-      params.set("rating", debouncedFilters.rating.join(","));
-    }
+  const handleServiceCategoryToggle = useCallback(
+    (categoryId: string) => {
+      const current = filters.selectedServiceCategories
+      setFilters({
+        selectedServiceCategories: current.includes(categoryId)
+          ? current.filter((c) => c !== categoryId)
+          : [...current, categoryId],
+      })
+    },
+    [filters.selectedServiceCategories, setFilters],
+  )
 
-    router.push(`?${params.toString()}`, { scroll: false });
-  }, [debouncedFilters, router]);
+  const handlePriceRangeChange = useCallback(
+    (value: number[]) => {
+      setFilters({ priceRange: [value[0], value[1]] })
+    },
+    [setFilters],
+  )
+
+  const handleSearchTextChange = useCallback(
+    (text: string) => {
+      setFilters({ searchText: text })
+    },
+    [setFilters],
+  )
+
+  const handleClearFilters = useCallback(() => {
+    setFilters({
+      contentType: "both",
+      selectedProductCategories: [],
+      selectedServiceCategories: [],
+      priceRange: [DEFAULT_PRICE_RANGE_MIN, DEFAULT_PRICE_RANGE_MAX],
+      searchText: "",
+    })
+  }, [setFilters])
+
+  // Compute visible categories based on content type
+  const visibleProductCategories =
+    filters.contentType === "services" ? [] : productCategories
+  const visibleServiceCategories =
+    filters.contentType === "products" ? [] : serviceCategories
 
   return {
     showFiltersSection,
     handleToggleFiltersSection,
 
-    filters,
-    updateFilter,
+    // Content type
+    contentType: filters.contentType,
+    handleContentTypeChange,
 
+    // Categories (separated)
+    productCategories: visibleProductCategories,
+    serviceCategories: visibleServiceCategories,
+    selectedProductCategories: filters.selectedProductCategories,
+    selectedServiceCategories: filters.selectedServiceCategories,
+    handleProductCategoryToggle,
+    handleServiceCategoryToggle,
+
+    // Price
+    priceRange: filters.priceRange,
+    handlePriceRangeChange,
+
+    // Search text
+    searchText: filters.searchText,
+    handleSearchTextChange,
+
+    // Clear
     handleClearFilters,
-  };
-};
+  }
+}

@@ -257,48 +257,67 @@
     "search": {
       "results": "Resultados ({count})",
       "noResults": "No se encontraron resultados",
-      "noSelectedResult": "No se ha seleccionado ningún resultado",
-      "by": "por",
+      "noResultsHint": "Prueba cambiando los filtros o ampliando tu búsqueda",
+      "noSelectedResult": "Selecciona un resultado para ver su detalle",
+      "loadingMore": "Cargando más resultados...",
+      "endOfResults": "No hay más resultados",
       "searchInputPlaceholder": "Buscar productos o servicios...",
-      "searchButton": "Buscar",
-      "searchFilters": {
-        "btnText": "Filtros",
-        "priceRange": "Rango de precio ({min} - {max})",
-        "rating": "Calificación mínima",
-        "sort": "Ordenar por",
-        "categories": "Categorías",
-        "clearFilters": "Limpiar filtros",
-        "categoriesCheckbox": {
-          "food": "Alimentación",
-          "health": "Salud",
-          "beauty": "Belleza",
-          "electronics": "Electrónica",
-          "home": "Hogar",
-          "sports": "Deportes",
-          "tools": "Herramientas"
-        },
-        "sortOptions": {
-          "name-asc": "Nombre: Ascendente",
-          "name-desc": "Nombre: Descendente",
-          "price-asc": "Precio: Ascendente",
-          "price-desc": "Precio: Descendente",
-          "rating-asc": "Calificación: Ascendente",
-          "rating-desc": "Calificación: Descendente"
-        }
+      "locationBanner": {
+        "message": "Permite el acceso a tu ubicación para ver resultados relevantes en tu zona.",
+        "configure": "Configurar ubicación",
+        "grant": "Permitir ubicación",
+        "denied": "El acceso a tu ubicación fue denegado. Configúrala manualmente para poder realizar búsquedas."
       },
-      "resultDetail": {
-        "toggleFavorite": "Agregar a favoritos",
-        "closeDetail": "Cerrar detalle",
-        "contact": "Contactar",
+      "filters": {
+        "btnText": "Filtros",
+        "typeAll": "Todos",
+        "typeProducts": "Productos",
+        "typeServices": "Servicios",
+        "priceRange": "Precio ({min} - {max})",
+        "categories": "Categorías",
+        "noCategories": "Sin categorías disponibles",
+        "clearFilters": "Limpiar filtros"
+      },
+      "card": {
+        "product": "Producto",
+        "service": "Servicio",
+        "by": "por",
+        "variants": "variantes",
+        "noPrice": "Consultar precio"
+      },
+      "favorite": {
+        "add": "Agregar a favoritos",
+        "remove": "Quitar de favoritos"
+      },
+      "detail": {
+        "close": "Cerrar detalle",
         "publisher": "Publicador",
-        "reviewsText": "({count}) reseñas",
-        "contactPhone": "Llamar",
-        "contactEmail": "Enviar correo",
         "variantsTitle": "Variantes disponibles",
         "variantsTable": {
           "name": "Nombre",
           "price": "Precio"
-        }
+        },
+        "contact": "Contacto",
+        "contactEmail": "Enviar correo",
+        "contactPhone": "Llamar"
+      },
+      "detailPage": {
+        "notFound": "Este listing no está disponible.",
+        "backToSearch": "Volver a búsqueda"
+      }
+    },
+    "favorites": {
+      "section": {
+        "favorites": "Mis favoritos",
+        "recentlyViewed": "Vistos recientemente"
+      },
+      "empty": {
+        "title": "No tienes favoritos ni visitas recientes",
+        "subtitle": "Explora productos y servicios locales para guardar tus favoritos",
+        "cta": "Ir a buscar"
+      },
+      "card": {
+        "by": "por"
       }
     }
   },
@@ -312,7 +331,170 @@
         "settings": "Configuración"
       },
       "profile": "Perfil",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "logoutSuccess": "Sesión cerrada correctamente"
+    },
+    "listings": {
+      "products": {
+        "page": {
+          "title": "Mis productos",
+          "subtitle": "Gestiona los productos que ofreces a tu comunidad",
+          "addButton": "Nuevo producto",
+          "showing": "Mostrando {from}-{to} de {total}",
+          "page": "Página {page} de {totalPages}"
+        },
+        "table": {
+          "name": "Nombre",
+          "category": "Categoría",
+          "variants": "Variantes",
+          "status": "Estado",
+          "updatedAt": "Última modificación",
+          "actions": "Acciones",
+          "edit": "Editar",
+          "delete": "Eliminar",
+          "show": "Mostrar",
+          "hide": "Ocultar",
+          "noData": "No tienes productos publicados",
+          "noDataDescription": "Crea tu primer producto para que los locales te encuentren"
+        },
+        "form": {
+          "createTitle": "Nuevo producto",
+          "editTitle": "Editar producto",
+          "name": "Nombre del producto",
+          "namePlaceholder": "Ej: Pan artesanal",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Describe tu producto...",
+          "category": "Categoría",
+          "categoryPlaceholder": "Selecciona una categoría",
+          "isImmediate": "Disponible de inmediato",
+          "isImmediateDescription": "Indica si el producto está disponible para entrega inmediata",
+          "save": "Guardar producto",
+          "saving": "Guardando...",
+          "cancel": "Cancelar",
+          "nameMin": "El nombre debe tener al menos 3 caracteres",
+          "nameMax": "El nombre debe tener menos de 255 caracteres",
+          "descriptionMax": "La descripción debe tener menos de 1000 caracteres",
+          "categoryRequired": "Debes seleccionar una categoría",
+          "variantsMin": "Debes agregar al menos una variante",
+          "variantNameRequired": "El nombre de la variante es requerido",
+          "variantNameMax": "El nombre de la variante debe tener menos de 100 caracteres",
+          "variantPriceRequired": "El precio es requerido",
+          "variantPricePositive": "El precio debe ser mayor a 0",
+          "createdSuccessfully": "Producto creado correctamente",
+          "updatedSuccessfully": "Producto actualizado correctamente",
+          "creationFailed": "Error al crear el producto",
+          "updateFailed": "Error al actualizar el producto"
+        },
+        "variants": {
+          "title": "Variantes",
+          "addButton": "Agregar variante",
+          "name": "Nombre",
+          "namePlaceholder": "Ej: 500g, 1kg",
+          "price": "Precio",
+          "pricePlaceholder": "0.00",
+          "delete": "Eliminar",
+          "noVariants": "Sin variantes agregadas",
+          "minRequired": "Se requiere al menos una variante"
+        },
+        "deleteDialog": {
+          "title": "Eliminar producto",
+          "description": "¿Estás seguro de que deseas eliminar el producto \"{name}\"? Esta acción no se puede deshacer.",
+          "confirm": "Eliminar",
+          "cancel": "Cancelar"
+        },
+        "status": {
+          "visible": "Visible",
+          "hidden": "Oculto",
+          "hidden_hard": "Bloqueado por admin"
+        },
+        "statusChanged": "Estado actualizado correctamente",
+        "statusChangeFailed": "Error al cambiar el estado",
+        "deletedSuccessfully": "Producto eliminado correctamente",
+        "deleteFailed": "Error al eliminar el producto",
+        "hiddenHardWarning": "Este producto fue desactivado por un administrador"
+      },
+      "services": {
+        "page": {
+          "title": "Mis servicios",
+          "subtitle": "Gestiona los servicios que ofreces a tu comunidad",
+          "addButton": "Nuevo servicio",
+          "showing": "Mostrando {from}-{to} de {total}",
+          "page": "Página {page} de {totalPages}"
+        },
+        "table": {
+          "name": "Nombre",
+          "category": "Categoría",
+          "priceRange": "Rango de precio",
+          "variants": "Variantes",
+          "status": "Estado",
+          "updatedAt": "Última modificación",
+          "actions": "Acciones",
+          "edit": "Editar",
+          "delete": "Eliminar",
+          "show": "Mostrar",
+          "hide": "Ocultar",
+          "noData": "No tienes servicios publicados",
+          "noDataDescription": "Crea tu primer servicio para que los locales te encuentren",
+          "noPriceRange": "Sin rango"
+        },
+        "form": {
+          "createTitle": "Nuevo servicio",
+          "editTitle": "Editar servicio",
+          "name": "Nombre del servicio",
+          "namePlaceholder": "Ej: Plomería general",
+          "description": "Descripción",
+          "descriptionPlaceholder": "Describe tu servicio...",
+          "category": "Categoría",
+          "categoryPlaceholder": "Selecciona una categoría",
+          "basePriceMin": "Precio mínimo referencial",
+          "basePriceMinPlaceholder": "0.00",
+          "basePriceMax": "Precio máximo referencial",
+          "basePriceMaxPlaceholder": "0.00",
+          "save": "Guardar servicio",
+          "saving": "Guardando...",
+          "cancel": "Cancelar",
+          "nameMin": "El nombre debe tener al menos 3 caracteres",
+          "nameMax": "El nombre debe tener menos de 255 caracteres",
+          "descriptionMax": "La descripción debe tener menos de 1000 caracteres",
+          "categoryRequired": "Debes seleccionar una categoría",
+          "priceNonNegative": "El precio no puede ser negativo",
+          "variantNameRequired": "El nombre de la variante es requerido",
+          "variantNameMax": "El nombre de la variante debe tener menos de 100 caracteres",
+          "createdSuccessfully": "Servicio creado correctamente",
+          "updatedSuccessfully": "Servicio actualizado correctamente",
+          "creationFailed": "Error al crear el servicio",
+          "updateFailed": "Error al actualizar el servicio"
+        },
+        "variants": {
+          "title": "Variantes",
+          "addButton": "Agregar variante",
+          "name": "Nombre",
+          "namePlaceholder": "Ej: Básico, Premium",
+          "priceMin": "Precio mín.",
+          "priceMinPlaceholder": "0.00",
+          "priceMax": "Precio máx.",
+          "priceMaxPlaceholder": "0.00",
+          "delete": "Eliminar",
+          "noVariants": "Sin variantes agregadas",
+          "optional": "Las variantes son opcionales para servicios"
+        },
+        "deleteDialog": {
+          "title": "Eliminar servicio",
+          "description": "¿Estás seguro de que deseas eliminar el servicio \"{name}\"? Esta acción no se puede deshacer.",
+          "confirm": "Eliminar",
+          "cancel": "Cancelar"
+        },
+        "status": {
+          "visible": "Visible",
+          "hidden": "Oculto",
+          "hidden_hard": "Bloqueado por admin"
+        },
+        "statusChanged": "Estado actualizado correctamente",
+        "statusChangeFailed": "Error al cambiar el estado",
+        "deletedSuccessfully": "Servicio eliminado correctamente",
+        "deleteFailed": "Error al eliminar el servicio",
+        "hiddenHardWarning": "Este servicio fue desactivado por un administrador"
+      }
     },
     "profile": {
       "userPreferences": {
@@ -519,6 +701,72 @@
         "serviceCategoryCreationFailed": "Error al crear la categoría",
         "serviceCategoryUpdateFailed": "Error al actualizar la categoría",
         "serviceCategoryDeleteFailed": "Error al eliminar la categoría"
+      }
+    }
+  },
+  "NotFound": {
+    "code": "404",
+    "title": "Callejón sin salida",
+    "description": "Esta dirección no existe en el mapa. Es posible que el enlace esté roto o que la página haya sido movida.",
+    "backHome": "Volver al inicio",
+    "exploreServices": "Explorar servicios"
+  },
+  "Error": {
+    "code": "Error inesperado",
+    "title": "Algo salió mal",
+    "description": "Ocurrió un problema inesperado. Si el error persiste, por favor contáctanos.",
+    "retry": "Intentar de nuevo",
+    "backHome": "Volver al inicio"
+  },
+  "Shared": {
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "page": "Página {page}",
+      "goToPage": "Ir a la página {page}"
+    },
+    "profile": {
+      "title": "Mi perfil",
+      "subtitle": "Gestiona tus preferencias de cuenta",
+      "userMenu": {
+        "myProfile": "Mi perfil",
+        "logout": "Cerrar sesión",
+        "logoutSuccess": "Sesión cerrada correctamente"
+      },
+      "userPreferences": {
+        "title": "Preferencias de usuario",
+        "language": "Idioma",
+        "languageEn": "Inglés",
+        "languageEs": "Español",
+        "latitude": "Latitud",
+        "longitude": "Longitud",
+        "searchRadius": "Radio de búsqueda",
+        "timezone": "Zona horaria",
+        "timezonePlaceholder": "Selecciona una zona horaria...",
+        "useCurrentTimezone": "Usar zona horaria actual",
+        "preferredCurrency": "Moneda preferida",
+        "currencyPlaceholder": "Selecciona una moneda...",
+        "coordinates": "Coordenadas",
+        "coordinatesDescription": "Usadas para mostrar resultados locales cerca de ti.",
+        "getCoordinates": "Obtener mi ubicación",
+        "gettingLocation": "Obteniendo ubicación...",
+        "locationDenied": "Debes autorizar los permisos de ubicación para obtener tus coordenadas.",
+        "save": "Guardar preferencias",
+        "languageErrorMessage": "El idioma es requerido",
+        "timezoneErrorMessage": "La zona horaria es requerida",
+        "preferredCurrencyErrorMessage": "La moneda preferida es requerida",
+        "success": "Preferencias guardadas correctamente",
+        "error": "Ocurrió un error al guardar tus preferencias",
+        "currency": {
+          "mexicanPeso": "Peso mexicano",
+          "colombianPeso": "Peso colombiano",
+          "peruvianSol": "Sol peruano",
+          "argentinePeso": "Peso argentino",
+          "chileanPeso": "Peso chileno",
+          "uruguayanPeso": "Peso uruguayo",
+          "brazilianReal": "Real brasileño",
+          "venezuelanBolivar": "Bolívar venezolano"
+        }
       }
     }
   }

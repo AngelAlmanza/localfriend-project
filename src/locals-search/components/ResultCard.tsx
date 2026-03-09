@@ -1,71 +1,80 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatCurrency } from "@/src/shared/utils/formatCurrency";
-import { StarIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
-import Image from "next/image";
-import { Local } from "../interfaces/Local";
-import { useLocalsSearchStore } from "../store/locals";
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { formatCurrency } from "@/src/shared/utils/formatCurrency"
+import { Package, Wrench } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { SearchResultItem } from "../interfaces/Local"
+import { FavoriteButton } from "./FavoriteButton"
 
 interface ResultCardProps {
-  local: Local;
+  item: SearchResultItem
+  onSelect: (item: SearchResultItem) => void
 }
 
-export const ResultCard = ({ local }: ResultCardProps) => {
-  const t = useTranslations("Locals.search");
-  const { setSelectedLocal } = useLocalsSearchStore();
+export const ResultCard = ({ item, onSelect }: ResultCardProps) => {
+  const t = useTranslations("Locals.search")
 
-  const handleSelectLocal = () => {
-    setSelectedLocal(local);
+  const priceDisplay = () => {
+    if (item.minPrice == null) return t("card.noPrice")
+    if (item.minPrice === item.maxPrice) return formatCurrency(item.minPrice)
+    return `${formatCurrency(item.minPrice)} - ${formatCurrency(item.maxPrice!)}`
   }
 
   return (
     <Card
-      className="pt-0 gap-2 cursor-pointer hover:shadow-xl hover:border-text transition-all duration-300 overflow-hidden"
-      onClick={handleSelectLocal}
+      className="gap-2 cursor-pointer hover:shadow-md hover:border-gray-300 transition-all duration-200 overflow-hidden group"
+      onClick={() => onSelect(item)}
+      data-testid="search-result-card"
     >
-      <div className="relative w-full h-56">
-        <Image
-          src={local.image}
-          alt={local.name}
-          className="object-cover"
-          fill
-        />
-      </div>
-      <CardHeader>
-        <div className="flex items-center gap-2">
-          <Avatar>
-            <AvatarImage
-              src={local.seller.avatar}
-              alt={local.seller.name}
-            />
-            <AvatarFallback>
-              {local.seller.name.charAt(0).toUpperCase()}{local.seller.name.charAt(1).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
-          <div>
-            <p className="text-sm text-gray-500">{t("by")}</p>
-            <p className="text-lg font-semibold text-gray-900 -mt-1">{local.seller.name}</p>
+      <CardHeader className="pb-1">
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <Badge
+              variant="secondary"
+              className="shrink-0 text-xs gap-1"
+            >
+              {item.type === "product" ? (
+                <Package className="size-3" />
+              ) : (
+                <Wrench className="size-3" />
+              )}
+              {item.type === "product" ? t("card.product") : t("card.service")}
+            </Badge>
+            <span className="text-xs text-gray-400 truncate">
+              {item.categoryName}
+            </span>
           </div>
+          <FavoriteButton
+            type={item.type}
+            listingId={item.id}
+            isFavorited={item.isFavorited}
+          />
         </div>
+        <CardTitle className="text-lg font-bold text-gray-900 leading-tight mt-1">
+          {item.name}
+        </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-1">
-        <CardTitle className="text-xl font-bold text-gray-900">{local.name}</CardTitle>
-        <CardDescription className="text-gray-500 text-sm">
-          {local.description}
-        </CardDescription>
+
+      <CardContent className="space-y-1 pb-2">
+        {item.description && (
+          <p className="text-sm text-gray-500 line-clamp-2">
+            {item.description}
+          </p>
+        )}
+        <p className="text-xs text-gray-400">
+          {t("card.by")} <span className="font-medium text-gray-600">{item.workerName}</span>
+        </p>
       </CardContent>
-      <CardFooter className="flex items-center justify-between">
-        <div className="flex items-center gap-2 relative">
-          <StarIcon className="size-5 text-yellow-500" />
-          <p className="text-lg font-semibold">{local.rating}</p>
-          <span className="text-sm text-gray-500 absolute -right-8 top-0">({local.reviews})</span>
-        </div>
-        <div>
-          <p className="text-xl font-bold text-primary">{formatCurrency(local.price)}</p>
-        </div>
+
+      <CardFooter className="flex items-center justify-between pt-0">
+        <span className="text-xs text-gray-400">
+          {item.variants.length} {t("card.variants")}
+        </span>
+        <span className="text-base font-bold text-primary">
+          {priceDisplay()}
+        </span>
       </CardFooter>
     </Card>
   )

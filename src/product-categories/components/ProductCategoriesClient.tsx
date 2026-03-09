@@ -11,21 +11,22 @@ export function ProductCategoriesClient({ categories }: { categories: CategoryIt
 
   const handleSave = async (dto: CategorySaveDTO) => {
     const supabase = createClient()
-    if (dto.id) {
-      return ProductCategoriesService.updateProductCategory(
-        { id: dto.id, name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
-        supabase,
-      )
-    }
-    return ProductCategoriesService.createProductCategory(
-      { name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
-      supabase,
-    )
+    const result = dto.id
+      ? await ProductCategoriesService.updateProductCategory(
+          { id: dto.id, name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
+          supabase,
+        )
+      : await ProductCategoriesService.createProductCategory(
+          { name: dto.name, description: dto.description, imageUrl: dto.imageUrl },
+          supabase,
+        )
+    return result
   }
 
   const handleDelete = async (id: string) => {
     const supabase = createClient()
-    return ProductCategoriesService.deleteProductCategory(id, supabase)
+    const result = await ProductCategoriesService.deleteProductCategory(id, supabase)
+    return result
   }
 
   return (
