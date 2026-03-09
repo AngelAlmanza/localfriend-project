@@ -5,15 +5,16 @@ import { formatCurrency } from "@/src/shared/utils/formatCurrency"
 import { Heart, Loader2, Package, Wrench } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { FavoriteItem } from "../interfaces/Local"
+import { FavoriteItem } from "../../locals-search/interfaces/Local"
 
 interface FavoriteCardProps {
   item: FavoriteItem
-  isRemoving: boolean
-  onRemove: () => void
+  isFavorited: boolean
+  isToggling: boolean
+  onToggle: () => void
 }
 
-export const FavoriteCard = ({ item, isRemoving, onRemove }: FavoriteCardProps) => {
+export const FavoriteCard = ({ item, isFavorited, isToggling, onToggle }: FavoriteCardProps) => {
   const t = useTranslations("Locals.favorites")
 
   const priceDisplay = () => {
@@ -37,14 +38,16 @@ export const FavoriteCard = ({ item, isRemoving, onRemove }: FavoriteCardProps) 
           <Button
             size="icon"
             variant="ghost"
-            onClick={onRemove}
-            disabled={isRemoving}
-            className="cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity"
+            onClick={onToggle}
+            disabled={isToggling}
+            className={`cursor-pointer transition-opacity ${isFavorited ? "opacity-0 group-hover:opacity-100" : "opacity-100"}`}
           >
-            {isRemoving ? (
+            {isToggling ? (
               <Loader2 className="size-4 animate-spin" />
             ) : (
-              <Heart className="size-4 fill-red-500 text-red-500" />
+              <Heart
+                className={`size-4 transition-colors ${isFavorited ? "fill-red-500 text-red-500" : "text-gray-400"}`}
+              />
             )}
           </Button>
         </div>

@@ -231,60 +231,75 @@ export class FavoritesService {
     }
   }
 
+  /**
+   * Returns recently viewed items, excluding any already in favorites.
+   * Pass `exclude` with the IDs already fetched by `getFavorites` to avoid
+   * redundant round-trips to the database.
+   */
   static async getRecentlyViewed(
     userId: string,
     supabase: SupabaseClient,
+    exclude?: { productIds?: string[]; serviceIds?: string[] },
   ): Promise<Either<ISystemError, RecentlyViewedItem[]>> {
     try {
       const cutoffDate = new Date();
       cutoffDate.setDate(cutoffDate.getDate() - RECENT_DAYS);
       const cutoff = cutoffDate.toISOString();
 
-      const items: RecentlyViewedItem[] = [];
+      const favProductIds = new Set(exclude?.productIds ?? []);
+      const favServiceIds = new Set(exclude?.serviceIds ?? []);
 
-      // Get favorited IDs to exclude
-      const { data: favProducts } = await supabase
-        .from("product_favorites")
-        .select("product_id")
-        .eq("user_id", userId);
-      const favProductIds = new Set(
-        (favProducts ?? []).map((f) => f.product_id),
-      );
+      const [productViewsResult, serviceViewsResult] = await Promise.all([
+        supabase
+          .from("product_views")
+          .select(
+            `viewed_at, product_id,
+             products(id, name, description, status,
+               product_categories(name),
+               product_variants(id, name, price),
+               users!products_worker_id_fkey(name)
+             )`,
+          )
+          .eq("user_id", userId)
+          .gte("viewed_at", cutoff)
+          .order("viewed_at", { ascending: false }),
+        supabase
+          .from("service_views")
+          .select(
+            `viewed_at, service_id,
+             services(id, name, description, base_price_min, base_price_max, status,
+               service_categories(name),
+               service_variants(id, name, price_min, price_max),
+               users!services_worker_id_fkey(name)
+             )`,
+          )
+          .eq("user_id", userId)
+          .gte("viewed_at", cutoff)
+          .order("viewed_at", { ascending: false }),
+      ]);
 
-      const { data: favServices } = await supabase
-        .from("service_favorites")
-        .select("service_id")
-        .eq("user_id", userId);
-      const favServiceIds = new Set(
-        (favServices ?? []).map((f) => f.service_id),
-      );
-
-      // Recent product views
-      const { data: productViews, error: pvError } = await supabase
-        .from("product_views")
-        .select(
-          `viewed_at, product_id,
-           products(id, name, description, status,
-             product_categories(name),
-             product_variants(id, name, price),
-             users!products_worker_id_fkey(name)
-           )`,
-        )
-        .eq("user_id", userId)
-        .gte("viewed_at", cutoff)
-        .order("viewed_at", { ascending: false });
-
-      if (pvError) {
+      if (productViewsResult.error) {
         return {
           left: {
-            message: pvError.message,
-            code: pvError.code ?? "UNKNOWN_ERROR",
+            message: productViewsResult.error.message,
+            code: productViewsResult.error.code ?? "UNKNOWN_ERROR",
           },
         };
       }
 
+      if (serviceViewsResult.error) {
+        return {
+          left: {
+            message: serviceViewsResult.error.message,
+            code: serviceViewsResult.error.code ?? "UNKNOWN_ERROR",
+          },
+        };
+      }
+
+      const items: RecentlyViewedItem[] = [];
+
       const seenProductIds = new Set<string>();
-      for (const view of productViews ?? []) {
+      for (const view of productViewsResult.data ?? []) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const p = view.products as any;
         if (!p || p.status !== "visible") continue;
@@ -314,32 +329,8 @@ export class FavoritesService {
         });
       }
 
-      // Recent service views
-      const { data: serviceViews, error: svError } = await supabase
-        .from("service_views")
-        .select(
-          `viewed_at, service_id,
-           services(id, name, description, base_price_min, base_price_max, status,
-             service_categories(name),
-             service_variants(id, name, price_min, price_max),
-             users!services_worker_id_fkey(name)
-           )`,
-        )
-        .eq("user_id", userId)
-        .gte("viewed_at", cutoff)
-        .order("viewed_at", { ascending: false });
-
-      if (svError) {
-        return {
-          left: {
-            message: svError.message,
-            code: svError.code ?? "UNKNOWN_ERROR",
-          },
-        };
-      }
-
       const seenServiceIds = new Set<string>();
-      for (const view of serviceViews ?? []) {
+      for (const view of serviceViewsResult.data ?? []) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const s = view.services as any;
         if (!s || s.status !== "visible") continue;
@@ -376,7 +367,6 @@ export class FavoritesService {
         });
       }
 
-      // Sort by viewedAt descending
       items.sort(
         (a, b) =>
           new Date(b.viewedAt).getTime() - new Date(a.viewedAt).getTime(),

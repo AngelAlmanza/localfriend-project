@@ -318,6 +318,11 @@
       },
       "card": {
         "by": "by"
+      },
+      "toast": {
+        "added": "Added to favorites",
+        "removed": "Removed from favorites",
+        "error": "Something went wrong, please try again"
       }
     }
   },

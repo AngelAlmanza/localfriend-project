@@ -1,85 +1,71 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { createClient } from "@/src/shared/lib/supabase/client"
 import { useUserContext } from "@/src/shared/providers/UserProvider"
 import { Bookmark, Clock, Heart, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
-import { useCallback, useEffect, useMemo, useState } from "react"
-import { FavoriteItem, RecentlyViewedItem, SearchListingType } from "../interfaces/Local"
-import { FavoritesService } from "../services/FavoritesService"
+import { useCallback, useMemo, useState } from "react"
+import { FavoriteItem, RecentlyViewedItem, SearchListingType } from "../../locals-search/interfaces/Local"
+import { FavoritesService } from "../../locals-search/services/FavoritesService"
+import { RecentCard } from "../../locals-search/components/RecentCard"
 import { FavoriteCard } from "./FavoriteCard"
-import { FavoriteCardSkeleton } from "./FavoriteCardSkeleton"
-import { RecentCard } from "./RecentCard"
+import { toast } from "sonner"
 
-export const FavoritesPageClient = () => {
+interface FavoritesPageClientProps {
+  initialFavorites: FavoriteItem[]
+  initialRecentlyViewed: RecentlyViewedItem[]
+}
+
+export const FavoritesPageClient = ({
+  initialFavorites,
+  initialRecentlyViewed,
+}: FavoritesPageClientProps) => {
   const t = useTranslations("Locals.favorites")
   const supabase = useMemo(() => createClient(), [])
   const { user } = useUserContext()
 
-  const [favorites, setFavorites] = useState<FavoriteItem[]>([])
-  const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedItem[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [removingIds, setRemovingIds] = useState<Set<string>>(new Set())
+  // IDs that have been toggled from their initial "favorited" state.
+  // Present in set → currently NOT favorited; absent → currently favorited.
+  const [unfavoritedIds, setUnfavoritedIds] = useState<Set<string>>(new Set())
+  const [togglingIds, setTogglingIds] = useState<Set<string>>(new Set())
 
-  const fetchData = useCallback(async () => {
-    if (!user) return
-    setIsLoading(true)
-
-    const [favsResult, recentResult] = await Promise.all([
-      FavoritesService.getFavorites(user.id, supabase),
-      FavoritesService.getRecentlyViewed(user.id, supabase),
-    ])
-
-    if (favsResult.right) setFavorites(favsResult.right)
-    if (recentResult.right) setRecentlyViewed(recentResult.right)
-
-    setIsLoading(false)
-  }, [user, supabase])
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchData()
-  }, [fetchData])
-
-  const handleRemoveFavorite = useCallback(
+  const handleToggle = useCallback(
     async (type: SearchListingType, listingId: string) => {
-      if (!user || removingIds.has(listingId)) return
-      setRemovingIds((prev) => new Set(prev).add(listingId))
+      if (!user || togglingIds.has(listingId)) return
 
+      setTogglingIds((prev) => new Set(prev).add(listingId))
+
+      const currentlyFavorited = !unfavoritedIds.has(listingId)
       const { left } = await FavoritesService.toggleFavorite(type, listingId, user.id, supabase)
 
-      if (!left) {
-        setFavorites((prev) => prev.filter((f) => f.listingId !== listingId))
+      if (left) {
+        toast.error(t("toast.error"))
+      } else {
+        if (currentlyFavorited) {
+          setUnfavoritedIds((prev) => new Set(prev).add(listingId))
+          toast.success(t("toast.removed"))
+        } else {
+          setUnfavoritedIds((prev) => {
+            const next = new Set(prev)
+            next.delete(listingId)
+            return next
+          })
+          toast.success(t("toast.added"))
+        }
       }
 
-      setRemovingIds((prev) => {
+      setTogglingIds((prev) => {
         const next = new Set(prev)
         next.delete(listingId)
         return next
       })
     },
-    [user, supabase, removingIds],
+    [user, supabase, unfavoritedIds, togglingIds, t],
   )
 
-  if (isLoading) {
-    return (
-      <div className="space-y-8">
-        <div>
-          <Skeleton className="h-7 w-40 mb-4" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <FavoriteCardSkeleton key={i} />
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  const isEmpty = favorites.length === 0 && recentlyViewed.length === 0
+  const isEmpty = initialFavorites.length === 0 && initialRecentlyViewed.length === 0
 
   if (isEmpty) {
     return (
@@ -100,24 +86,25 @@ export const FavoritesPageClient = () => {
   return (
     <div className="space-y-8" data-testid="favorites-page">
       {/* Favorites section */}
-      {favorites.length > 0 && (
+      {initialFavorites.length > 0 && (
         <section data-testid="favorites-section">
           <div className="flex items-center gap-2 mb-4">
             <Heart className="size-5 text-red-500" />
             <h2 className="text-xl font-bold text-gray-900">
               {t("section.favorites")}
               <span className="text-sm font-normal text-gray-400 ml-2">
-                ({favorites.length})
+                ({initialFavorites.length})
               </span>
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {favorites.map((fav) => (
+            {initialFavorites.map((fav) => (
               <FavoriteCard
                 key={fav.id}
                 item={fav}
-                isRemoving={removingIds.has(fav.listingId)}
-                onRemove={() => handleRemoveFavorite(fav.type, fav.listingId)}
+                isFavorited={!unfavoritedIds.has(fav.listingId)}
+                isToggling={togglingIds.has(fav.listingId)}
+                onToggle={() => handleToggle(fav.type, fav.listingId)}
               />
             ))}
           </div>
@@ -125,19 +112,19 @@ export const FavoritesPageClient = () => {
       )}
 
       {/* Recently viewed section */}
-      {recentlyViewed.length > 0 && (
+      {initialRecentlyViewed.length > 0 && (
         <section data-testid="recently-viewed-section">
           <div className="flex items-center gap-2 mb-4">
             <Clock className="size-5 text-gray-400" />
             <h2 className="text-xl font-bold text-gray-900">
               {t("section.recentlyViewed")}
               <span className="text-sm font-normal text-gray-400 ml-2">
-                ({recentlyViewed.length})
+                ({initialRecentlyViewed.length})
               </span>
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {recentlyViewed.map((item) => (
+            {initialRecentlyViewed.map((item) => (
               <RecentCard
                 key={`${item.type}-${item.listingId}`}
                 item={item}
