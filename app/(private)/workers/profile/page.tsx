@@ -21,7 +21,7 @@ const getUserPreferences = async () => {
 
 async function ProfilePage() {
   const userPreferences = await getUserPreferences()
-  const t = await getTranslations("Workers.profile.userPreferences")
+  const t = await getTranslations("Shared.profile.userPreferences")
 
   return (
     <Card>
