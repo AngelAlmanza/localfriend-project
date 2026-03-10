@@ -18,6 +18,7 @@ import { SearchListingType, SearchResultDetail } from "../interfaces/Local"
 import { RegisterViewService } from "../services/RegisterViewService"
 import { SearchService } from "../services/SearchService"
 import { FavoriteButton } from "./FavoriteButton"
+import { ReviewsSection } from "@/src/reviews/components/ReviewsSection"
 
 interface ListingDetailPageClientProps {
   id: string
@@ -206,6 +207,12 @@ export const ListingDetailPageClient = ({ id, type }: ListingDetailPageClientPro
               )}
             </div>
           </div>
+
+          {/* Reviews */}
+          <ReviewsSection
+            listingId={detail.id}
+            listingType={detail.type}
+          />
         </CardContent>
       </Card>
     </div>

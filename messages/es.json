@@ -304,6 +304,53 @@
       "detailPage": {
         "notFound": "Este listing no está disponible.",
         "backToSearch": "Volver a búsqueda"
+      },
+      "reviews": {
+        "title": "Reseñas",
+        "writeReview": "Escribir reseña",
+        "editReview": "Editar reseña",
+        "yourReview": "Tu reseña",
+        "reviewCount": "{count} reseña",
+        "reviewCountPlural": "{count} reseñas",
+        "moreReviews": "{count} reseñas más",
+        "noReviews": "Aún no hay reseñas",
+        "noReviewsSubtitle": "¡Sé el primero en compartir tu experiencia!",
+        "form": {
+          "title": "Escribe tu reseña",
+          "editTitle": "Editar tu reseña",
+          "description": "Comparte tu experiencia con la comunidad",
+          "ratingLabel": "Tu calificación",
+          "ratingRequired": "Por favor selecciona una calificación",
+          "commentLabel": "Comentario (opcional)",
+          "commentPlaceholder": "Describe tu experiencia...",
+          "commentMax": "El comentario debe tener menos de 500 caracteres",
+          "submit": "Enviar reseña",
+          "editSubmit": "Guardar cambios",
+          "submitting": "Enviando...",
+          "cancel": "Cancelar",
+          "success": "¡Reseña enviada correctamente!",
+          "updateSuccess": "¡Reseña actualizada correctamente!",
+          "error": "Ocurrió un error al enviar tu reseña"
+        }
+      }
+    },
+    "reviews": {
+      "page": {
+        "title": "Mis reseñas",
+        "subtitle": "Todo lo que has compartido con la comunidad",
+        "reviewCount": "{count} reseña",
+        "reviewCountPlural": "{count} reseñas"
+      },
+      "empty": {
+        "title": "Aún no has escrito ninguna reseña",
+        "subtitle": "Explora productos y servicios para compartir tu experiencia",
+        "cta": "Ir a buscar"
+      },
+      "card": {
+        "product": "Producto",
+        "service": "Servicio",
+        "viewListing": "Ver publicación",
+        "editReview": "Editar"
       }
     },
     "favorites": {

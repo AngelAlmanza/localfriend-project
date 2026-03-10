@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { ReviewsSection } from "@/src/reviews/components/ReviewsSection"
 import { formatCurrency } from "@/src/shared/utils/formatCurrency"
 import { Mail, Package, UserCircle, Wrench, X } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -196,6 +197,13 @@ export const ResultDetailSection = ({
             )}
           </div>
         </div>
+
+        {/* Reviews */}
+        <ReviewsSection
+          listingId={detail.id}
+          listingType={detail.type}
+          compact
+        />
       </CardContent>
     </Card>
   )

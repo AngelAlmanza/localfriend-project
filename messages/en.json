@@ -304,6 +304,53 @@
       "detailPage": {
         "notFound": "This listing is not available.",
         "backToSearch": "Back to search"
+      },
+      "reviews": {
+        "title": "Reviews",
+        "writeReview": "Write a review",
+        "editReview": "Edit review",
+        "yourReview": "Your review",
+        "reviewCount": "{count} review",
+        "reviewCountPlural": "{count} reviews",
+        "moreReviews": "{count} more reviews",
+        "noReviews": "No reviews yet",
+        "noReviewsSubtitle": "Be the first to share your experience!",
+        "form": {
+          "title": "Write your review",
+          "editTitle": "Edit your review",
+          "description": "Share your experience with the community",
+          "ratingLabel": "Your rating",
+          "ratingRequired": "Please select a rating",
+          "commentLabel": "Comment (optional)",
+          "commentPlaceholder": "Describe your experience...",
+          "commentMax": "Comment must be less than 500 characters",
+          "submit": "Submit review",
+          "editSubmit": "Save changes",
+          "submitting": "Submitting...",
+          "cancel": "Cancel",
+          "success": "Review submitted successfully!",
+          "updateSuccess": "Review updated successfully!",
+          "error": "Something went wrong while submitting your review"
+        }
+      }
+    },
+    "reviews": {
+      "page": {
+        "title": "My reviews",
+        "subtitle": "Everything you've shared with the community",
+        "reviewCount": "{count} review",
+        "reviewCountPlural": "{count} reviews"
+      },
+      "empty": {
+        "title": "You haven't written any reviews yet",
+        "subtitle": "Explore products and services to share your experience",
+        "cta": "Go to search"
+      },
+      "card": {
+        "product": "Product",
+        "service": "Service",
+        "viewListing": "View listing",
+        "editReview": "Edit"
       }
     },
     "favorites": {
