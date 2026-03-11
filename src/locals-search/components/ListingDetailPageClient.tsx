@@ -7,10 +7,12 @@ import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { ReportFormModal } from "@/src/reports/components/ReportFormModal"
+import { ReviewsSection } from "@/src/reviews/components/ReviewsSection"
 import { createClient } from "@/src/shared/lib/supabase/client"
 import { useUserContext } from "@/src/shared/providers/UserProvider"
 import { formatCurrency } from "@/src/shared/utils/formatCurrency"
-import { ArrowLeft, Mail, Package, UserCircle, Wrench } from "lucide-react"
+import { ArrowLeft, Flag, Mail, Package, UserCircle, Wrench } from "lucide-react"
 import { useTranslations } from "next-intl"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
@@ -18,7 +20,6 @@ import { SearchListingType, SearchResultDetail } from "../interfaces/Local"
 import { RegisterViewService } from "../services/RegisterViewService"
 import { SearchService } from "../services/SearchService"
 import { FavoriteButton } from "./FavoriteButton"
-import { ReviewsSection } from "@/src/reviews/components/ReviewsSection"
 
 interface ListingDetailPageClientProps {
   id: string
@@ -27,11 +28,13 @@ interface ListingDetailPageClientProps {
 
 export const ListingDetailPageClient = ({ id, type }: ListingDetailPageClientProps) => {
   const t = useTranslations("Locals.search")
+  const tReports = useTranslations("Reports")
   const supabase = useMemo(() => createClient(), [])
   const { user } = useUserContext()
   const [detail, setDetail] = useState<SearchResultDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const [reportModalOpen, setReportModalOpen] = useState(false)
 
   useEffect(() => {
     if (!user) return
@@ -116,11 +119,31 @@ export const ListingDetailPageClient = ({ id, type }: ListingDetailPageClientPro
               </Badge>
               <span className="text-sm text-gray-400">{detail.categoryName}</span>
             </div>
-            <FavoriteButton
-              type={detail.type}
-              listingId={detail.id}
-              isFavorited={detail.isFavorited}
-            />
+            <div className="flex items-center gap-2">
+              <FavoriteButton
+                type={detail.type}
+                listingId={detail.id}
+                isFavorited={detail.isFavorited}
+              />
+              {user && user.id !== detail.workerId && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-gray-400 hover:text-amber-500"
+                      title={tReports("button")}
+                      onClick={() => setReportModalOpen(true)}
+                    >
+                      <Flag className="size-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{tReports("button")}</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
           </div>
           <CardTitle className="text-3xl font-bold text-gray-900 mt-2">
             {detail.name}
@@ -215,6 +238,19 @@ export const ListingDetailPageClient = ({ id, type }: ListingDetailPageClientPro
           />
         </CardContent>
       </Card>
+
+      {user && (
+        <ReportFormModal
+          open={reportModalOpen}
+          onClose={() => setReportModalOpen(false)}
+          reporterId={user.id}
+          targetType={detail.type}
+          productId={detail.type === "product" ? detail.id : undefined}
+          serviceId={detail.type === "service" ? detail.id : undefined}
+          reportedUserId={detail.workerId}
+          targetName={detail.name}
+        />
+      )}
     </div>
   )
 }

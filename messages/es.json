@@ -821,5 +821,84 @@
         }
       }
     }
+  },
+  "Reports": {
+    "form": {
+      "title": "Reportar contenido",
+      "subtitle": "Cuéntanos qué está pasando con este contenido",
+      "reasonLabel": "Motivo del reporte",
+      "reasonPlaceholder": "Describe detalladamente por qué estás reportando este contenido...",
+      "evidencesLabel": "Evidencias (opcional)",
+      "evidencesHint": "Puedes adjuntar hasta 5 archivos (imágenes o PDFs)",
+      "evidencesButton": "Seleccionar archivos",
+      "submit": "Enviar reporte",
+      "cancel": "Cancelar",
+      "submitted": "Cerrar",
+      "successTitle": "Reporte enviado",
+      "successMessage": "Tu reporte fue enviado. Revisaremos tu denuncia en menos de 24 horas.",
+      "errorMessage": "Ocurrió un error al enviar el reporte. Intenta de nuevo.",
+      "reasonMin": "El motivo debe tener al menos 10 caracteres",
+      "reasonMax": "El motivo no puede superar los 1000 caracteres",
+      "evidencesMax": "Puedes adjuntar un máximo de 5 archivos",
+      "fileTooLarge": "supera el límite de 5 MB y no fue adjuntado",
+      "resultRequired": "Debes seleccionar un resultado"
+    },
+    "button": "Reportar",
+    "admin": {
+      "page": {
+        "title": "Panel de reportes",
+        "subtitle": "Gestiona y modera los reportes de la comunidad",
+        "emptyState": "No hay reportes en esta columna"
+      },
+      "columns": {
+        "pending": "Pendiente",
+        "in_review": "En revisión",
+        "closed": "Cerrado"
+      },
+      "card": {
+        "reportedBy": "Reportado por",
+        "target": "Entidad reportada",
+        "product": "Producto",
+        "service": "Servicio",
+        "user": "Usuario",
+        "date": "Fecha"
+      },
+      "detail": {
+        "title": "Detalle del reporte",
+        "reason": "Motivo",
+        "evidences": "Evidencias",
+        "noEvidences": "Sin evidencias adjuntas",
+        "reporter": "Reportante",
+        "reportedEntity": "Entidad reportada",
+        "status": "Estado",
+        "result": "Resultado",
+        "moveToReview": "Tomar reporte",
+        "moveToPending": "Devolver a pendiente",
+        "reopenToReview": "Reabrir en revisión",
+        "closeReport": "Cerrar reporte",
+        "actions": "Acciones de moderación",
+        "deactivateUser": "Desactivar usuario",
+        "hideListing": "Ocultar listing",
+        "resultLabel": "Resultado de la revisión",
+        "approve": "Aprobado — se tomó acción",
+        "reject": "Rechazado — sin fundamento",
+        "notApplicable": "No aplica — sin violación de políticas",
+        "confirm": "Confirmar cierre",
+        "cancel": "Cancelar",
+        "errorClose": "Error al cerrar el reporte",
+        "errorMove": "Error al mover el reporte",
+        "invalidMovement": "Movimiento Inválido"
+      },
+      "status": {
+        "pending": "Pendiente",
+        "in_review": "En revisión",
+        "closed": "Cerrado"
+      },
+      "result": {
+        "approved": "Aprobado",
+        "rejected": "Rechazado",
+        "not_applicable": "No aplica"
+      }
+    }
   }
 }

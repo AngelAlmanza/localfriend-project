@@ -821,5 +821,84 @@
         }
       }
     }
+  },
+  "Reports": {
+    "form": {
+      "title": "Report content",
+      "subtitle": "Tell us what's going on with this content",
+      "reasonLabel": "Reason for report",
+      "reasonPlaceholder": "Describe in detail why you are reporting this content...",
+      "evidencesLabel": "Evidence (optional)",
+      "evidencesHint": "You can attach up to 5 files (images or PDFs)",
+      "evidencesButton": "Select files",
+      "submit": "Submit report",
+      "cancel": "Cancel",
+      "submitted": "Close",
+      "successTitle": "Report submitted",
+      "successMessage": "Your report was submitted. We will review your complaint within 24 hours.",
+      "errorMessage": "An error occurred while submitting the report. Please try again.",
+      "reasonMin": "The reason must be at least 10 characters",
+      "reasonMax": "The reason cannot exceed 1000 characters",
+      "evidencesMax": "You can attach a maximum of 5 files",
+      "fileTooLarge": "exceeds the 5 MB limit and was not attached",
+      "resultRequired": "You must select a result"
+    },
+    "button": "Report",
+    "admin": {
+      "page": {
+        "title": "Reports panel",
+        "subtitle": "Manage and moderate community reports",
+        "emptyState": "No reports in this column"
+      },
+      "columns": {
+        "pending": "Pending",
+        "in_review": "In review",
+        "closed": "Closed"
+      },
+      "card": {
+        "reportedBy": "Reported by",
+        "target": "Reported entity",
+        "product": "Product",
+        "service": "Service",
+        "user": "User",
+        "date": "Date"
+      },
+      "detail": {
+        "title": "Report detail",
+        "reason": "Reason",
+        "evidences": "Evidence",
+        "noEvidences": "No evidence attached",
+        "reporter": "Reporter",
+        "reportedEntity": "Reported entity",
+        "status": "Status",
+        "result": "Result",
+        "moveToReview": "Take report",
+        "moveToPending": "Return to pending",
+        "reopenToReview": "Reopen in review",
+        "closeReport": "Close report",
+        "actions": "Moderation actions",
+        "deactivateUser": "Deactivate user",
+        "hideListing": "Hide listing",
+        "resultLabel": "Review result",
+        "approve": "Approved — action taken",
+        "reject": "Rejected — no grounds",
+        "notApplicable": "Not applicable — no policy violation",
+        "confirm": "Confirm closure",
+        "cancel": "Cancel",
+        "errorClose": "Error closing the report",
+        "errorMove": "Error moving the report",
+        "invalidMovement": "Invalid Movement"
+      },
+      "status": {
+        "pending": "Pending",
+        "in_review": "In review",
+        "closed": "Closed"
+      },
+      "result": {
+        "approved": "Approved",
+        "rejected": "Rejected",
+        "not_applicable": "Not applicable"
+      }
+    }
   }
 }

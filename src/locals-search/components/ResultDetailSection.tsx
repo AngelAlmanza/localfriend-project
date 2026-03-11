@@ -7,10 +7,13 @@ import { Separator } from "@/components/ui/separator"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { ReportFormModal } from "@/src/reports/components/ReportFormModal"
 import { ReviewsSection } from "@/src/reviews/components/ReviewsSection"
+import { useUserContext } from "@/src/shared/providers/UserProvider"
 import { formatCurrency } from "@/src/shared/utils/formatCurrency"
-import { Mail, Package, UserCircle, Wrench, X } from "lucide-react"
+import { Flag, Mail, Package, UserCircle, Wrench, X } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
 import { SearchResultDetail } from "../interfaces/Local"
 import { FavoriteButton } from "./FavoriteButton"
 
@@ -26,6 +29,9 @@ export const ResultDetailSection = ({
   onClose,
 }: ResultDetailSectionProps) => {
   const t = useTranslations("Locals.search")
+  const tReports = useTranslations("Reports")
+  const { user } = useUserContext()
+  const [reportModalOpen, setReportModalOpen] = useState(false)
 
   if (isLoading) {
     return (
@@ -63,148 +69,180 @@ export const ResultDetailSection = ({
   }
 
   return (
-    <Card className="w-full lg:w-3/5 h-fit gap-0 overflow-hidden" data-testid="search-detail">
-      <CardHeader className="pt-4">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="text-xs gap-1">
-              {detail.type === "product" ? (
-                <Package className="size-3" />
-              ) : (
-                <Wrench className="size-3" />
+    <>
+      <Card className="w-full lg:w-3/5 h-fit gap-0 overflow-hidden" data-testid="search-detail">
+        <CardHeader className="pt-4">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-2">
+              <Badge variant="secondary" className="text-xs gap-1">
+                {detail.type === "product" ? (
+                  <Package className="size-3" />
+                ) : (
+                  <Wrench className="size-3" />
+                )}
+                {detail.type === "product" ? t("card.product") : t("card.service")}
+              </Badge>
+              <span className="text-xs text-gray-400">{detail.categoryName}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              {user && user.id !== detail.workerId && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="size-8 text-gray-400 hover:text-amber-500"
+                      title={tReports("button")}
+                      onClick={() => setReportModalOpen(true)}
+                    >
+                      <Flag className="size-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{tReports("button")}</p>
+                  </TooltipContent>
+                </Tooltip>
               )}
-              {detail.type === "product" ? t("card.product") : t("card.service")}
-            </Badge>
-            <span className="text-xs text-gray-400">{detail.categoryName}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <FavoriteButton
-              type={detail.type}
-              listingId={detail.id}
-              isFavorited={detail.isFavorited}
-              variant="icon"
-            />
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  onClick={onClose}
-                  className="cursor-pointer"
-                >
-                  <X className="size-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>{t("detail.close")}</p>
-              </TooltipContent>
-            </Tooltip>
-          </div>
-        </div>
-
-        <CardTitle className="text-2xl font-bold text-gray-900 mt-2">
-          {detail.name}
-        </CardTitle>
-        <div className="text-xl font-bold text-primary">
-          {priceDisplay()}
-        </div>
-      </CardHeader>
-
-      <CardContent className="space-y-4">
-        {detail.description && (
-          <p className="text-sm text-gray-600 leading-relaxed">
-            {detail.description}
-          </p>
-        )}
-
-        <Separator />
-
-        {/* Worker info */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-gray-900">
-            {t("detail.publisher")}
-          </h3>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center size-10 rounded-full bg-gray-100">
-              <UserCircle className="size-6 text-gray-400" />
-            </div>
-            <div>
-              <p className="font-medium text-gray-900">{detail.workerName}</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Variants */}
-        {detail.variants.length > 0 && (
-          <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-gray-900">
-              {t("detail.variantsTitle")}
-            </h3>
-            <Table>
-              <TableHeader className="bg-gray-50">
-                <TableRow>
-                  <TableHead className="text-xs">{t("detail.variantsTable.name")}</TableHead>
-                  <TableHead className="text-xs">{t("detail.variantsTable.price")}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {detail.variants.map((variant) => (
-                  <TableRow key={variant.id}>
-                    <TableCell className="text-sm text-gray-600 font-medium">
-                      {variant.name}
-                    </TableCell>
-                    <TableCell className="text-sm text-primary font-bold">
-                      {variant.price != null
-                        ? formatCurrency(variant.price)
-                        : variant.priceMin != null
-                          ? `${formatCurrency(variant.priceMin)}${variant.priceMax ? ` - ${formatCurrency(variant.priceMax)}` : ""}`
-                          : "-"}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        )}
-
-        <Separator />
-
-        {/* Contact */}
-        <div className="space-y-2">
-          <h3 className="text-sm font-semibold text-gray-900">
-            {t("detail.contact")}
-          </h3>
-          <div className="flex gap-2">
-            {detail.workerEmail && (
+              <FavoriteButton
+                type={detail.type}
+                listingId={detail.id}
+                isFavorited={detail.isFavorited}
+                variant="icon"
+              />
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    variant="outline"
-                    size="sm"
-                    className="gap-1.5"
-                    asChild
+                    size="icon"
+                    variant="ghost"
+                    onClick={onClose}
+                    className="cursor-pointer"
                   >
-                    <a href={`mailto:${detail.workerEmail}`}>
-                      <Mail className="size-3.5" />
-                      {t("detail.contactEmail")}
-                    </a>
+                    <X className="size-4" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{detail.workerEmail}</p>
+                  <p>{t("detail.close")}</p>
                 </TooltipContent>
               </Tooltip>
-            )}
+            </div>
           </div>
-        </div>
 
-        {/* Reviews */}
-        <ReviewsSection
-          listingId={detail.id}
-          listingType={detail.type}
-          compact
+          <CardTitle className="text-2xl font-bold text-gray-900 mt-2">
+            {detail.name}
+          </CardTitle>
+          <div className="text-xl font-bold text-primary">
+            {priceDisplay()}
+          </div>
+        </CardHeader>
+
+        <CardContent className="space-y-4">
+          {detail.description && (
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {detail.description}
+            </p>
+          )}
+
+          <Separator />
+
+          {/* Worker info */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold text-gray-900">
+              {t("detail.publisher")}
+            </h3>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center size-10 rounded-full bg-gray-100">
+                <UserCircle className="size-6 text-gray-400" />
+              </div>
+              <div>
+                <p className="font-medium text-gray-900">{detail.workerName}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Variants */}
+          {detail.variants.length > 0 && (
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold text-gray-900">
+                {t("detail.variantsTitle")}
+              </h3>
+              <Table>
+                <TableHeader className="bg-gray-50">
+                  <TableRow>
+                    <TableHead className="text-xs">{t("detail.variantsTable.name")}</TableHead>
+                    <TableHead className="text-xs">{t("detail.variantsTable.price")}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {detail.variants.map((variant) => (
+                    <TableRow key={variant.id}>
+                      <TableCell className="text-sm text-gray-600 font-medium">
+                        {variant.name}
+                      </TableCell>
+                      <TableCell className="text-sm text-primary font-bold">
+                        {variant.price != null
+                          ? formatCurrency(variant.price)
+                          : variant.priceMin != null
+                            ? `${formatCurrency(variant.priceMin)}${variant.priceMax ? ` - ${formatCurrency(variant.priceMax)}` : ""}`
+                            : "-"}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          )}
+
+          <Separator />
+
+          {/* Contact */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-semibold text-gray-900">
+              {t("detail.contact")}
+            </h3>
+            <div className="flex gap-2">
+              {detail.workerEmail && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-1.5"
+                      asChild
+                    >
+                      <a href={`mailto:${detail.workerEmail}`}>
+                        <Mail className="size-3.5" />
+                        {t("detail.contactEmail")}
+                      </a>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{detail.workerEmail}</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
+          </div>
+
+          {/* Reviews */}
+          <ReviewsSection
+            listingId={detail.id}
+            listingType={detail.type}
+            compact
+          />
+        </CardContent>
+      </Card>
+      {user && (
+        <ReportFormModal
+          open={reportModalOpen}
+          onClose={() => setReportModalOpen(false)}
+          reporterId={user.id}
+          targetType={detail.type}
+          productId={detail.type === "product" ? detail.id : undefined}
+          serviceId={detail.type === "service" ? detail.id : undefined}
+          reportedUserId={detail.workerId}
+          targetName={detail.name}
         />
-      </CardContent>
-    </Card>
+      )}
+    </>
   )
 }
