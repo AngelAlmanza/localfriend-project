@@ -1,13 +1,22 @@
-import { Check, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { formatCurrency } from "@/src/shared/utils/formatCurrency";
+import { Check, Sparkles } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
+import { fetchActivePlans } from "../lib/fetchActivePlans";
 
-export function PricingSection() {
-  const t = useTranslations("Landing.Pricing");
+export async function PricingSection() {
+  const t = await getTranslations("Landing.Pricing");
   const benefits = t.raw("benefits") as string[];
+
+  const plans = await fetchActivePlans();
+  const plan = plans[0] ?? null;
+  const price = plan?.prices?.[0] ?? null;
+
+  const featuresList =
+    plan?.features && plan.features.length > 0 ? plan.features : benefits;
 
   return (
     <section
@@ -37,16 +46,20 @@ export function PricingSection() {
               </div>
 
               {/* Plan header */}
-              <div className="bg-linear-to-br from-green-700 to-green-600 p-10 text-white">
-                <h3 className="text-3xl font-bold mb-2">{t("planName")}</h3>
-                <p className="text-green-100 mb-6">{t("planDescription")}</p>
+              <div className="bg-linear-to-br from-green-700 to-green-600 p-10 pt-16 text-white">
+                <h3 className="text-3xl font-bold mb-2">
+                  {plan?.name ?? t("planName")}
+                </h3>
+                <p className="text-green-100 mb-6">
+                  {plan?.description ?? t("planDescription")}
+                </p>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-6xl font-bold">{t("price")}</span>
+                  <span className="text-6xl font-bold">
+                    {formatCurrency(price?.amount ?? 0, price?.currency ?? "USD")}
+                  </span>
                   <span className="text-2xl text-green-100">{t("period")}</span>
                 </div>
-                <p className="text-sm text-green-100 mt-2">
-                  {t("trialNote")}
-                </p>
+                <p className="text-sm text-green-100 mt-2">{t("trialNote")}</p>
               </div>
 
               {/* Benefits list */}
@@ -55,7 +68,7 @@ export function PricingSection() {
                   {t("benefitsTitle")}
                 </h4>
                 <ul className="space-y-4 mb-8">
-                  {benefits.map((benefit, index) => (
+                  {featuresList.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3 group">
                       <div className="bg-green-100 rounded-full p-1 mt-0.5 group-hover:bg-green-200 transition-colors duration-300">
                         <Check
@@ -64,7 +77,7 @@ export function PricingSection() {
                         />
                       </div>
                       <span className="text-gray-700 group-hover:text-gray-900 transition-colors duration-300">
-                        {benefit}
+                        {feature}
                       </span>
                     </li>
                   ))}
@@ -72,7 +85,8 @@ export function PricingSection() {
 
                 <Button
                   variant="primary"
-                  className="w-full h-auto px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                  className="w-full h-auto px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                >
                   {t("cta")}
                 </Button>
 

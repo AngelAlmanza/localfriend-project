@@ -1,22 +1,22 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Store,
   Search,
-  Star,
-  TrendingUp,
   Shield,
+  Star,
+  Store,
+  TrendingUp,
   Users,
   type LucideIcon,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { getTranslations } from "next-intl/server";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
 
 const merchantIcons: LucideIcon[] = [TrendingUp, Users, Star];
 const localIcons: LucideIcon[] = [Search, Shield, Users];
 
-export function ForWhoSection() {
-  const t = useTranslations("Landing.ForWho");
+export async function ForWhoSection() {
+  const t = await getTranslations("Landing.ForWho");
   const merchantBenefits = t.raw("merchant.benefits") as Array<{
     title: string;
     description: string;

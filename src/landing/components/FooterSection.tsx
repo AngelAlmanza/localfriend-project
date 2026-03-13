@@ -1,15 +1,15 @@
 import {
-  Mail,
-  MapPin,
   Facebook,
   Instagram,
-  Twitter,
   Linkedin,
+  Mail,
+  MapPin,
+  Twitter,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export function FooterSection() {
-  const t = useTranslations("Landing.Footer");
+export async function FooterSection() {
+  const t = await getTranslations("Landing.Footer");
   const currentYear = new Date().getFullYear();
 
   return (

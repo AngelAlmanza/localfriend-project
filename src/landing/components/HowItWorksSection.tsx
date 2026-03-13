@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { HowItWorksTabs } from "./HowItWorksTabs";
 
-export function HowItWorksSection() {
-  const t = useTranslations("Landing.HowItWorks");
+export async function HowItWorksSection() {
+  const t = await getTranslations("Landing.HowItWorks");
 
   return (
     <section

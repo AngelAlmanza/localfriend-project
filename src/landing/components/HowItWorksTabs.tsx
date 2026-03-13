@@ -48,11 +48,10 @@ function StepCard({
       {/* Connector line between steps */}
       {!isLast && (
         <div
-          className={`hidden md:block absolute top-12 left-1/2 w-full h-1 bg-linear-to-r ${
-            isMerchant
+          className={`hidden md:block absolute top-12 left-1/2 w-full h-1 bg-linear-to-r ${isMerchant
               ? "from-green-200 to-green-100"
               : "from-amber-200 to-amber-100"
-          } -z-10`}
+            } -z-10`}
           aria-hidden="true"
         />
       )}
@@ -60,16 +59,14 @@ function StepCard({
       <AnimateOnView animation="fade-in-scale" delay={delay}>
         <div className="bg-gray-50 rounded-2xl p-6 text-center hover-lift border border-gray-100">
           <div
-            className={`${
-              isMerchant ? "bg-green-700" : "bg-amber-500"
-            } w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg hover-scale`}
+            className={`${isMerchant ? "bg-green-700" : "bg-amber-500"
+              } w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg hover-scale`}
           >
             <Icon className="text-white size-7" aria-hidden="true" />
           </div>
           <div
-            className={`${
-              isMerchant ? "text-green-700" : "text-amber-600"
-            } text-sm font-bold mb-2`}
+            className={`${isMerchant ? "text-green-700" : "text-amber-600"
+              } text-sm font-bold mb-2`}
           >
             {t("step", { number: stepNumber })}
           </div>

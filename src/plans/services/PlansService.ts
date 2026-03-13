@@ -241,7 +241,7 @@ export class PlansService {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  private static mapToPlan(data: any): Plan {
+  public static mapToPlan(data: any): Plan {
     return {
       id: data.id,
       name: data.name,

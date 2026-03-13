@@ -1,9 +1,9 @@
 import { Smartphone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
 
-export function AppStoresSection() {
-  const t = useTranslations("Landing.AppStores");
+export async function AppStoresSection() {
+  const t = await getTranslations("Landing.AppStores");
 
   return (
     <section className="py-20 px-6 bg-white" aria-labelledby="app-stores-title">

@@ -1,10 +1,10 @@
-import Image from "next/image";
-import { useTranslations } from "next-intl";
 import { ArrowDown } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { HeroCTAComponent } from "./HeroCTAComponent";
 
-export function HeroSection() {
-  const t = useTranslations("Landing.Hero");
+export async function HeroSection() {
+  const t = await getTranslations("Landing.Hero");
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 [clip-path:inset(0)]">

@@ -1,12 +1,12 @@
-import { Eye, MapPin, MessageCircle, type LucideIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
+import { Eye, MapPin, MessageCircle, type LucideIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { AnimateOnView } from "../../shared/components/AnimateOnView";
 
 const featureIcons: LucideIcon[] = [Eye, MapPin, MessageCircle];
 
-export function WhatIsSection() {
-  const t = useTranslations("Landing.WhatIs");
+export async function WhatIsSection() {
+  const t = await getTranslations("Landing.WhatIs");
   const features = t.raw("features") as Array<{
     title: string;
     description: string;
