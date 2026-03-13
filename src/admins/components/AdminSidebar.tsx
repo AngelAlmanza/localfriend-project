@@ -2,7 +2,7 @@
 
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { BarChartIcon, BoxesIcon, LayoutDashboardIcon, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { BarChartIcon, BoxesIcon, CreditCardIcon, LayoutDashboardIcon, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -39,6 +39,15 @@ export const AdminSidebar = () => {
     },
   ], [t])
 
+  const sidebarMonetizationItems = useMemo(() => [
+    {
+      label: t("groups.monetization.items.plans"),
+      href: "/admin/plans",
+      icon: CreditCardIcon,
+      exact: false,
+    },
+  ], [t])
+
   const sidebarCategoriesItems = useMemo(() => [
     {
       label: t("groups.categories.items.products"),
@@ -69,6 +78,26 @@ export const AdminSidebar = () => {
                   (item.exact ? pathname === item.href : pathname.startsWith(item.href)) && "bg-sidebar-accent text-sidebar-accent-foreground",
                   "rounded-md"
                 )}
+              >
+                <SidebarMenuButton asChild className="w-full">
+                  <Link href={item.href} className="flex">
+                    <item.icon className="size-4" />
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>
+            {t("groups.monetization.title")}
+          </SidebarGroupLabel>
+          <SidebarMenu>
+            {sidebarMonetizationItems.map((item) => (
+              <SidebarMenuItem
+                key={item.href}
+                className={cn(pathname.startsWith(item.href) && "bg-sidebar-accent text-sidebar-accent-foreground", "rounded-md")}
               >
                 <SidebarMenuButton asChild className="w-full">
                   <Link href={item.href} className="flex">

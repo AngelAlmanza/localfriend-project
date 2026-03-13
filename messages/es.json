@@ -598,6 +598,12 @@
             "settings": "Configuración"
           }
         },
+        "monetization": {
+          "title": "Monetización",
+          "items": {
+            "plans": "Planes"
+          }
+        },
         "categories": {
           "title": "Categorías",
           "items": {
@@ -605,6 +611,86 @@
             "products": "Productos"
           }
         }
+      }
+    },
+    "plans": {
+      "page": {
+        "title": "Planes de suscripción",
+        "subtitle": "Gestiona planes, precios y su sincronización con Stripe",
+        "addButton": "Nuevo plan",
+        "noPlans": "Aún no hay planes",
+        "noPlansDescription": "Crea tu primer plan para comenzar a gestionar suscripciones"
+      },
+      "tabs": {
+        "prices": "Precios",
+        "details": "Detalles"
+      },
+      "form": {
+        "addTitle": "Nuevo plan",
+        "editTitle": "Editar plan",
+        "edit": "Editar",
+        "name": "Nombre",
+        "namePlaceholder": "ej. Pro",
+        "nameRequired": "El nombre es obligatorio",
+        "nameMin": "El nombre debe tener al menos 2 caracteres",
+        "nameMax": "El nombre debe tener como máximo 100 caracteres",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Descripción breve de lo que incluye",
+        "billingInterval": "Ciclo de facturación",
+        "monthly": "Mensual",
+        "annual": "Anual",
+        "features": "Beneficios",
+        "featurePlaceholder": "ej. Listings ilimitados",
+        "featureRequired": "El beneficio no puede estar vacío",
+        "addFeature": "Agregar beneficio",
+        "removeFeature": "Eliminar beneficio",
+        "active": "Activo",
+        "activeDescription": "Los planes inactivos no son visibles para los workers",
+        "optional": "opcional",
+        "save": "Guardar",
+        "cancel": "Cancelar",
+        "createSuccess": "Plan creado exitosamente",
+        "updateSuccess": "Plan actualizado exitosamente",
+        "saveError": "Algo salió mal, inténtalo de nuevo"
+      },
+      "price": {
+        "panelTitle": "Precios por moneda",
+        "panelSubtitle": "Un precio activo por moneda. Los precios de Stripe no se pueden eliminar, solo desactivar.",
+        "add": "Agregar precio",
+        "addTitle": "Agregar precio",
+        "addSubtitle": "Nuevo precio para {plan}",
+        "currency": "Moneda",
+        "currencyPlaceholder": "Seleccionar moneda",
+        "currencyRequired": "La moneda es obligatoria",
+        "amount": "Monto",
+        "amountRequired": "El monto es obligatorio",
+        "amountPositive": "El monto debe ser mayor a 0",
+        "label": "Etiqueta",
+        "labelPlaceholder": "ej. Tarifa estándar",
+        "stripeNote": "Se creará un precio en Stripe vinculado a este plan. Los precios en Stripe no se pueden eliminar — solo desactivar.",
+        "conflictWarningTitle": "Esta moneda ya tiene un precio activo",
+        "conflictWarningDescription": "El precio actual de {currency} {amount} se desactivará automáticamente antes de agregar el nuevo.",
+        "save": "Agregar precio",
+        "set": "Establecer precio",
+        "active": "Activo",
+        "inactive": "Inactivo",
+        "noPrice": "Sin precio activo",
+        "deactivate": "Desactivar",
+        "deactivating": "Desactivando…",
+        "deactivateSuccess": "Precio desactivado",
+        "deactivateError": "Error al desactivar el precio",
+        "addSuccess": "Precio agregado",
+        "addError": "Error al agregar el precio",
+        "history": "Historial",
+        "historyTitle": "Historial de precios"
+      },
+      "details": {
+        "metadata": "Metadatos del plan",
+        "billingInterval": "Ciclo de facturación",
+        "createdAt": "Creado",
+        "updatedAt": "Última actualización",
+        "features": "Beneficios incluidos",
+        "noFeatures": "Sin beneficios definidos"
       }
     },
     "categories": {

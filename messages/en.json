@@ -598,6 +598,12 @@
             "settings": "Settings"
           }
         },
+        "monetization": {
+          "title": "Monetization",
+          "items": {
+            "plans": "Plans"
+          }
+        },
         "categories": {
           "title": "Categories",
           "items": {
@@ -605,6 +611,86 @@
             "products": "Products"
           }
         }
+      }
+    },
+    "plans": {
+      "page": {
+        "title": "Subscription plans",
+        "subtitle": "Manage plans, prices and their Stripe sync",
+        "addButton": "New plan",
+        "noPlans": "No plans yet",
+        "noPlansDescription": "Create your first plan to start managing subscriptions"
+      },
+      "tabs": {
+        "prices": "Prices",
+        "details": "Details"
+      },
+      "form": {
+        "addTitle": "New plan",
+        "editTitle": "Edit plan",
+        "edit": "Edit",
+        "name": "Name",
+        "namePlaceholder": "e.g. Pro",
+        "nameRequired": "Name is required",
+        "nameMin": "Name must be at least 2 characters",
+        "nameMax": "Name must be at most 100 characters",
+        "description": "Description",
+        "descriptionPlaceholder": "Short description of what's included",
+        "billingInterval": "Billing cycle",
+        "monthly": "Monthly",
+        "annual": "Annual",
+        "features": "Features",
+        "featurePlaceholder": "e.g. Unlimited listings",
+        "featureRequired": "Feature cannot be empty",
+        "addFeature": "Add feature",
+        "removeFeature": "Remove feature",
+        "active": "Active",
+        "activeDescription": "Inactive plans are hidden from workers",
+        "optional": "optional",
+        "save": "Save",
+        "cancel": "Cancel",
+        "createSuccess": "Plan created successfully",
+        "updateSuccess": "Plan updated successfully",
+        "saveError": "Something went wrong, please try again"
+      },
+      "price": {
+        "panelTitle": "Prices by currency",
+        "panelSubtitle": "One active price per currency. Stripe prices cannot be deleted, only deactivated.",
+        "add": "Add price",
+        "addTitle": "Add price",
+        "addSubtitle": "New price for {plan}",
+        "currency": "Currency",
+        "currencyPlaceholder": "Select currency",
+        "currencyRequired": "Currency is required",
+        "amount": "Amount",
+        "amountRequired": "Amount is required",
+        "amountPositive": "Amount must be greater than 0",
+        "label": "Label",
+        "labelPlaceholder": "e.g. Standard rate",
+        "stripeNote": "A Stripe price will be created and linked. Prices cannot be deleted in Stripe — deactivate instead.",
+        "conflictWarningTitle": "This currency already has an active price",
+        "conflictWarningDescription": "The current {currency} {amount} price will be automatically deactivated before adding the new one.",
+        "save": "Add price",
+        "set": "Set price",
+        "active": "Active",
+        "inactive": "Inactive",
+        "noPrice": "No active price",
+        "deactivate": "Deactivate",
+        "deactivating": "Deactivating…",
+        "deactivateSuccess": "Price deactivated",
+        "deactivateError": "Failed to deactivate price",
+        "addSuccess": "Price added",
+        "addError": "Failed to add price",
+        "history": "History",
+        "historyTitle": "Price history"
+      },
+      "details": {
+        "metadata": "Plan metadata",
+        "billingInterval": "Billing cycle",
+        "createdAt": "Created",
+        "updatedAt": "Last updated",
+        "features": "Included features",
+        "noFeatures": "No features defined"
       }
     },
     "categories": {
