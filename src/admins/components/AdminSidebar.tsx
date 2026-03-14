@@ -1,16 +1,22 @@
 "use client"
 
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
-import { BarChartIcon, BoxesIcon, CreditCardIcon, LayoutDashboardIcon, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
+import { createClient } from "@/src/shared/lib/supabase/client";
+import { AuthService } from "@/src/workers/services/AuthService";
+import { BarChartIcon, BoxesIcon, CreditCardIcon, LayoutDashboardIcon, LogOut, PackageIcon, SettingsIcon, UserIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 export const AdminSidebar = () => {
   const t = useTranslations("Admins.sidebar");
   const pathname = usePathname();
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const sidebarGeneralItems = useMemo(() => [
     {
@@ -62,6 +68,20 @@ export const AdminSidebar = () => {
       exact: false,
     },
   ], [t])
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    const client = createClient();
+    const result = await AuthService.logout(client);
+    setIsLoading(true);
+
+    if (result.left) {
+      toast.error(result.left.message);
+    } else {
+      toast.success(t("logoutSuccess"));
+      router.replace("/", { scroll: true });
+    }
+  };
 
   return (
     <Sidebar variant="sidebar" collapsible="icon">
@@ -130,6 +150,26 @@ export const AdminSidebar = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenuButton
+          asChild
+          className={cn(
+            pathname.startsWith("/admin/logout") &&
+            "bg-sidebar-accent text-sidebar-accent-foreground",
+            "rounded-md",
+          )}
+        >
+          <Button
+            onClick={handleLogout}
+            disabled={isLoading}
+            className="cursor-pointer justify-start border"
+            variant="ghost"
+          >
+            <LogOut className="size-4" />
+            <span>{t("logout")}</span>
+          </Button>
+        </SidebarMenuButton>
+      </SidebarFooter>
     </Sidebar>
   )
 }

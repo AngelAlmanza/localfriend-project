@@ -198,7 +198,8 @@
       "confirmPasswordErrorMessage": "Las contraseñas no coinciden",
       "loginSuccess": "Inicio de sesión exitoso",
       "genericLoginError": "Email o contraseña incorrectos.",
-      "inactiveAccountError": "Tu cuenta ha sido desactivada. Contacta a soporte."
+      "inactiveAccountError": "Tu cuenta ha sido desactivada. Contacta a soporte.",
+      "trialStarted": "Prueba iniciada correctamente"
     },
     "register": {
       "title": "Regístrate",
@@ -223,6 +224,7 @@
       "nameErrorMessage": "El nombre es requerido",
       "termsAcceptedErrorMessage": "Debes aceptar los Términos de Uso y la Política de Privacidad",
       "registerSuccess": "Cuenta creada correctamente",
+      "trialStarted": "¡Tu prueba gratuita de 30 días ha comenzado!",
       "genericRegisterError": "No fue posible completar el registro. Verifica tus datos.",
       "termsAcceptedPrefix": "Acepto los",
       "termsLink": "Términos de Uso y la Política de Privacidad",
@@ -380,6 +382,7 @@
         "dashboard": "Dashboard",
         "services": "Servicios",
         "products": "Productos",
+        "subscription": "Suscripción",
         "settings": "Configuración"
       },
       "profile": "Perfil",
@@ -611,7 +614,8 @@
             "products": "Productos"
           }
         }
-      }
+      },
+      "logout": "Cerrar sesión"
     },
     "plans": {
       "page": {
@@ -985,6 +989,81 @@
         "rejected": "Rechazado",
         "not_applicable": "No aplica"
       }
+    }
+  },
+  "Subscriptions": {
+    "page": {
+      "title": "Mi Suscripción",
+      "subtitle": "Gestiona tu plan, métodos de pago y facturas"
+    },
+    "status": {
+      "trial": "Prueba",
+      "active": "Activa",
+      "canceling": "Cancelando",
+      "expired": "Expirada",
+      "canceled": "Cancelada",
+      "suspended": "Suspendida"
+    },
+    "statusCard": {
+      "planLabel": "Plan actual",
+      "trialProgress": "Progreso de prueba",
+      "daysRemaining": "{days} días restantes",
+      "startDate": "Fecha de inicio",
+      "trialEnds": "Fin de prueba",
+      "renewalDate": "Fecha de renovación",
+      "features": "Características incluidas"
+    },
+    "paymentMethods": {
+      "title": "Métodos de Pago",
+      "noMethods": "No hay métodos de pago agregados",
+      "default": "Predeterminado",
+      "setDefault": "Establecer como predeterminado",
+      "remove": "Eliminar",
+      "defaultSet": "Método de pago predeterminado actualizado",
+      "removed": "Método de pago eliminado",
+      "error": "Ocurrió un error"
+    },
+    "addPaymentMethod": {
+      "title": "Agregar Método de Pago",
+      "addCard": "Agregar tarjeta de crédito o débito",
+      "submit": "Guardar tarjeta",
+      "success": "Método de pago agregado correctamente",
+      "error": "Error al agregar método de pago"
+    },
+    "invoices": {
+      "title": "Facturas",
+      "noInvoices": "Aún no hay facturas",
+      "date": "Fecha",
+      "amount": "Monto",
+      "statusLabel": "Estado",
+      "actions": "Acciones",
+      "paid": "Pagada"
+    },
+    "cancel": {
+      "button": "Cancelar suscripción",
+      "title": "¿Cancelar suscripción?",
+      "description": "Tu suscripción permanecerá activa hasta el final del período de facturación actual. Después de eso, perderás acceso a las funciones premium.",
+      "keep": "Mantener suscripción",
+      "confirm": "Sí, cancelar",
+      "success": "Suscripción cancelada. El acceso continúa hasta el final del período.",
+      "error": "Error al cancelar suscripción"
+    },
+    "reactivate": {
+      "title": "Reactivar Suscripción",
+      "description": "Tu suscripción ha expirado. Reactívala para seguir usando las funciones premium.",
+      "button": "Reactivar suscripción",
+      "needPaymentMethod": "Por favor agrega un método de pago antes de reactivar.",
+      "success": "¡Suscripción reactivada correctamente!",
+      "error": "Error al reactivar suscripción",
+      "titleCanceling": "¿Deseas reanudar tu suscripción?",
+      "descriptionCanceling": "Tu suscripción sigue activa hasta el final del período actual. Puedes reanudarla ahora sin costo adicional.",
+      "buttonCanceling": "Reanudar suscripción",
+      "successCanceling": "¡Suscripción reanudada correctamente!"
+    },
+    "expired": {
+      "title": "Suscripción Expirada",
+      "withPaymentMethod": "Tu suscripción ha expirado. Puedes reactivarla abajo para recuperar el acceso.",
+      "withoutPaymentMethod": "Tu suscripción ha expirada. Por favor agrega un método de pago y luego reactiva tu suscripción."
     }
   }
 }

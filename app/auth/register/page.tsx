@@ -117,6 +117,17 @@ function RegisterPage() {
       if (data.role === "local") {
         redirect("/locals/search", RedirectType.replace);
       } else {
+        // Start free trial for workers (non-blocking)
+        try {
+          const trialResponse = await fetch("/api/subscriptions/trial", {
+            method: "POST",
+          });
+          if (trialResponse.ok) {
+            toast.success(t("trialStarted"));
+          }
+        } catch {
+          // Trial creation failed — non-blocking, subscription page handles retry
+        }
         redirect("/workers/dashboard", RedirectType.replace);
       }
     }

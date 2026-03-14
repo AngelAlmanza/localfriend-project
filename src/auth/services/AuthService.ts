@@ -128,6 +128,31 @@ export class AuthService {
     };
   }
 
+  static async checkIfUserHasStripeCustomerId(userId: string, supabase: SupabaseClient): Promise<Either<ISystemError, boolean>> {
+    const { data: userRecord, error: userError } = await supabase
+      .from("users")
+      .select("stripe_customer_id")
+      .eq("id", userId)
+      .single();
+
+    if (userError) {
+      return {
+        left: {
+          message: userError.message,
+          code: userError.code ?? "UNKNOWN_ERROR",
+        },
+      };
+    }
+
+    console.log("userRecord", userRecord)
+
+    const hasStripeCustomerId = userRecord?.stripe_customer_id !== null
+
+    return {
+      right: hasStripeCustomerId,
+    };
+  }
+
   static async logout(supabase: SupabaseClient): Promise<void> {
     await supabase.auth.signOut();
   }

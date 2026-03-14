@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { createClient } from "@/src/shared/lib/supabase/client";
 import {
+  CreditCardIcon,
   LayoutDashboardIcon,
   LogOut,
   PackageIcon,
@@ -49,6 +50,11 @@ export const WorkersSidebar = () => {
         label: t("items.products"),
         href: "/workers/products",
         icon: PackageIcon,
+      },
+      {
+        label: t("items.subscription"),
+        href: "/workers/subscription",
+        icon: CreditCardIcon,
       },
       {
         label: t("items.settings"),

@@ -68,6 +68,19 @@ function LoginPage() {
       if (role === "admin") {
         redirect("/admin/dashboard", RedirectType.replace)
       } else if (role === "worker") {
+        const { right: hasStripeCustomerId } = await AuthService.checkIfUserHasStripeCustomerId(userId!, supabaseClient)
+        if (!hasStripeCustomerId) {
+          try {
+            const trialResponse = await fetch("/api/subscriptions/trial", {
+              method: "POST",
+            });
+            if (trialResponse.ok) {
+              toast.success(t("trialStarted"));
+            }
+          } catch {
+            // Trial creation failed — non-blocking, subscription page handles retry
+          }
+        }
         redirect("/workers/dashboard", RedirectType.replace)
       } else {
         redirect("/locals/search", RedirectType.replace)

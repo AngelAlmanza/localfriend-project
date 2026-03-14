@@ -198,7 +198,8 @@
       "confirmPasswordErrorMessage": "Passwords do not match",
       "loginSuccess": "Login successful",
       "genericLoginError": "Incorrect email or password.",
-      "inactiveAccountError": "Your account has been deactivated. Please contact support."
+      "inactiveAccountError": "Your account has been deactivated. Please contact support.",
+      "trialStarted": "Trial started successfully"
     },
     "register": {
       "title": "Register",
@@ -223,6 +224,7 @@
       "nameErrorMessage": "Name is required",
       "termsAcceptedErrorMessage": "You must accept the Terms of Use and Privacy Policy",
       "registerSuccess": "Account created successfully",
+      "trialStarted": "Your 30-day free trial has started!",
       "genericRegisterError": "Registration could not be completed. Please check your details.",
       "termsAcceptedPrefix": "I accept the",
       "termsLink": "Terms of Use and Privacy Policy",
@@ -380,6 +382,7 @@
         "dashboard": "Dashboard",
         "services": "Services",
         "products": "Products",
+        "subscription": "Subscription",
         "settings": "Settings"
       },
       "profile": "Profile",
@@ -611,7 +614,8 @@
             "products": "Products"
           }
         }
-      }
+      },
+      "logout": "Sign out"
     },
     "plans": {
       "page": {
@@ -985,6 +989,81 @@
         "rejected": "Rejected",
         "not_applicable": "Not applicable"
       }
+    }
+  },
+  "Subscriptions": {
+    "page": {
+      "title": "My Subscription",
+      "subtitle": "Manage your plan, payment methods, and invoices"
+    },
+    "status": {
+      "trial": "Trial",
+      "active": "Active",
+      "canceling": "Canceling",
+      "expired": "Expired",
+      "canceled": "Canceled",
+      "suspended": "Suspended"
+    },
+    "statusCard": {
+      "planLabel": "Current Plan",
+      "trialProgress": "Trial progress",
+      "daysRemaining": "{days} days remaining",
+      "startDate": "Start date",
+      "trialEnds": "Trial ends",
+      "renewalDate": "Renewal date",
+      "features": "Included features"
+    },
+    "paymentMethods": {
+      "title": "Payment Methods",
+      "noMethods": "No payment methods added yet",
+      "default": "Default",
+      "setDefault": "Set as default",
+      "remove": "Remove",
+      "defaultSet": "Default payment method updated",
+      "removed": "Payment method removed",
+      "error": "An error occurred"
+    },
+    "addPaymentMethod": {
+      "title": "Add Payment Method",
+      "addCard": "Add a credit or debit card",
+      "submit": "Save card",
+      "success": "Payment method added successfully",
+      "error": "Failed to add payment method"
+    },
+    "invoices": {
+      "title": "Invoices",
+      "noInvoices": "No invoices yet",
+      "date": "Date",
+      "amount": "Amount",
+      "statusLabel": "Status",
+      "actions": "Actions",
+      "paid": "Paid"
+    },
+    "cancel": {
+      "button": "Cancel subscription",
+      "title": "Cancel subscription?",
+      "description": "Your subscription will remain active until the end of the current billing period. After that, you will lose access to premium features.",
+      "keep": "Keep subscription",
+      "confirm": "Yes, cancel",
+      "success": "Subscription canceled. Access continues until the end of the period.",
+      "error": "Failed to cancel subscription"
+    },
+    "reactivate": {
+      "title": "Reactivate Subscription",
+      "description": "Your subscription has expired. Reactivate to continue using premium features.",
+      "button": "Reactivate subscription",
+      "needPaymentMethod": "Please add a payment method before reactivating.",
+      "success": "Subscription reactivated successfully!",
+      "error": "Failed to reactivate subscription",
+      "titleCanceling": "Resume your subscription?",
+      "descriptionCanceling": "Your subscription is still active until the end of the current period. You can resume it now at no extra cost.",
+      "buttonCanceling": "Resume subscription",
+      "successCanceling": "Subscription resumed successfully!"
+    },
+    "expired": {
+      "title": "Subscription Expired",
+      "withPaymentMethod": "Your subscription has expired. You can reactivate it below to regain access.",
+      "withoutPaymentMethod": "Your subscription has expired. Please add a payment method, then reactivate your subscription."
     }
   }
 }
