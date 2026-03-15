@@ -13,4 +13,8 @@ export const Environment = {
   STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET!,
   SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY!,
   NODE_ENV: process.env.NODE_ENV!,
+  SMTP_USER: process.env.SMTP_USER!,
+  SMTP_PASS: process.env.SMTP_PASS!,
+  EMAIL_FROM: process.env.EMAIL_FROM!,
+  TEST_EMAIL: process.env.TEST_EMAIL!,
 } as const;

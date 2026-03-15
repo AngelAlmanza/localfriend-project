@@ -1,10 +1,10 @@
 import { ReportsService } from "@/src/reports/services/ReportsService"
-import { ConsoleEmailService } from "@/src/shared/lib/smtp/ConsoleEmailService"
+import { NodemailerService } from "@/src/shared/lib/smtp/NodemailerService"
 import { createClient } from "@/src/shared/lib/supabase/server"
 import { EmailService } from "@/src/shared/services/EmailService"
 import { NextRequest, NextResponse } from "next/server"
 
-const emailService = new ConsoleEmailService()
+const emailService = new NodemailerService()
 
 /**
  * POST /api/reports/notify
@@ -12,9 +12,6 @@ const emailService = new ConsoleEmailService()
  *
  * This route is called internally (server-to-server) after a report is created
  * or closed. It fetches the relevant data and delegates to IEmailService.
- *
- * Swap ConsoleEmailService for a real provider (Resend, Nodemailer, etc.)
- * by replacing the import above — no other code needs to change.
  */
 export async function POST(req: NextRequest) {
   try {
