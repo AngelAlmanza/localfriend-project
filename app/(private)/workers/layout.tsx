@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { WorkersSidebar } from "@/src/workers/components/WorkersSidebar"
 
 function WorkersLayout({ children }: { children: Readonly<React.ReactNode> }) {
@@ -6,9 +6,6 @@ function WorkersLayout({ children }: { children: Readonly<React.ReactNode> }) {
     <SidebarProvider>
       <WorkersSidebar />
       <main className="flex-1 p-4">
-        <div className="mb-4">
-          <SidebarTrigger />
-        </div>
         {children}
       </main>
     </SidebarProvider>
