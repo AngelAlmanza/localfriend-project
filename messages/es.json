@@ -389,6 +389,43 @@
       "logout": "Cerrar sesión",
       "logoutSuccess": "Sesión cerrada correctamente"
     },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Resumen de actividad de tus productos y servicios",
+      "views": {
+        "title": "Vistas",
+        "total": "{count, plural, =0 {Sin vistas} =1 {1 vista total} other {# vistas totales}}",
+        "daily": "Diario",
+        "weekly": "Semanal",
+        "monthly": "Mensual",
+        "products": "Productos",
+        "services": "Servicios"
+      },
+      "topListings": {
+        "topProducts": "Top 5 Productos",
+        "topServices": "Top 5 Servicios",
+        "empty": "Sin datos aún"
+      },
+      "contacts": {
+        "title": "Contactos",
+        "total": "{count, plural, =0 {Sin contactos} =1 {1 contacto total} other {# contactos totales}}",
+        "topListings": "Más contactados",
+        "channelDistribution": "Canales de contacto",
+        "empty": "Sin datos aún",
+        "channels": {
+          "phone": "Teléfono",
+          "email": "Email",
+          "sms": "SMS",
+          "whatsapp": "WhatsApp"
+        }
+      },
+      "reviews": {
+        "title": "Reseñas recientes",
+        "empty": "Aún no tienes reseñas",
+        "product": "Producto",
+        "service": "Servicio"
+      }
+    },
     "listings": {
       "products": {
         "page": {
@@ -590,6 +627,35 @@
     }
   },
   "Admins": {
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Resumen general de la plataforma",
+      "stats": {
+        "activeWorkers": "Comerciantes activos",
+        "activeLocals": "Locales activos",
+        "trialSubscriptions": "Suscripciones en prueba",
+        "activeSubscriptions": "Suscripciones activas"
+      },
+      "revenue": {
+        "title": "Ingresos totales",
+        "total": "Total: {amount}",
+        "label": "Ingresos",
+        "monthly": "Mensual",
+        "yearly": "Anual"
+      },
+      "reports": {
+        "title": "Reportes pendientes",
+        "viewAll": "Ver todos",
+        "empty": "No hay reportes pendientes",
+        "unknownTarget": "Desconocido",
+        "reportedBy": "Reportado por {name}",
+        "targetType": {
+          "product": "Producto",
+          "service": "Servicio",
+          "user": "Usuario"
+        }
+      }
+    },
     "sidebar": {
       "groups": {
         "general": {
@@ -615,7 +681,8 @@
           }
         }
       },
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "logoutSuccess": "Sesión cerrada correctamente"
     },
     "plans": {
       "page": {

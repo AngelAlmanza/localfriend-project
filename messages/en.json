@@ -389,6 +389,43 @@
       "logout": "Logout",
       "logoutSuccess": "Sign out succeeded"
     },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Activity overview of your products and services",
+      "views": {
+        "title": "Views",
+        "total": "{count, plural, =0 {No views} =1 {1 total view} other {# total views}}",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "products": "Products",
+        "services": "Services"
+      },
+      "topListings": {
+        "topProducts": "Top 5 Products",
+        "topServices": "Top 5 Services",
+        "empty": "No data yet"
+      },
+      "contacts": {
+        "title": "Contacts",
+        "total": "{count, plural, =0 {No contacts} =1 {1 total contact} other {# total contacts}}",
+        "topListings": "Most contacted",
+        "channelDistribution": "Contact channels",
+        "empty": "No data yet",
+        "channels": {
+          "phone": "Phone",
+          "email": "Email",
+          "sms": "SMS",
+          "whatsapp": "WhatsApp"
+        }
+      },
+      "reviews": {
+        "title": "Recent reviews",
+        "empty": "No reviews yet",
+        "product": "Product",
+        "service": "Service"
+      }
+    },
     "listings": {
       "products": {
         "page": {
@@ -590,6 +627,35 @@
     }
   },
   "Admins": {
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Platform overview",
+      "stats": {
+        "activeWorkers": "Active merchants",
+        "activeLocals": "Active locals",
+        "trialSubscriptions": "Trial subscriptions",
+        "activeSubscriptions": "Active subscriptions"
+      },
+      "revenue": {
+        "title": "Total revenue",
+        "total": "Total: {amount}",
+        "label": "Revenue",
+        "monthly": "Monthly",
+        "yearly": "Yearly"
+      },
+      "reports": {
+        "title": "Pending reports",
+        "viewAll": "View all",
+        "empty": "No pending reports",
+        "unknownTarget": "Unknown",
+        "reportedBy": "Reported by {name}",
+        "targetType": {
+          "product": "Product",
+          "service": "Service",
+          "user": "User"
+        }
+      }
+    },
     "sidebar": {
       "groups": {
         "general": {
@@ -615,7 +681,8 @@
           }
         }
       },
-      "logout": "Sign out"
+      "logout": "Sign out",
+      "logoutSuccess": "Signed out successfully"
     },
     "plans": {
       "page": {
